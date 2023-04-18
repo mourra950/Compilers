@@ -59,6 +59,7 @@ class Token_type(Enum):
     Colon = 52
     Assignment = 53
 
+
 class token:
     def __init__(self, lex, token_type):
         self.lex = lex
@@ -140,26 +141,32 @@ Tokens = []  # to add tokens to list
 
 
 def find_token(text):
-    
+    print(text.split())
     arr = seperator(text)
+    print(arr)
     tokenizer(arr)
 
-    
 
 def seperator(text):
+    splitters = [',', ':', ' ', ';', '+', '-', '/', '*', '<', '>']
     SplittedArray = []
     tempArray = []
-    for i in text:
-        print(i)
-        tempArray.append(i)
-
-
+    for i, j in enumerate(text):
+        print(i, j)
+        if i in splitters:
+            SplittedArray.append("".join(tempArray))
+            if i != ' ':
+                SplittedArray.append(i)
+            tempArray = []
+        else:
+            tempArray.append(i)
+    SplittedArray.append("".join(tempArray))
 
     return SplittedArray
 
 
-
 def tokenizer(T):
+
     for x in T:
         if x in ReservedWords:
             ap = token(x, ReservedWords[x])
@@ -179,8 +186,8 @@ def tokenizer(T):
         elif re.match("^[a-zA-Z][a-zA-Z0-9]*$", x):
             ap = token(x, Token_type.Var)
             Tokens.append(ap)
-        elif re.match("^[0-9].[0-9]$",x):
-            ap =token(x,Token_type.Constant)
+        elif re.match("^[0-9].[0-9]$", x):
+            ap = token(x, Token_type.Constant)
             Tokens.append(ap)
         elif re.match("^[0-9]*$", x):
             ap = token(x, Token_type.Constant)
