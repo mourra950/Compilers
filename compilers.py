@@ -70,7 +70,7 @@ class token:
 
 
 # Reserved word Dictionary
-ReservedWords = {
+ReservedWords = {                       # We Can add global?
     "AND": Token_type.And,
     "ARRAY": Token_type.Array,
     "BEGIN": Token_type.Begin,
@@ -143,8 +143,20 @@ def find_token(text):
         elif x in Operators:
             ap = token(x, Operators[x])
             Tokens.append(ap)
+        elif x in RelationOperators:
+            ap = token(x, RelationOperators[x])
+            Tokens.append(ap)
+        elif x in Group:
+            ap = token(x, Group[x])
+            Tokens.append(ap)
+        elif x in Comment:
+            ap = token(x, Comment[x])
+            Tokens.append(ap)
         elif re.match("^[a-zA-Z][a-zA-Z0-9]*$", x):
-            ap = token(x, Token_type.Identifier)
+            ap = token(x, Token_type.Va)
+            Tokens.append(ap)
+        elif re.match("^[0-9].[0-9]$",x):
+            ap =token(x,Token_type.Constant)
             Tokens.append(ap)
         elif re.match("^[0-9]*$", x):
             ap = token(x, Token_type.Constant)
