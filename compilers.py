@@ -55,7 +55,9 @@ class Token_type(Enum):
     CloseComment = 48
     OpenGroup = 49
     CloseGroup = 50
-
+    Semicolon = 51
+    Colon = 52
+    Assignment = 53
 
 class token:
     def __init__(self, lex, token_type):
@@ -106,6 +108,9 @@ ReservedWords = {                       # We Can add global?
     "WHILE": Token_type.While,
     "WITH": Token_type.With,
     "DO": Token_type.Do,
+    ";": Token_type.Semicolon,
+    ":": Token_type.Colon,
+    ":=": Token_type.Assignment,
 
 }
 Operators = {
@@ -135,7 +140,26 @@ Tokens = []  # to add tokens to list
 
 
 def find_token(text):
-    T = text.split()
+    
+    arr = seperator(text)
+    tokenizer(arr)
+
+    
+
+def seperator(text):
+    SplittedArray = []
+    tempArray = []
+    for i in text:
+        print(i)
+        tempArray.append(i)
+
+
+
+    return SplittedArray
+
+
+
+def tokenizer(T):
     for x in T:
         if x in ReservedWords:
             ap = token(x, ReservedWords[x])
@@ -153,7 +177,7 @@ def find_token(text):
             ap = token(x, Comment[x])
             Tokens.append(ap)
         elif re.match("^[a-zA-Z][a-zA-Z0-9]*$", x):
-            ap = token(x, Token_type.Va)
+            ap = token(x, Token_type.Var)
             Tokens.append(ap)
         elif re.match("^[0-9].[0-9]$",x):
             ap =token(x,Token_type.Constant)
