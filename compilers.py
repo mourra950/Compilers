@@ -58,6 +58,7 @@ class Token_type(Enum):
     Semicolon = 51
     Colon = 52
     Assignment = 53
+    Str = 54
 
 
 class token:
@@ -106,6 +107,7 @@ ReservedWords = {                       # We Can add global?
     "TYPE": Token_type.Type,
     "UNTIL": Token_type.Until,
     "VAR": Token_type.Var,
+    "STR": Token_type.Str,
     "WHILE": Token_type.While,
     "WITH": Token_type.With,
     "DO": Token_type.Do,
@@ -141,32 +143,43 @@ Tokens = []  # to add tokens to list
 
 
 def find_token(text):
-    print(text.split())
     arr = seperator(text)
     print(arr)
     tokenizer(arr)
 
 
 def seperator(text):
-    splitters = [',', ':', ' ', ';', '+', '-', '/', '*', '<', '>']
+    splitters = [',', ':', ' ', ';', '+', '-', '/', '*', '<', '>', '=']
+    doublesplitters = [':=', '<=', '>=']
     SplittedArray = []
     tempArray = []
-    for i, j in enumerate(text):
-        print(i, j)
-        if i in splitters:
-            SplittedArray.append("".join(tempArray))
-            if i != ' ':
-                SplittedArray.append(i)
+    counter = len(text)
+    i = 0
+    while (i < counter):
+        # print(text[i])
+        if text[i] in splitters:
+            if text[i:i+2] in doublesplitters:
+                SplittedArray.append("".join(text[i:i+2]))
+                i += 1
+            else:
+                if tempArray:
+                    SplittedArray.append("".join(tempArray))
+                if text[i] != ' ':
+                    SplittedArray.append(text[i])
+                elif text[i] == ' ':
+                    while (text[i+1] == ' '):
+                        i += 1
             tempArray = []
         else:
-            tempArray.append(i)
+            tempArray.append(text[i])
+        i += 1
     SplittedArray.append("".join(tempArray))
 
     return SplittedArray
 
 
 def tokenizer(T):
-
+    # Tokens = []  # to add tokens to list
     for x in T:
         if x in ReservedWords:
             ap = token(x, ReservedWords[x])
@@ -187,14 +200,15 @@ def tokenizer(T):
             ap = token(x, Token_type.Var)
             Tokens.append(ap)
         elif re.match("^[0-9].[0-9]$", x):
-            ap = token(x, Token_type.Constant)
+            ap = token(x, Token_type.Const)
             Tokens.append(ap)
         elif re.match("^[0-9]*$", x):
-            ap = token(x, Token_type.Constant)
+            ap = token(x, Token_type.Const)
             Tokens.append(ap)
         else:
             ap = token(x, Token_type.Error)
             Tokens.append(ap)
+    # print(Tokens.Token_type)
 
 
 # GUI
@@ -219,7 +233,7 @@ def Scan():
     x1 = entry1.get()
     find_token(x1)
     df = pandas.DataFrame.from_records([t.to_dict() for t in Tokens])
-    # print(df)
+    print(df)
     label3 = tk.Label(root, text='Lexem ' + x1 +
                       ' is:', font=('helvetica', 10))
     canvas1.create_window(200, 210, window=label3)
