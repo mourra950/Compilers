@@ -152,3 +152,4 @@ cython_debug/
 #.idea/
 Design_of_Compilers_23_Project_-Pascal.pdf
 tempCodeRunnerFile.py
+*.xml

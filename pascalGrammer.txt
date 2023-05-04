@@ -1,0 +1,48 @@
+1. program -> header declaration execution
+
+2. header -> programName librarySection | programName
+3. programName -> program str ;
+4. librarySection -> uses library ; | ε
+5. library -> library, str | str								-- LR
+
+6. declaration -> constDecleration varDecleration functionDecleration procedureDecleration
+7. constDecleration -> const constName | ε
+8. constName -> constName  identifier = constant ; | identifier = constant ;				--LR --Constant means a number
+9. varDecleration -> var varDecleration1 | ε
+10. varDecleration1 -> varDecleration1 varName : dataType ; | varName : dataType ;			--LR
+11. varName -> varName identifier , | identifier								--LR
+12. functionDecleration -> functionDecleration function identifier arguments : dataType ; funcAndProcdBody | function identifier arguments : dataType ; funcAndProcdBody | ε --LR
+13. arguments -> ( argument ) 
+14. argument -> argument ; finalArgument | finalArgument | ε		--LR
+15. finalArgument -> identifier : dataType
+16. dataType -> integer | real | char | string | boolean
+17. funcAndProcdBody -> begin statements end ;
+18. statements -> statements ; statement | statement
+19. statement -> read ( identifier ) |
+		     readln ( identifier ) |
+		     write ( writeArgument ) |
+		     writeln ( writeBody ) |
+		     if condition then statements ElseClause |
+		     for identifier := integer to integer do statements |
+		     repeat statements until condition |
+		     identifier := expression |
+		     varDecleration |
+		     constDeleration
+
+20. procedureDecleration -> procedureDecleration procedure identifier arguments ; funcAndProcdBody | procedure identifier arguments ; funcAndProcdBody | ε --LR
+
+21. execution -> begin statements end .
+
+
+
+
+22. writeBody -> writeBody , writeArgument | writeArgument
+23. writeArgument -> str | identifier
+24. condition -> Expresion RelOp Expression
+25. Expresion -> Expresion AddOp Term | Term
+26. Term -> Term MultOp Factor | Factor
+27. Factor -> identifier | constant   				--Constant means a number
+28. RelOp -> <= | >= | = | > | <
+29. AddOp -> + | -
+30. MultOp -> * | /
+31. ElseClause -> else statements | ε

@@ -1,0 +1,71 @@
+ 	Main Program Division
+1. program -> header declaration execution
+
+
+	Program Header
+2. header -> programName librarySection | programName
+3. programName -> program str ;
+4. librarySection -> uses library ; | ε
+5. library -> str library'								
+6. library' -> , str library' | ε
+
+
+	Program Decleration
+7. declaration -> constDecleration varDecleration functionDecleration procedureDecleration
+
+	Const Decleration
+8. constDecleration -> const constName | ε
+9. constName ->  identifier = constant ; constName'				--Constant means a number
+10. constName' -> identifier = constant ; constName' | ε
+
+	Var Decleration
+11. varDecleration -> var varDecleration1 | ε
+12. varDecleration1 ->  varName : dataType ; varDecleration1'			
+13. varDecleration1' ->  varName : dataType ; varDecleration1' | ε
+14. varName -> identifier varName'  								
+15. varName' -> , identifier  varName' | ε
+	
+	Function Decleration
+16. functionDecleration -> function identifier arguments : dataType ; funcAndProcdBody functionDecleration' | functionDecleration' 
+17. functionDecleration' -> function identifier arguments : dataType ; funcAndProcdBody functionDecleration' | ε
+18. arguments -> ( argument ) 
+19. argument -> finalArgument argument' | argument'		
+20. argument' -> ; finalArgument argument' | ε
+21. finalArgument -> identifier : dataType
+22. dataType -> integer | real | char | string | boolean
+
+	Function and Procedure Body
+23. funcAndProcdBody -> begin statements end ;
+	
+	Statements Decleration
+24. statements -> statements ; statement | statement
+25. statement -> read ( identifier ) |
+		     readln ( identifier ) |
+		     write ( writeArgument ) |
+		     writeln ( writeBody ) |
+		     if condition then statements ElseClause |
+		     for identifier := integer to integer do statements |
+		     repeat statements until condition |
+		     identifier := expression |
+		     varDecleration |
+		     constDeleration
+
+	Procedure Deleration
+26. procedureDecleration -> procedure identifier arguments ; funcAndProcdBody procedureDecleration' | procedureDecleration' 
+27. procedureDecleration' -> procedure identifier arguments ; funcAndProcdBody procedureDecleration' | ε
+
+
+	Execution
+28. execution -> begin statements end .
+
+	Statements Decleraion Cont.d
+29. writeBody -> writeBody , writeArgument | writeArgument
+30. writeArgument -> str | identifier
+31. condition -> Expresion RelOp Expression
+32. Expresion -> Expresion AddOp Term | Term
+33. Term -> Term MultOp Factor | Factor
+33. Factor -> identifier | constant   				--Constant means a number
+34. RelOp -> <= | >= | = | > | <
+35. AddOp -> + | -
+36. MultOp -> * | /
+37. ElseClause -> else statements | ε
