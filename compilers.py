@@ -253,7 +253,7 @@ def ProgramName(indexPointer):
     out3 = Match(Token_type.Semicolon, out2["index"])
     Children.append(out3["node"])
 
-    Node = Tree("Program_name", Children)
+    Node = Tree("ProgramName", Children)
     output["node"] = Node
     output["index"] = out3["index"]
     return output
@@ -271,7 +271,7 @@ def LibrarySection(indexPointer):
     out3 = Match(Token_type.Semicolon, out2["index"])
     Children.append(out3["node"])
 
-    Node = Tree("Header", Children)
+    Node = Tree("LibrarySection", Children)
     output["node"] = Node
     output["index"] = out3["index"]
     return output
@@ -288,7 +288,7 @@ def Library(indexPointer):
     if out2:
         Children.append(out2["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("Library", Children)
         output["node"] = Node
         output["index"] = out2["index"]
     return output
@@ -308,7 +308,7 @@ def LibraryDash(indexPointer):
         out3 = LibraryDash(out2["index"])
         Children.append(out3["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("LibraryDash", Children)
         output["node"] = Node
         output["index"] = out3["index"]
         return output
@@ -323,10 +323,10 @@ def Header(indexPointer):
     Children.append(programDict["node"])
     out3 = Match(Token_type.Semicolon, programDict["index"])
     Children.append(out3["node"])
-    # tempDict = Match(Token_type.Uses, programDict["index"])
-    # if (tempDict["node"] == 'Uses'):
-    #     programDict = LibrarySection(programDict["index"])
-    #     Children.append(programDict["node"])
+    tempDict = Match(Token_type.Uses, programDict["index"])
+    if (tempDict["node"] == 'USES'):
+        programDict = LibrarySection(programDict["index"])
+        Children.append(programDict["node"])
 
     Node = Tree("Header", Children)
     output["node"] = Node
@@ -353,7 +353,7 @@ def ConstNameDash(indexPointer):
         out5 = ConstNameDash(out4["index"])
         Children.append(out5["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("ConstNameDash", Children)
         output["node"] = Node
         output["index"] = out5["index"]
         return output
@@ -379,7 +379,7 @@ def ConstName(indexPointer):
     out5 = ConstNameDash(out4["index"])
     Children.append(out5["node"])
 
-    Node = Tree("Header", Children)
+    Node = Tree("ConstName", Children)
     output["node"] = Node
     output["index"] = out5["index"]
     return output
@@ -395,7 +395,7 @@ def constDeleration(indexPointer):
         out2 = ConstName(out1["index"])
         Children.append(out2["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("constDeleration", Children)
         output["node"] = Node
         output["index"] = out2["index"]
         return output
@@ -411,7 +411,7 @@ def DataType(indexPointer):
     out3 = Match(Token_type.Char, indexPointer)
     out4 = Match(Token_type.Identifier, indexPointer)
     out5 = Match(Token_type.Boolean, indexPointer)
-    Node = Tree("Header", Children)
+    Node = Tree("DataType", Children)
     if out1 == 'Constant':
         Children.append(out1["node"])
         output["node"] = Node
@@ -452,7 +452,7 @@ def VarNameDash(indexPointer):
         out3 = VarNameDash(indexPointer)
         Children.append(out3["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("VarNameDash", Children)
         output["node"] = Node
         output["index"] = out3["index"]
         return output
@@ -469,7 +469,7 @@ def VarName(indexPointer):
     out2 = VarNameDash(indexPointer)
     Children.append(out2["node"])
 
-    Node = Tree("Header", Children)
+    Node = Tree("VarName", Children)
     output["node"] = Node
     output["index"] = out2["index"]
     return output
@@ -494,7 +494,7 @@ def varDecleration1Dash(indexPointer):              # CHECK CODE AGAIN
         out5 = varDecleration1Dash(out4["index"])
         Children.append(out5["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("varDecleration1Dash", Children)
         output["node"] = Node
         output["index"] = out5["index"]
         return output
@@ -520,7 +520,7 @@ def varDecleration1(indexPointer):
     out5 = varDecleration1Dash(out4["index"])
     Children.append(out5["node"])
 
-    Node = Tree("Header", Children)
+    Node = Tree("varDecleration1", Children)
     output["node"] = Node
     output["index"] = out5["index"]
     return output
@@ -536,7 +536,7 @@ def varDecleration(indexPointer):
         out2 = varDecleration1(out1["index"])
         Children.append(out2["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("varDecleration", Children)
         output["node"] = Node
         output["index"] = out2["index"]
         return output
@@ -559,7 +559,7 @@ def Decleration(indexPointer):
     # out4 = procedureDecleration(out3["index"])
     # Children.append(out4["node"])
 
-    Node = Tree("Header", Children)
+    Node = Tree("Decleration", Children)
     output["node"] = Node
     output["index"] = out2["index"]
     return output
