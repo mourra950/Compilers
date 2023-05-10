@@ -156,7 +156,7 @@ errors = []
 
 def find_token(text):
     arr = seperator(text)
-    print(arr)
+    # print(arr)
     tokenizer(arr)
 
 
@@ -228,7 +228,7 @@ def Parse():
     j = 0
     Children = []
     Header_dict = Header(j)
-    print(Header_dict)
+    print(Header_dict, 'Header dict')
     if Header_dict:
         Children.append(Header_dict["node"])
 #     Block_dict = Block(Header_dict["index"])
@@ -253,7 +253,7 @@ def ProgramName(indexPointer):
     out3 = Match(Token_type.Semicolon, out2["index"])
     Children.append(out3["node"])
 
-    Node = Tree("Header", Children)
+    Node = Tree("Program_name", Children)
     output["node"] = Node
     output["index"] = out3["index"]
     return output
@@ -284,7 +284,7 @@ def Library(indexPointer):
     Children.append(out1["node"])
 
     out2 = LibraryDash(out1["index"])
-    print(out2)
+    print(out2, 'library ')
     if out2:
         Children.append(out2["node"])
 
@@ -299,7 +299,7 @@ def LibraryDash(indexPointer):
     output = dict()
     out1 = Match(Token_type.Comma, indexPointer)
     if (out1["node"] == ','):
-        print(out1["node"])
+        print(out1["node"], 'library dash')
         Children.append(out1["node"])
 
         out2 = Match(Token_type.Identifier, out1["index"])
@@ -321,14 +321,17 @@ def Header(indexPointer):
     output = dict()
     programDict = ProgramName(indexPointer)
     Children.append(programDict["node"])
-    tempDict = Match(Token_type.Uses, programDict["index"])
-    if (tempDict["node"] == 'Uses'):
-        programDict = LibrarySection(programDict["index"])
-        Children.append(programDict["node"])
+    out3 = Match(Token_type.Semicolon, programDict["index"])
+    Children.append(out3["node"])
+    # tempDict = Match(Token_type.Uses, programDict["index"])
+    # if (tempDict["node"] == 'Uses'):
+    #     programDict = LibrarySection(programDict["index"])
+    #     Children.append(programDict["node"])
 
-    Node = Tree("ProgramName", Children)
+    Node = Tree("Header", Children)
     output["node"] = Node
     output["index"] = programDict["index"]
+    return output
 
 
 def ConstNameDash(indexPointer):
