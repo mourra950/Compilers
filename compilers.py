@@ -278,6 +278,7 @@ def Library(indexPointer):
     Children.append(out1["node"])
     
     out2 = LibraryDash(out1["index"])
+    print(out2)
     Children.append(out2["node"])
     
 
@@ -289,8 +290,8 @@ def Library(indexPointer):
 def LibraryDash(indexPointer):
     Children =[]
     output = dict()
-    if(Match(Token_type.Comma, indexPointer)):
-        out1 = Match(Token_type.Comma, indexPointer)
+    out1 = Match(Token_type.Comma, indexPointer)
+    if(out1["node"] == ','):
         print(out1["node"])
         Children.append(out1["node"])
 
@@ -305,7 +306,7 @@ def LibraryDash(indexPointer):
         output["index"] = out3["index"]
         return output
     else:
-        return 0
+        return 
 
 
 def Header(indexPointer):
