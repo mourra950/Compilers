@@ -5,6 +5,7 @@ import pandas
 import pandastable as pt
 from nltk.tree import *
 
+
 class Token_type(Enum):
     And = 1
     Array = 2
@@ -64,9 +65,10 @@ class Token_type(Enum):
     Uses = 56
     Comma = 57
     Constant = 58
-    Real  = 59
+    Real = 59
     Char = 60
     Boolean = 61
+
 
 class token:
     def __init__(self, lex, token_type):
@@ -149,7 +151,8 @@ Group = {
     ")": Token_type.CloseGroup,
 }
 Tokens = []  # to add tokens to list
-errors=[]
+errors = []
+
 
 def find_token(text):
     arr = seperator(text)
@@ -182,9 +185,8 @@ def seperator(text):
         else:
             tempArray.append(text[i])
         i += 1
-    if tempArray: 
+    if tempArray:
         SplittedArray.append("".join(tempArray))
-
 
     return SplittedArray
 
@@ -223,29 +225,29 @@ def tokenizer(T):
 
 
 def Parse():
-    j=0
-    Children=[]
-    Header_dict=Header(j)
+    j = 0
+    Children = []
+    Header_dict = Header(j)
     Children.append(Header_dict["node"])
 #     Block_dict = Block(Header_dict["index"])
 #     Children.append(block_dict["node"])
-    dic_output=Match(Token_type.Dot,j)
+    dic_output = Match(Token_type.Dot, j)
     Children.append(dic_output["node"])
-    Node=Tree('Program',Children)
-    
+    Node = Tree('Program', Children)
+
     return Node
 
 
 def ProgramName(indexPointer):
-    Children =[]
+    Children = []
     output = dict()
 
     out1 = Match(Token_type.Program, indexPointer)
     Children.append(out1["node"])
-    
+
     out2 = Match(Token_type.Identifier, out1["index"])
     Children.append(out2["node"])
-    
+
     out3 = Match(Token_type.Semicolon, out2["index"])
     Children.append(out3["node"])
 
@@ -254,15 +256,16 @@ def ProgramName(indexPointer):
     output["index"] = out3["index"]
     return output
 
+
 def LibrarySection(indexPointer):
-    Children =[]
+    Children = []
     output = dict()
     out1 = Match(Token_type.Uses, indexPointer)
     Children.append(out1["node"])
-    
+
     out2 = Library(out1["index"])
     Children.append(out2["node"])
-    
+
     out3 = Match(Token_type.Semicolon, out2["index"])
     Children.append(out3["node"])
 
@@ -271,27 +274,29 @@ def LibrarySection(indexPointer):
     output["index"] = out3["index"]
     return output
 
+
 def Library(indexPointer):
-    Children =[]
+    Children = []
     output = dict()
     out1 = Match(Token_type.Identifier, indexPointer)
     Children.append(out1["node"])
-    
+
     out2 = LibraryDash(out1["index"])
     print(out2)
-    Children.append(out2["node"])
-    
+    if out2:
+        Children.append(out2["node"])
 
-    Node = Tree("Header", Children)
-    output["node"] = Node
-    output["index"] = out2["index"]
+        Node = Tree("Header", Children)
+        output["node"] = Node
+        output["index"] = out2["index"]
     return output
 
+
 def LibraryDash(indexPointer):
-    Children =[]
+    Children = []
     output = dict()
     out1 = Match(Token_type.Comma, indexPointer)
-    if(out1["node"] == ','):
+    if (out1["node"] == ','):
         print(out1["node"])
         Children.append(out1["node"])
 
@@ -306,16 +311,16 @@ def LibraryDash(indexPointer):
         output["index"] = out3["index"]
         return output
     else:
-        return 
+        return
 
 
 def Header(indexPointer):
-    Children =[]
+    Children = []
     output = dict()
     programDict = ProgramName(indexPointer)
     Children.append(programDict["node"])
 
-    if(Match(Token_type.Uses, programDict["index"])):
+    if (Match(Token_type.Uses, programDict["index"])):
         programDict = LibrarySection(programDict["index"])
         Children.append(programDict["node"])
 
@@ -324,9 +329,8 @@ def Header(indexPointer):
     output["index"] = programDict["index"]
 
 
-
 def ConstNameDash(indexPointer):
-    Children =[]
+    Children = []
     output = dict()
     if Match(Token_type.Identifier, indexPointer):
         out1 = Match(Token_type.Identifier, indexPointer)
@@ -334,7 +338,7 @@ def ConstNameDash(indexPointer):
 
         out2 = Match(Token_type.Equal, indexPointer)
         Children.append(out2["node"])
-    
+
         out3 = Match(Token_type.Constant, out2["index"])
         Children.append(out3["node"])
 
@@ -352,16 +356,15 @@ def ConstNameDash(indexPointer):
         return
 
 
-
 def ConstName(indexPointer):
-    Children =[]
+    Children = []
     output = dict()
     out1 = Match(Token_type.Identifier, indexPointer)
     Children.append(out1["node"])
-    
+
     out2 = Match(Token_type.Equal, indexPointer)
     Children.append(out2["node"])
-    
+
     out3 = Match(Token_type.Constant, out2["index"])
     Children.append(out3["node"])
 
@@ -377,15 +380,13 @@ def ConstName(indexPointer):
     return output
 
 
-
-
 def constDeleration(indexPointer):
-    Children =[]
+    Children = []
     output = dict()
-    if(Match(Token_type.Const, indexPointer)):
+    if (Match(Token_type.Const, indexPointer)):
         out1 = Match(Token_type.Const, indexPointer)
         Children.append(out1["node"])
-    
+
         out2 = ConstName(out1["index"])
         Children.append(out2["node"])
 
@@ -398,7 +399,7 @@ def constDeleration(indexPointer):
 
 
 def DataType(indexPointer):
-    Children =[]
+    Children = []
     output = dict()
     if Match(Token_type.Constant, indexPointer):
         out1 = Match(Token_type.Constant, indexPointer)
@@ -411,7 +412,7 @@ def DataType(indexPointer):
     elif Match(Token_type.Char, indexPointer):
         out1 = Match(Token_type.Char, indexPointer)
         Children.append(out1["node"])
-    
+
     elif Match(Token_type.Identifier, indexPointer):
         out1 = Match(Token_type.Identifier, indexPointer)
         Children.append(out1["node"])
@@ -427,12 +428,12 @@ def DataType(indexPointer):
 
 
 def VarNameDash(indexPointer):
-    Children =[]
+    Children = []
     output = dict()
     if Match(Token_type.Comma, indexPointer):
         out1 = Match(Token_type.Comma, indexPointer)
         Children.append(out1["node"])
-    
+
         out2 = Match(Token_type.Identifier, indexPointer)
         Children.append(out2["node"])
 
@@ -448,11 +449,11 @@ def VarNameDash(indexPointer):
 
 
 def VarName(indexPointer):
-    Children =[]
+    Children = []
     output = dict()
     out1 = Match(Token_type.Identifier, indexPointer)
     Children.append(out1["node"])
-    
+
     out2 = VarNameDash(indexPointer)
     Children.append(out2["node"])
 
@@ -462,17 +463,16 @@ def VarName(indexPointer):
     return output
 
 
-
 def varDecleration1Dash(indexPointer):
-    Children =[]
+    Children = []
     output = dict()
-    if VarName(indexPointer): 
+    if VarName(indexPointer):
         out1 = VarName(indexPointer)
         Children.append(out1["node"])
-    
+
         out2 = Match(Token_type.Colon, indexPointer)
         Children.append(out2["node"])
-    
+
         out3 = DataType(out2["index"])
         Children.append(out3["node"])
 
@@ -490,16 +490,15 @@ def varDecleration1Dash(indexPointer):
         return
 
 
-
 def varDecleration1(indexPointer):
-    Children =[]
+    Children = []
     output = dict()
     out1 = VarName(indexPointer)
     Children.append(out1["node"])
-    
+
     out2 = Match(Token_type.Colon, indexPointer)
     Children.append(out2["node"])
-    
+
     out3 = DataType(out2["index"])
     Children.append(out3["node"])
 
@@ -515,14 +514,13 @@ def varDecleration1(indexPointer):
     return output
 
 
-
 def varDecleration(indexPointer):
-    Children =[]
+    Children = []
     output = dict()
     if Match(Token_type.Var, indexPointer):
         out1 = Match(Token_type.Var, indexPointer)
         Children.append(out1["node"])
-    
+
         out2 = varDecleration1(out1["index"])
         Children.append(out2["node"])
 
@@ -534,16 +532,15 @@ def varDecleration(indexPointer):
         return
 
 
-
 def Decleration(indexPointer):
-    Children =[]
+    Children = []
     output = dict()
     out1 = constDeleration(indexPointer)
     Children.append(out1["node"])
-    
+
     out2 = varDecleration(out1["index"])
     Children.append(out2["node"])
-    
+
     # out3 = functionDeleration(out2["index"])
     # Children.append(out3["node"])
 
@@ -556,34 +553,28 @@ def Decleration(indexPointer):
     return output
 
 
-
-
-
-
-
-
-def Match(a,j):
-    output=dict()
-    if(j<len(Tokens)):
-        Temp=Tokens[j].to_dict()
-        if(Temp['token_type']==a):
-            j+=1
-            output["node"]=[Temp['Lex']]
-            output["index"]=j
+def Match(a, j):
+    output = dict()
+    if (j < len(Tokens)):
+        Temp = Tokens[j].to_dict()
+        if (Temp['token_type'] == a):
+            j += 1
+            output["node"] = [Temp['Lex']]
+            output["index"] = j
             return output
         else:
-            output["node"]=["error"]
-            output["index"]=j+1
+            output["node"] = ["error"]
+            output["index"] = j+1
             errors.append("Syntax error : ")
             return output
     else:
-        output["node"]=["error"]
-        output["index"]=j+1
+        output["node"] = ["error"]
+        output["index"] = j+1
         return output
 
 
-#GUI
-root= tk.Tk()
+# GUI
+root = tk.Tk()
 
 canvas1 = tk.Canvas(root, width=400, height=300, relief='raised')
 canvas1.pack()
@@ -596,40 +587,43 @@ label2 = tk.Label(root, text='Source code:')
 label2.config(font=('helvetica', 10))
 canvas1.create_window(200, 100, window=label2)
 
-entry1 = tk.Entry(root) 
+entry1 = tk.Entry(root)
 canvas1.create_window(200, 140, window=entry1)
+
 
 def Scan():
     x1 = entry1.get()
     find_token(x1)
-    df=pandas.DataFrame.from_records([t.to_dict() for t in Tokens])
-    #print(df)
-      
-    #to display token stream as table
+    df = pandas.DataFrame.from_records([t.to_dict() for t in Tokens])
+    # print(df)
+
+    # to display token stream as table
     dTDa1 = tk.Toplevel()
     dTDa1.title('Token Stream')
-    dTDaPT = pt.Table(dTDa1, dataframe=df, showtoolbar=True, showstatusbar=True)
+    dTDaPT = pt.Table(dTDa1, dataframe=df,
+                      showtoolbar=True, showstatusbar=True)
     dTDaPT.show()
     # start Parsing
-    Node=Parse()
-     
-    
+    Node = Parse()
+
     # to display errorlist
-    df1=pandas.DataFrame(errors)
+    df1 = pandas.DataFrame(errors)
     dTDa2 = tk.Toplevel()
     dTDa2.title('Error List')
-    dTDaPT2 = pt.Table(dTDa2, dataframe=df1, showtoolbar=True, showstatusbar=True)
+    dTDaPT2 = pt.Table(dTDa2, dataframe=df1,
+                       showtoolbar=True, showstatusbar=True)
     dTDaPT2.show()
     Node.draw()
-    #clear your list
-    
-    #label3 = tk.Label(root, text='Lexem ' + x1 + ' is:', font=('helvetica', 10))
-    #canvas1.create_window(200, 210, window=label3)
-    
-    #label4 = tk.Label(root, text="Token_type"+x1, font=('helvetica', 10, 'bold'))
-    #canvas1.create_window(200, 230, window=label4)
-    
-    
-button1 = tk.Button(text='Scan', command=Scan, bg='brown', fg='white', font=('helvetica', 9, 'bold'))
+    # clear your list
+
+    # label3 = tk.Label(root, text='Lexem ' + x1 + ' is:', font=('helvetica', 10))
+    # canvas1.create_window(200, 210, window=label3)
+
+    # label4 = tk.Label(root, text="Token_type"+x1, font=('helvetica', 10, 'bold'))
+    # canvas1.create_window(200, 230, window=label4)
+
+
+button1 = tk.Button(text='Scan', command=Scan, bg='brown',
+                    fg='white', font=('helvetica', 9, 'bold'))
 canvas1.create_window(200, 180, window=button1)
 root.mainloop()
