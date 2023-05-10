@@ -222,15 +222,19 @@ def tokenizer(T):
         else:
             ap = token(x, Token_type.Error)
             Tokens.append(ap)
+            
 
 
 def Parse():
     j = 0
     Children = []
     Header_dict = Header(j)
-    print(Header_dict, 'Header dict')
+
     if Header_dict:
         Children.append(Header_dict["node"])
+
+        Decleration_dict = Decleration(Header_dict["index"])   
+        Children.append(Decleration_dict["node"])
 #     Block_dict = Block(Header_dict["index"])
 #     Children.append(block_dict["node"])
     # dic_output = Match(Token_type.Dot, j)
@@ -306,11 +310,13 @@ def LibraryDash(indexPointer):
         Children.append(out2["node"])
 
         out3 = LibraryDash(out2["index"])
-        Children.append(out3["node"])
+        if out3:
+            out2 = out3
+            Children.append(out3["node"])
 
         Node = Tree("LibraryDash", Children)
         output["node"] = Node
-        output["index"] = out3["index"]
+        output["index"] = out2["index"]
         return output
     else:
         return
@@ -321,13 +327,12 @@ def Header(indexPointer):
     output = dict()
     programDict = ProgramName(indexPointer)
     Children.append(programDict["node"])
-    out3 = Match(Token_type.Semicolon, programDict["index"])
-    Children.append(out3["node"])
+    
     tempDict = Match(Token_type.Uses, programDict["index"])
     print(str(tempDict['node']))
     
    
-    if (tempDict["node"] == 'USES'):
+    if (str(tempDict["node"]) == 'USES'):
         programDict = LibrarySection(programDict["index"])
         Children.append(programDict["node"])
 
@@ -341,7 +346,7 @@ def ConstNameDash(indexPointer):
     Children = []
     output = dict()
     out1 = Match(Token_type.Identifier, indexPointer)
-    if out1 == 'Identifier':
+    if str(out1["node"]) == 'IDENTIFIER':
         Children.append(out1["node"])
 
         out2 = Match(Token_type.Equal, indexPointer)
@@ -370,7 +375,7 @@ def ConstName(indexPointer):
     out1 = Match(Token_type.Identifier, indexPointer)
     Children.append(out1["node"])
 
-    out2 = Match(Token_type.Equal, indexPointer)
+    out2 = Match(Token_type.Equal, out1["index"])
     Children.append(out2["node"])
 
     out3 = Match(Token_type.Constant, out2["index"])
@@ -379,12 +384,15 @@ def ConstName(indexPointer):
     out4 = Match(Token_type.Semicolon, out3["index"])
     Children.append(out4["node"])
 
+
     out5 = ConstNameDash(out4["index"])
-    Children.append(out5["node"])
+    if out5:
+        out4 = out5
+        Children.append(out5["node"])
 
     Node = Tree("ConstName", Children)
     output["node"] = Node
-    output["index"] = out5["index"]
+    output["index"] = out4["index"]
     return output
 
 
@@ -392,7 +400,7 @@ def constDeleration(indexPointer):
     Children = []
     output = dict()
     out1 = Match(Token_type.Const, indexPointer)
-    if (out1 == 'Const'):
+    if (str(out1["node"]) == 'CONST'):
         Children.append(out1["node"])
 
         out2 = ConstName(out1["index"])
@@ -415,27 +423,27 @@ def DataType(indexPointer):
     out4 = Match(Token_type.Identifier, indexPointer)
     out5 = Match(Token_type.Boolean, indexPointer)
     Node = Tree("DataType", Children)
-    if out1 == 'Constant':
+    if str(out1["node"]) == 'CONSTANT':
         Children.append(out1["node"])
         output["node"] = Node
         output["index"] = out1["index"]
 
-    elif out2 == 'Real':
+    elif str(out2["node"]) == 'REAL':
         Children.append(out2["node"])
         output["node"] = Node
         output["index"] = out2["index"]
 
-    elif out3 == 'Char':
+    elif str(out3["node"]) == 'CHAR':
         Children.append(out3["node"])
         output["node"] = Node
         output["index"] = out3["index"]
 
-    elif out4 == 'Identifier':
+    elif str(out4["node"]) == 'IDENTIFIER':
         Children.append(out4["node"])
         output["node"] = Node
         output["index"] = out4["index"]
 
-    elif out5 == 'Boolean':
+    elif str(out5["node"]) == 'BOOLEAN':
         Children.append(out5["node"])
         output["node"] = Node
         output["index"] = out5["index"]
@@ -446,7 +454,7 @@ def VarNameDash(indexPointer):
     Children = []
     output = dict()
     out1 = Match(Token_type.Comma, indexPointer)
-    if out1 == ',':
+    if str(out1["node"]) == ',':
         Children.append(out1["node"])
 
         out2 = Match(Token_type.Identifier, indexPointer)
@@ -482,7 +490,7 @@ def varDecleration1Dash(indexPointer):              # CHECK CODE AGAIN
     Children = []
     output = dict()
     out1 = VarName(indexPointer)
-    if out1["node"] == 'Identifier':
+    if str(out1["node"]) == 'IDENTIFIER':
         Children.append(out1["node"])
 
         out2 = Match(Token_type.Colon, indexPointer)
@@ -533,7 +541,7 @@ def varDecleration(indexPointer):
     Children = []
     output = dict()
     out1 = Match(Token_type.Var, indexPointer)
-    if out1["node"] == 'Var':
+    if str(out1["node"]) == 'VAR':
         Children.append(out1["node"])
 
         out2 = varDecleration1(out1["index"])
@@ -550,11 +558,17 @@ def varDecleration(indexPointer):
 def Decleration(indexPointer):
     Children = []
     output = dict()
-    out1 = constDeleration(indexPointer)
-    Children.append(out1["node"])
+    tempIndex = indexPointer
 
-    out2 = varDecleration(out1["index"])
-    Children.append(out2["node"])
+    out1 = constDeleration(indexPointer)
+    if out1: 
+        tempIndex = out1
+        Children.append(out1["node"])
+
+    out2 = varDecleration(tempIndex["index"])
+    if out2:
+        tempIndex = out2
+        Children.append(out2["node"])
 
     # out3 = functionDeleration(out2["index"])
     # Children.append(out3["node"])
@@ -564,7 +578,7 @@ def Decleration(indexPointer):
 
     Node = Tree("Decleration", Children)
     output["node"] = Node
-    output["index"] = out2["index"]
+    output["index"] = tempIndex["index"]
     return output
 
 
