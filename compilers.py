@@ -541,6 +541,7 @@ def varDecleration(indexPointer):
     Children = []
     output = dict()
     out1 = Match(Token_type.Var, indexPointer)
+    print(out1, str(out1["node"]) == 'VAR')
     if str(out1["node"]) == 'VAR':
         Children.append(out1["node"])
 
@@ -558,18 +559,17 @@ def varDecleration(indexPointer):
 def Decleration(indexPointer):
     Children = []
     output = dict()
-    tempIndex = indexPointer
 
     out1 = constDeleration(indexPointer)
     if out1: 
-        tempIndex = out1
         Children.append(out1["node"])
-
-    out2 = varDecleration(tempIndex["index"])
+        out2 = varDecleration(out1["index"])
+    else:
+        out2 = varDecleration(indexPointer)
     if out2:
-        tempIndex = out2
         Children.append(out2["node"])
-
+    else:
+        out2 = out1
     # out3 = functionDeleration(out2["index"])
     # Children.append(out3["node"])
 
@@ -578,7 +578,10 @@ def Decleration(indexPointer):
 
     Node = Tree("Decleration", Children)
     output["node"] = Node
-    output["index"] = tempIndex["index"]
+    if out2:
+        output["index"] = out2["index"]
+    else:
+        output["index"] = indexPointer
     return output
 
 
