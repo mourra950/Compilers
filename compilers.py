@@ -228,11 +228,13 @@ def Parse():
     j = 0
     Children = []
     Header_dict = Header(j)
-    Children.append(Header_dict["node"])
+    print(Header_dict)
+    if Header_dict:
+        Children.append(Header_dict["node"])
 #     Block_dict = Block(Header_dict["index"])
 #     Children.append(block_dict["node"])
-    dic_output = Match(Token_type.Dot, j)
-    Children.append(dic_output["node"])
+    # dic_output = Match(Token_type.Dot, j)
+    # Children.append(dic_output["node"])
     Node = Tree('Program', Children)
 
     return Node
@@ -319,8 +321,8 @@ def Header(indexPointer):
     output = dict()
     programDict = ProgramName(indexPointer)
     Children.append(programDict["node"])
-
-    if (Match(Token_type.Uses, programDict["index"])):
+    tempDict = Match(Token_type.Uses, programDict["index"])
+    if (tempDict["node"] == 'Uses'):
         programDict = LibrarySection(programDict["index"])
         Children.append(programDict["node"])
 
@@ -332,8 +334,8 @@ def Header(indexPointer):
 def ConstNameDash(indexPointer):
     Children = []
     output = dict()
-    if Match(Token_type.Identifier, indexPointer):
-        out1 = Match(Token_type.Identifier, indexPointer)
+    out1 = Match(Token_type.Identifier, indexPointer)
+    if out1 == 'Identifier':
         Children.append(out1["node"])
 
         out2 = Match(Token_type.Equal, indexPointer)
@@ -383,8 +385,8 @@ def ConstName(indexPointer):
 def constDeleration(indexPointer):
     Children = []
     output = dict()
-    if (Match(Token_type.Const, indexPointer)):
-        out1 = Match(Token_type.Const, indexPointer)
+    out1 = Match(Token_type.Const, indexPointer)
+    if (out1 == 'Const'):
         Children.append(out1["node"])
 
         out2 = ConstName(out1["index"])
@@ -401,37 +403,44 @@ def constDeleration(indexPointer):
 def DataType(indexPointer):
     Children = []
     output = dict()
-    if Match(Token_type.Constant, indexPointer):
-        out1 = Match(Token_type.Constant, indexPointer)
-        Children.append(out1["node"])
-
-    elif Match(Token_type.Real, indexPointer):
-        out1 = Match(Token_type.Real, indexPointer)
-        Children.append(out1["node"])
-
-    elif Match(Token_type.Char, indexPointer):
-        out1 = Match(Token_type.Char, indexPointer)
-        Children.append(out1["node"])
-
-    elif Match(Token_type.Identifier, indexPointer):
-        out1 = Match(Token_type.Identifier, indexPointer)
-        Children.append(out1["node"])
-
-    elif Match(Token_type.Boolean, indexPointer):
-        out1 = Match(Token_type.Boolean, indexPointer)
-        Children.append(out1["node"])
-
+    out1 = Match(Token_type.Constant, indexPointer)
+    out2 = Match(Token_type.Real, indexPointer)
+    out3 = Match(Token_type.Char, indexPointer)
+    out4 = Match(Token_type.Identifier, indexPointer)
+    out5 = Match(Token_type.Boolean, indexPointer)
     Node = Tree("Header", Children)
-    output["node"] = Node
-    output["index"] = out1["index"]
+    if out1 == 'Constant':
+        Children.append(out1["node"])
+        output["node"] = Node
+        output["index"] = out1["index"]
+
+    elif out2 == 'Real':
+        Children.append(out2["node"])
+        output["node"] = Node
+        output["index"] = out2["index"]
+
+    elif out3 == 'Char':
+        Children.append(out3["node"])
+        output["node"] = Node
+        output["index"] = out3["index"]
+
+    elif out4 == 'Identifier':
+        Children.append(out4["node"])
+        output["node"] = Node
+        output["index"] = out4["index"]
+
+    elif out5 == 'Boolean':
+        Children.append(out5["node"])
+        output["node"] = Node
+        output["index"] = out5["index"]
     return output
 
 
 def VarNameDash(indexPointer):
     Children = []
     output = dict()
-    if Match(Token_type.Comma, indexPointer):
-        out1 = Match(Token_type.Comma, indexPointer)
+    out1 = Match(Token_type.Comma, indexPointer)
+    if out1 == ',':
         Children.append(out1["node"])
 
         out2 = Match(Token_type.Identifier, indexPointer)
@@ -463,11 +472,11 @@ def VarName(indexPointer):
     return output
 
 
-def varDecleration1Dash(indexPointer):
+def varDecleration1Dash(indexPointer):              # CHECK CODE AGAIN
     Children = []
     output = dict()
-    if VarName(indexPointer):
-        out1 = VarName(indexPointer)
+    out1 = VarName(indexPointer)
+    if out1["node"] == 'Identifier':
         Children.append(out1["node"])
 
         out2 = Match(Token_type.Colon, indexPointer)
@@ -517,8 +526,8 @@ def varDecleration1(indexPointer):
 def varDecleration(indexPointer):
     Children = []
     output = dict()
-    if Match(Token_type.Var, indexPointer):
-        out1 = Match(Token_type.Var, indexPointer)
+    out1 = Match(Token_type.Var, indexPointer)
+    if out1["node"] == 'Var':
         Children.append(out1["node"])
 
         out2 = varDecleration1(out1["index"])
