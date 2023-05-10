@@ -298,7 +298,7 @@ def LibraryDash(indexPointer):
     Children = []
     output = dict()
     out1 = Match(Token_type.Comma, indexPointer)
-    if (out1["node"] == ','):
+    if (str(out1["node"]) == ','):
         print(out1["node"], 'library dash')
         Children.append(out1["node"])
 
@@ -324,6 +324,9 @@ def Header(indexPointer):
     out3 = Match(Token_type.Semicolon, programDict["index"])
     Children.append(out3["node"])
     tempDict = Match(Token_type.Uses, programDict["index"])
+    print(str(tempDict['node']))
+    
+   
     if (tempDict["node"] == 'USES'):
         programDict = LibrarySection(programDict["index"])
         Children.append(programDict["node"])
@@ -571,7 +574,7 @@ def Match(a, j):
         Temp = Tokens[j].to_dict()
         if (Temp['token_type'] == a):
             j += 1
-            output["node"] = [Temp['Lex']]
+            output["node"] = Temp['Lex']
             output["index"] = j
             return output
         else:
