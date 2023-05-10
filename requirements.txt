@@ -3,3 +3,5 @@ pyqt6-tools
 pandas
 tk
 dfa
+pandastable
+nltk

@@ -2,7 +2,8 @@ import tkinter as tk
 from enum import Enum
 import re
 import pandas
-
+import pandastable as pt
+from nltk.tree import *
 
 class Token_type(Enum):
     And = 1
@@ -59,7 +60,9 @@ class Token_type(Enum):
     Colon = 52
     Assignment = 53
     Str = 54
-
+    Identifier = 55
+    Uses = 56
+    Comma = 57
 
 class token:
     def __init__(self, lex, token_type):
@@ -112,8 +115,10 @@ ReservedWords = {                       # We Can add global?
     "WITH": Token_type.With,
     "DO": Token_type.Do,
     ";": Token_type.Semicolon,
+    ",": Token_type.Comma,
     ":": Token_type.Colon,
     ":=": Token_type.Assignment,
+    "USES": Token_type.Uses,
 
 }
 Operators = {
@@ -140,7 +145,7 @@ Group = {
     ")": Token_type.CloseGroup,
 }
 Tokens = []  # to add tokens to list
-
+errors=[]
 
 def find_token(text):
     arr = seperator(text)
@@ -180,7 +185,9 @@ def seperator(text):
 
 def tokenizer(T):
     # Tokens = []  # to add tokens to list
+    print(T)
     for x in T:
+        x = x.upper()
         if x in ReservedWords:
             ap = token(x, ReservedWords[x])
             Tokens.append(ap)
@@ -197,7 +204,7 @@ def tokenizer(T):
             ap = token(x, Comment[x])
             Tokens.append(ap)
         elif re.match("^[a-zA-Z][a-zA-Z0-9]*$", x):
-            ap = token(x, Token_type.Var)
+            ap = token(x, Token_type.Identifier)
             Tokens.append(ap)
         elif re.match("^[0-9].[0-9]$", x):
             ap = token(x, Token_type.Const)
@@ -211,8 +218,134 @@ def tokenizer(T):
     # print(Tokens.Token_type)
 
 
-# GUI
-root = tk.Tk()
+def Parse():
+    j=0
+    Children=[]
+    Header_dict=Header(j)
+    Children.append(Header_dict["node"])
+#     Block_dict = Block(Header_dict["index"])
+#     Children.append(block_dict["node"])
+    dic_output=Match(Token_type.Dot,j)
+    Children.append(dic_output["node"])
+    Node=Tree('Program',Children)
+    
+    return Node
+
+
+def ProgramName(indexPointer):
+    Children =[]
+    output = dict()
+
+    out1 = Match(Token_type.Program, indexPointer)
+    Children.append(out1["node"])
+    
+    out2 = Match(Token_type.Identifier, out1["index"])
+    Children.append(out2["node"])
+    
+    out3 = Match(Token_type.Semicolon, out2["index"])
+    Children.append(out3["node"])
+
+    Node = Tree("Header", Children)
+    output["node"] = Node
+    output["index"] = out3["index"]
+    return output
+
+def LibrarySection(indexPointer):
+    Children =[]
+    output = dict()
+    out1 = Match(Token_type.Uses, indexPointer)
+    Children.append(out1["node"])
+    
+    out2 = Library(out1["index"])
+    Children.append(out2["node"])
+    
+    out3 = Match(Token_type.Semicolon, out2["index"])
+    Children.append(out3["node"])
+
+    Node = Tree("Header", Children)
+    output["node"] = Node
+    output["index"] = out3["index"]
+    return output
+
+def Library(indexPointer):
+    Children =[]
+    output = dict()
+    out1 = Match(Token_type.Identifier, indexPointer)
+    Children.append(out1["node"])
+    
+    out2 = LibraryDash(out1["index"])
+    Children.append(out2["node"])
+    
+
+    Node = Tree("Header", Children)
+    output["node"] = Node
+    output["index"] = out2["index"]
+    return output
+
+def LibraryDash(indexPointer):
+    Children =[]
+    output = dict()
+    if(Match(Token_type.Comma, indexPointer)):
+        out1 = Match(Token_type.Comma, indexPointer)
+        Children.append(out1["node"])
+    
+        out2 = LibraryDash(out1["index"])
+        Children.append(out2["node"])
+
+        Node = Tree("Header", Children)
+        output["node"] = Node
+        output["index"] = out2["index"]
+        return output
+    else:
+        return
+
+
+def Header(indexPointer):
+    Children =[]
+    output = dict()
+    programDict = ProgramName(indexPointer)
+    Children.append(programDict["node"])
+
+    if(Match(Token_type.Uses, programDict["index"])):
+        programDict = LibrarySection(programDict["index"])
+        Children.append(programDict["node"])
+
+    Node = Tree("ProgramName", Children)
+    output["node"] = Node
+    output["index"] = programDict["index"]
+
+
+
+
+
+
+
+
+
+
+
+def Match(a,j):
+    output=dict()
+    if(j<len(Tokens)):
+        Temp=Tokens[j].to_dict()
+        if(Temp['token_type']==a):
+            j+=1
+            output["node"]=[Temp['Lex']]
+            output["index"]=j
+            return output
+        else:
+            output["node"]=["error"]
+            output["index"]=j+1
+            errors.append("Syntax error : ")
+            return output
+    else:
+        output["node"]=["error"]
+        output["index"]=j+1
+        return output
+
+
+#GUI
+root= tk.Tk()
 
 canvas1 = tk.Canvas(root, width=400, height=300, relief='raised')
 canvas1.pack()
@@ -225,27 +358,40 @@ label2 = tk.Label(root, text='Source code:')
 label2.config(font=('helvetica', 10))
 canvas1.create_window(200, 100, window=label2)
 
-entry1 = tk.Entry(root)
+entry1 = tk.Entry(root) 
 canvas1.create_window(200, 140, window=entry1)
-
 
 def Scan():
     x1 = entry1.get()
     find_token(x1)
-    df = pandas.DataFrame.from_records([t.to_dict() for t in Tokens])
-    print(df)
-    label3 = tk.Label(root, text='Lexem ' + x1 +
-                      ' is:', font=('helvetica', 10))
-    canvas1.create_window(200, 210, window=label3)
-    x1 = str(df.token_type)
-
-    label4 = tk.Label(root, text="Token_type"+x1,
-                      font=('helvetica', 10, 'bold'))
-    canvas1.create_window(200, 230, window=label4)
-
-
-button1 = tk.Button(text='Scan', command=Scan, bg='brown',
-                    fg='white', font=('helvetica', 9, 'bold'))
+    df=pandas.DataFrame.from_records([t.to_dict() for t in Tokens])
+    #print(df)
+      
+    #to display token stream as table
+    dTDa1 = tk.Toplevel()
+    dTDa1.title('Token Stream')
+    dTDaPT = pt.Table(dTDa1, dataframe=df, showtoolbar=True, showstatusbar=True)
+    dTDaPT.show()
+    # start Parsing
+    Node=Parse()
+     
+    
+    # to display errorlist
+    df1=pandas.DataFrame(errors)
+    dTDa2 = tk.Toplevel()
+    dTDa2.title('Error List')
+    dTDaPT2 = pt.Table(dTDa2, dataframe=df1, showtoolbar=True, showstatusbar=True)
+    dTDaPT2.show()
+    Node.draw()
+    #clear your list
+    
+    #label3 = tk.Label(root, text='Lexem ' + x1 + ' is:', font=('helvetica', 10))
+    #canvas1.create_window(200, 210, window=label3)
+    
+    #label4 = tk.Label(root, text="Token_type"+x1, font=('helvetica', 10, 'bold'))
+    #canvas1.create_window(200, 230, window=label4)
+    
+    
+button1 = tk.Button(text='Scan', command=Scan, bg='brown', fg='white', font=('helvetica', 9, 'bold'))
 canvas1.create_window(200, 180, window=button1)
-
 root.mainloop()
