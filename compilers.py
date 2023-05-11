@@ -4,233 +4,8 @@ import re
 import pandas
 import pandastable as pt
 from nltk.tree import *
-
-
-class Token_type(Enum):
-    And = 1
-    Array = 2
-    Begin = 3
-    Case = 4
-    Const = 5
-    Div = 6
-    DownTo = 7
-    Else = 8
-    End = 9
-    File = 10
-    For = 11
-    Function = 12
-    GoTo = 13
-    If = 14
-    In = 15
-    Label = 16
-    Mode = 17
-    Nil = 18
-    Not = 19
-    Of = 20
-    Or = 21
-    Packed = 22
-    Procedure = 23
-    Program = 24
-    Record = 25
-    Repeat = 26
-    Set = 27
-    Then = 28
-    To = 29
-    Type = 30
-    Until = 31
-    Var = 32
-    While = 33
-    With = 34
-    Do = 35
-    PlusOp = 36
-    MinusOp = 37
-    MultiplyOp = 38
-    DivideOp = 39
-    LessEqual = 40
-    GreatEqual = 41
-    Equal = 42
-    Greater = 43
-    Lesser = 44
-    OpenMultiComment = 45
-    CloseMultiComment = 46
-    OpenComment = 47
-    CloseComment = 48
-    OpenGroup = 49
-    CloseGroup = 50
-    Semicolon = 51
-    Colon = 52
-    Assignment = 53
-    Str = 54
-    Identifier = 55
-    Uses = 56
-    Comma = 57
-    Constant = 58
-    Real = 59
-    Char = 60
-    Boolean = 61
-
-
-class token:
-    def __init__(self, lex, token_type):
-        self.lex = lex
-        self.token_type = token_type
-
-    def to_dict(self):
-        return {
-            'Lex': self.lex,
-            'token_type': self.token_type
-        }
-
-
-# Reserved word Dictionary
-ReservedWords = {                       # We Can add global?
-    "AND": Token_type.And,
-    "ARRAY": Token_type.Array,
-    "BEGIN": Token_type.Begin,
-    "CASE": Token_type.Case,
-    "CONST": Token_type.Const,
-    "DIV": Token_type.Div,
-    "DOWNTO": Token_type.DownTo,
-    "ELSE": Token_type.Else,
-    "END": Token_type.End,
-    "FILE": Token_type.File,
-    "FOR": Token_type.For,
-    "FUNCTION": Token_type.Function,
-    "GOTO": Token_type.GoTo,
-    "IF": Token_type.If,
-    "IN": Token_type.In,
-    "LABEL": Token_type.Label,
-    "MODE": Token_type.Mode,
-    "NIL": Token_type.Nil,
-    "NOT": Token_type.Not,
-    "OF": Token_type.Of,
-    "OR": Token_type.Or,
-    "PACKED": Token_type.Packed,
-    "PROCEDURE": Token_type.Procedure,
-    "PROGRAM": Token_type.Program,
-    "RECORD": Token_type.Record,
-    "REPEAT": Token_type.Repeat,
-    "SET": Token_type.Set,
-    "THEN": Token_type.Then,
-    "TO": Token_type.To,
-    "TYPE": Token_type.Type,
-    "UNTIL": Token_type.Until,
-    "VAR": Token_type.Var,
-    "STR": Token_type.Str,
-    "WHILE": Token_type.While,
-    "WITH": Token_type.With,
-    "DO": Token_type.Do,
-    ";": Token_type.Semicolon,
-    ",": Token_type.Comma,
-    ":": Token_type.Colon,
-    ":=": Token_type.Assignment,
-    "USES": Token_type.Uses,
-    # "IDENTIFIER": Token_type.Identifier,
-    # "CONSTANT" : Token_type.Constant,
-    # "REAL" : Token_type.Real,
-    # "CHAR" : Token_type.Char,
-    # "BOOLEAN" : Token_type.Boolean,
-
-
-}
-Operators = {
-    "+": Token_type.PlusOp,
-    "-": Token_type.MinusOp,
-    "*": Token_type.MultiplyOp,
-    "/": Token_type.DivideOp
-}
-RelationOperators = {
-    "<=": Token_type.LessEqual,
-    ">=": Token_type.GreatEqual,
-    "=": Token_type.Equal,
-    ">": Token_type.Greater,
-    "<": Token_type.Lesser
-}
-Comment = {
-    "{*": Token_type.OpenMultiComment,
-    "*}": Token_type.CloseMultiComment,
-    "{": Token_type.OpenComment,
-    "}": Token_type.CloseComment,
-}
-Group = {
-    "(": Token_type.OpenGroup,
-    ")": Token_type.CloseGroup,
-}
-Tokens = []  # to add tokens to list
-errors = []
-
-
-def find_token(text):
-    arr = seperator(text)
-    # print(arr)
-    tokenizer(arr)
-
-
-def seperator(text):
-    splitters = [',', ':', ' ', ';', '+', '-', '/', '*', '<', '>', '=']
-    doublesplitters = [':=', '<=', '>=']
-    SplittedArray = []
-    tempArray = []
-    counter = len(text)
-    i = 0
-    while (i < counter):
-        # print(text[i])
-        if text[i] in splitters:
-            if text[i:i+2] in doublesplitters:
-                SplittedArray.append("".join(text[i:i+2]))
-                i += 1
-            else:
-                if tempArray:
-                    SplittedArray.append("".join(tempArray))
-                if text[i] != ' ':
-                    SplittedArray.append(text[i])
-                elif text[i] == ' ':
-                    while (text[i+1] == ' '):
-                        i += 1
-            tempArray = []
-        else:
-            tempArray.append(text[i])
-        i += 1
-    if tempArray:
-        SplittedArray.append("".join(tempArray))
-
-    return SplittedArray
-
-
-def tokenizer(T):
-    # Tokens = []  # to add tokens to list
-    for x in T:
-        x = x.upper()
-        if x in ReservedWords:
-            ap = token(x, ReservedWords[x])
-            Tokens.append(ap)
-        elif x in Operators:
-            ap = token(x, Operators[x])
-            Tokens.append(ap)
-        elif x in RelationOperators:
-            ap = token(x, RelationOperators[x])
-            Tokens.append(ap)
-        elif x in Group:
-            ap = token(x, Group[x])
-            Tokens.append(ap)
-        elif x in Comment:
-            ap = token(x, Comment[x])
-            Tokens.append(ap)
-        elif re.match("^[a-zA-Z][a-zA-Z0-9]*$", x):
-            ap = token(x, Token_type.Identifier)
-            Tokens.append(ap)
-        elif re.match("^[0-9].[0-9]$", x):
-            ap = token(x, Token_type.Real)
-            Tokens.append(ap)
-        elif re.match("^[0-9]*$", x):
-            ap = token(x, Token_type.Constant)
-            Tokens.append(ap)
-        else:
-            ap = token(x, Token_type.Error)
-            Tokens.append(ap)
-    for i in Tokens:
-        print(i.token_type)     
-
+from pascaltokens import *
+from pascaltokenizer import *
 
 def Parse():
     j = 0
@@ -636,24 +411,6 @@ def Match(a, j):
         return output
 
 
-# GUI
-root = tk.Tk()
-
-canvas1 = tk.Canvas(root, width=400, height=300, relief='raised')
-canvas1.pack()
-
-label1 = tk.Label(root, text='Scanner Phase')
-label1.config(font=('helvetica', 14))
-canvas1.create_window(200, 25, window=label1)
-
-label2 = tk.Label(root, text='Source code:')
-label2.config(font=('helvetica', 10))
-canvas1.create_window(200, 100, window=label2)
-
-entry1 = tk.Entry(root)
-canvas1.create_window(200, 140, window=entry1)
-
-
 def Scan():
     x1 = entry1.get()
     find_token(x1)
@@ -686,6 +443,23 @@ def Scan():
     # canvas1.create_window(200, 230, window=label4)
 
 
+
+#GUI
+root = tk.Tk()
+
+canvas1 = tk.Canvas(root, width=400, height=300, relief='raised')
+canvas1.pack()
+
+label1 = tk.Label(root, text='Scanner Phase')
+label1.config(font=('helvetica', 14))
+canvas1.create_window(200, 25, window=label1)
+
+label2 = tk.Label(root, text='Source code:')
+label2.config(font=('helvetica', 10))
+canvas1.create_window(200, 100, window=label2)
+
+entry1 = tk.Entry(root)
+canvas1.create_window(200, 140, window=entry1)
 button1 = tk.Button(text='Scan', command=Scan, bg='brown',
                     fg='white', font=('helvetica', 9, 'bold'))
 canvas1.create_window(200, 180, window=button1)

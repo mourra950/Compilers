@@ -1,0 +1,71 @@
+from pascaltokens import *
+import re
+def find_token(text):
+    arr = seperator(text)
+    
+    tokenizer(arr)
+
+
+def seperator(text):
+    splitters = [',', ':', ' ', ';', '+', '-', '/', '*', '<', '>', '=']
+    doublesplitters = [':=', '<=', '>=']
+    SplittedArray = []
+    tempArray = []
+    counter = len(text)
+    i = 0
+    while (i < counter):
+        # print(text[i])
+        if text[i] in splitters:
+            if text[i:i+2] in doublesplitters:
+                SplittedArray.append("".join(text[i:i+2]))
+                i += 1
+            else:
+                if tempArray:
+                    SplittedArray.append("".join(tempArray))
+                if text[i] != ' ':
+                    SplittedArray.append(text[i])
+                elif text[i] == ' ':
+                    while (text[i+1] == ' '):
+                        i += 1
+            tempArray = []
+        else:
+            tempArray.append(text[i])
+        i += 1
+    if tempArray:
+        SplittedArray.append("".join(tempArray))
+
+    return SplittedArray
+
+
+def tokenizer(T):
+    # Tokens = []  # to add tokens to list
+    for x in T:
+        x = x.upper()
+        if x in ReservedWords:
+            ap = token(x, ReservedWords[x])
+            Tokens.append(ap)
+        elif x in Operators:
+            ap = token(x, Operators[x])
+            Tokens.append(ap)
+        elif x in RelationOperators:
+            ap = token(x, RelationOperators[x])
+            Tokens.append(ap)
+        elif x in Group:
+            ap = token(x, Group[x])
+            Tokens.append(ap)
+        elif x in Comment:
+            ap = token(x, Comment[x])
+            Tokens.append(ap)
+        elif re.match("^[a-zA-Z][a-zA-Z0-9]*$", x):
+            ap = token(x, Token_type.Identifier)
+            Tokens.append(ap)
+        elif re.match("^[0-9].[0-9]$", x):
+            ap = token(x, Token_type.Real)
+            Tokens.append(ap)
+        elif re.match("^[0-9]*$", x):
+            ap = token(x, Token_type.Constant)
+            Tokens.append(ap)
+        else:
+            ap = token(x, Token_type.Error)
+            Tokens.append(ap)
+   
