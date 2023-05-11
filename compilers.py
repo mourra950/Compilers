@@ -8,11 +8,13 @@ from pascaltokens import *
 from pascaltokenizer import *
 from library import *
 from var import *
+
+
 def Parse():
     j = 0
     Children = []
     Header_dict = Header(j)
-    
+
     Children.append(Header_dict["node"])
     Decleration_dict = Decleration(Header_dict["index"])
     Children.append(Decleration_dict["node"])
@@ -24,7 +26,7 @@ def Parse():
 def ProgramName(indexPointer):
     Children = []
     output = dict()
-    
+
     out1 = Match(Token_type.Program, indexPointer)
     Children.append(out1["node"])
 
@@ -38,7 +40,6 @@ def ProgramName(indexPointer):
     output["node"] = Node
     output["index"] = out3["index"]
     return output
-
 
 
 def Header(indexPointer):
@@ -134,10 +135,6 @@ def constDeleration(indexPointer):
         return
 
 
-
-
-
-
 def Decleration(indexPointer):
     Children = []
     output = dict()
@@ -160,9 +157,6 @@ def Decleration(indexPointer):
     else:
         output["index"] = indexPointer
     return output
-
-
-
 
 
 def Scan():

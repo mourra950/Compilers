@@ -1,5 +1,7 @@
 from pascaltokenizer import *
 from pascaltokens import *
+
+
 def Match(tokenmatch, index):
     newindex = index+1
     output = dict()
@@ -11,12 +13,15 @@ def Match(tokenmatch, index):
         else:
             output["node"] = ["error"]
             output["index"] = index
-            errors.append("Syntax error : " +'token: "'+ Temp['Lex']+'" type: ' + str(tokenmatch))
+            errors.append("Syntax error : " + 'token: "' +
+                          Temp['Lex']+'" type: ' + str(tokenmatch))
         return output
     else:
         output["node"] = ["error"]
         output["index"] = newindex
         return output
+
+
 def DataType(indexPointer):
     Children = []
     output = dict()
