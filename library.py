@@ -55,4 +55,6 @@ def LibraryDash(indexPointer):
         output["index"] = out2["index"]
         return output
     else:
+        if errors:
+            errors.pop()
         return

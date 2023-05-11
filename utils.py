@@ -2,15 +2,18 @@ from pascaltokenizer import *
 from pascaltokens import *
 
 
-def Match(tokenmatch, index):
+def Match(tokenmatch, index,check=False):
     newindex = index+1
     output = dict()
+    
     if (index < len(Tokens)):
         Temp = Tokens[index].to_dict()
         if (Temp['token_type'] == tokenmatch):
             output["node"] = Temp['Lex']
             output["index"] = newindex
         else:
+            if check:
+                return
             output["node"] = ["error"]
             output["index"] = index
             errors.append("Syntax error : " + 'token: "' +
@@ -25,11 +28,11 @@ def Match(tokenmatch, index):
 def DataType(indexPointer):
     Children = []
     output = dict()
-    out1 = Match(Token_type.Constant, indexPointer)
-    out2 = Match(Token_type.Real, indexPointer)
-    out3 = Match(Token_type.Char, indexPointer)
-    out4 = Match(Token_type.Identifier, indexPointer)
-    out5 = Match(Token_type.Boolean, indexPointer)
+    out1 = Match(Token_type.Constant, indexPointer,True)
+    out2 = Match(Token_type.Real, indexPointer,True)
+    out3 = Match(Token_type.Char, indexPointer,True)
+    out4 = Match(Token_type.Identifier, indexPointer,True)
+    out5 = Match(Token_type.Boolean, indexPointer,True)
 
     if re.match("^[0-9]*$", str(out1["node"])):
         Children.append(out1["node"])

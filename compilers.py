@@ -88,6 +88,8 @@ def ConstNameDash(indexPointer):
         output["index"] = out4["index"]
         return output
     else:
+        if errors:
+            errors.pop()
         return
 
 
@@ -132,6 +134,8 @@ def constDeleration(indexPointer):
         output["index"] = out2["index"]
         return output
     else:
+        if errors:
+            errors.pop()
         return
 
 

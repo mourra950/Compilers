@@ -1,5 +1,20 @@
 from utils import *
 
+def VarName(indexPointer):
+    Children = []
+    output = dict()
+    out1 = Match(Token_type.Identifier, indexPointer)
+    Children.append(out1["node"])
+
+    out2 = VarNameDash(out1["index"])
+    if out2:
+        out1 = out2
+        Children.append(out2["node"])
+
+    Node = Tree("VarName", Children)
+    output["node"] = Node
+    output["index"] = out1["index"]
+    return output
 
 def VarNameDash(indexPointer):
     Children = []
@@ -21,24 +36,12 @@ def VarNameDash(indexPointer):
         output["index"] = out2["index"]
         return output
     else:
+        if errors:
+            errors.pop()
         return
 
 
-def VarName(indexPointer):
-    Children = []
-    output = dict()
-    out1 = Match(Token_type.Identifier, indexPointer)
-    Children.append(out1["node"])
 
-    out2 = VarNameDash(out1["index"])
-    if out2:
-        out1 = out2
-        Children.append(out2["node"])
-
-    Node = Tree("VarName", Children)
-    output["node"] = Node
-    output["index"] = out1["index"]
-    return output
 
 
 def varDecleration1Dash(indexPointer):              # CHECK CODE AGAIN
@@ -72,6 +75,8 @@ def varDecleration1Dash(indexPointer):              # CHECK CODE AGAIN
         output["index"] = out4["index"]
         return output
     else:
+        if errors:
+            errors.pop()
         return
 
 
@@ -117,4 +122,5 @@ def varDecleration(indexPointer):
         output["index"] = out2["index"]
         return output
     else:
+        errors.pop()
         return
