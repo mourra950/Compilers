@@ -38,7 +38,7 @@ def Library(indexPointer):
 def LibraryDash(indexPointer):
     Children = []
     output = dict()
-    out1 = Match(Token_type.Comma, indexPointer)
+    out1 = Match(Token_type.Comma, indexPointer, True)
     if (str(out1["node"]) == ','):
         Children.append(out1["node"])
 
@@ -55,6 +55,4 @@ def LibraryDash(indexPointer):
         output["index"] = out2["index"]
         return output
     else:
-        if errors:
-            errors.pop()
         return

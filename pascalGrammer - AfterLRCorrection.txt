@@ -1,4 +1,6 @@
- 	Main Program Division
+ Program sfafa; USES FEFWF, FWEFWF,FFEWFWF; Const eqqefqf = 23131; qeqefqqe = 2172193; VAR qwqwrqwr: 5768; qweqeqw, qweqweq1231w:132123;	
+
+Main Program Division
 1. program -> header declaration execution
 
 
@@ -20,7 +22,8 @@
 
 	Var Decleration
 11. varDecleration -> var varDecleration1 | ε
-12. varDecleration1 ->  varName : dataType ; varDecleration1'			
+12. varDecleration1 ->  varName : dataType ; varDecleration1'
+12.5. dataType -> constant | real | char | identifier | boolean			
 13. varDecleration1' ->  varName : dataType ; varDecleration1' | ε
 14. varName -> identifier varName'  								
 15. varName' -> , identifier  varName' | ε

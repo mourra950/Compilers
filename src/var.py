@@ -3,7 +3,7 @@ from utils import *
 def VarName(indexPointer):
     Children = []
     output = dict()
-    out1 = Match(Token_type.Identifier, indexPointer)
+    out1 = Match(Token_type.Identifier, indexPointer, True)
     Children.append(out1["node"])
 
     out2 = VarNameDash(out1["index"])
@@ -19,7 +19,7 @@ def VarName(indexPointer):
 def VarNameDash(indexPointer):
     Children = []
     output = dict()
-    out1 = Match(Token_type.Comma, indexPointer)
+    out1 = Match(Token_type.Comma, indexPointer, True)
     if str(out1["node"]) == ',':
         Children.append(out1["node"])
 
@@ -36,8 +36,6 @@ def VarNameDash(indexPointer):
         output["index"] = out2["index"]
         return output
     else:
-        if errors:
-            errors.pop()
         return
 
 
@@ -52,7 +50,7 @@ def varDecleration1Dash(indexPointer):              # CHECK CODE AGAIN
     # tempString = str(out1["node"]).replace("(VarName", "")
     # tempString = tempString.replace(")", "")
     # tempString = tempString.replace(" ", "")
-    print(re.match("^[a-zA-Z][a-zA-Z0-9]*$", tempString), tempString)
+    print(re.match("^[a-zA-Z][a-zA-Z0-9]*$", tempString,), tempString)
     if str(out1["node"]) != "(VarName ['error'])":
         Children.append(out1["node"])
 
@@ -75,8 +73,6 @@ def varDecleration1Dash(indexPointer):              # CHECK CODE AGAIN
         output["index"] = out4["index"]
         return output
     else:
-        if errors:
-            errors.pop()
         return
 
 
@@ -109,7 +105,7 @@ def varDecleration1(indexPointer):
 def varDecleration(indexPointer):
     Children = []
     output = dict()
-    out1 = Match(Token_type.Var, indexPointer)
+    out1 = Match(Token_type.Var, indexPointer, True)
 
     if str(out1["node"]) == 'VAR':
         Children.append(out1["node"])
@@ -122,5 +118,4 @@ def varDecleration(indexPointer):
         output["index"] = out2["index"]
         return output
     else:
-        errors.pop()
         return

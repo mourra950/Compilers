@@ -14,7 +14,6 @@ def Parse():
     j = 0
     Children = []
     Header_dict = Header(j)
-
     Children.append(Header_dict["node"])
     Decleration_dict = Decleration(Header_dict["index"])
     Children.append(Decleration_dict["node"])
@@ -64,7 +63,7 @@ def Header(indexPointer):
 def ConstNameDash(indexPointer):
     Children = []
     output = dict()
-    out1 = Match(Token_type.Identifier, indexPointer)
+    out1 = Match(Token_type.Identifier, indexPointer, True)
 
     if re.match("^[a-zA-Z][a-zA-Z0-9]*$", str(out1["node"])):
         Children.append(out1["node"])
@@ -88,8 +87,6 @@ def ConstNameDash(indexPointer):
         output["index"] = out4["index"]
         return output
     else:
-        if errors:
-            errors.pop()
         return
 
 

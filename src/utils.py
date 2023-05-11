@@ -12,12 +12,11 @@ def Match(tokenmatch, index,check=False):
             output["node"] = Temp['Lex']
             output["index"] = newindex
         else:
-            if check:
-                return
             output["node"] = ["error"]
             output["index"] = index
-            errors.append("Syntax error : " + 'token: "' +
-                          Temp['Lex']+'" type: ' + str(tokenmatch))
+            if not check:
+                errors.append("Syntax error : " + 'token: "' +
+                        Temp['Lex']+'" type: ' + str(tokenmatch))
         return output
     else:
         output["node"] = ["error"]
