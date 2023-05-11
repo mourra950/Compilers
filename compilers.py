@@ -6,8 +6,8 @@ import pandastable as pt
 from nltk.tree import *
 from pascaltokens import *
 from pascaltokenizer import *
-
-
+from library import *
+from var import *
 def Parse():
     j = 0
     Children = []
@@ -39,62 +39,6 @@ def ProgramName(indexPointer):
     output["index"] = out3["index"]
     return output
 
-
-def LibrarySection(indexPointer):
-    Children = []
-    output = dict()
-    out1 = Match(Token_type.Uses, indexPointer)
-    Children.append(out1["node"])
-
-    out2 = Library(out1["index"])
-    Children.append(out2["node"])
-
-    out3 = Match(Token_type.Semicolon, out2["index"])
-    Children.append(out3["node"])
-
-    Node = Tree("LibrarySection", Children)
-    output["node"] = Node
-    output["index"] = out3["index"]
-    return output
-
-
-def Library(indexPointer):
-    Children = []
-    output = dict()
-    out1 = Match(Token_type.Identifier, indexPointer)
-    Children.append(out1["node"])
-
-    out2 = LibraryDash(out1["index"])
-    if out2:
-        Children.append(out2["node"])
-
-    Node = Tree("Library", Children)
-    output["node"] = Node
-    output["index"] = out2["index"]
-    return output
-
-
-def LibraryDash(indexPointer):
-    Children = []
-    output = dict()
-    out1 = Match(Token_type.Comma, indexPointer)
-    if (str(out1["node"]) == ','):
-        Children.append(out1["node"])
-
-        out2 = Match(Token_type.Identifier, out1["index"])
-        Children.append(out2["node"])
-
-        out3 = LibraryDash(out2["index"])
-        if out3:
-            out2 = out3
-            Children.append(out3["node"])
-
-        Node = Tree("LibraryDash", Children)
-        output["node"] = Node
-        output["index"] = out2["index"]
-        return output
-    else:
-        return
 
 
 def Header(indexPointer):
@@ -190,164 +134,8 @@ def constDeleration(indexPointer):
         return
 
 
-def DataType(indexPointer):
-    Children = []
-    output = dict()
-    out1 = Match(Token_type.Constant, indexPointer)
-    out2 = Match(Token_type.Real, indexPointer)
-    out3 = Match(Token_type.Char, indexPointer)
-    out4 = Match(Token_type.Identifier, indexPointer)
-    out5 = Match(Token_type.Boolean, indexPointer)
-
-    if re.match("^[0-9]*$", str(out1["node"])):
-        Children.append(out1["node"])
-        Node = Tree("DataType", Children)
-        output["node"] = Node
-        output["index"] = out1["index"]
-
-    elif re.match("^[0-9].[0-9]$", str(out2["node"])):
-        Children.append(out2["node"])
-        Node = Tree("DataType", Children)
-        output["node"] = Node
-        output["index"] = out2["index"]
-
-    elif re.match("^[a-zA-Z]$", str(out3["node"])):
-        Children.append(out3["node"])
-        Node = Tree("DataType", Children)
-        output["node"] = Node
-        output["index"] = out3["index"]
-
-    elif re.match("^[a-zA-Z][a-zA-Z0-9]*$", str(out4["node"])):
-        Children.append(out4["node"])
-        Node = Tree("DataType", Children)
-        output["node"] = Node
-        output["index"] = out4["index"]
-
-    elif re.match("^[TRUE | FALSE]$", str(out5["node"])):
-        Children.append(out5["node"])
-        Node = Tree("DataType", Children)
-        output["node"] = Node
-        output["index"] = out5["index"]
-    return output
 
 
-def VarNameDash(indexPointer):
-    Children = []
-    output = dict()
-    out1 = Match(Token_type.Comma, indexPointer)
-    if str(out1["node"]) == ',':
-        Children.append(out1["node"])
-
-        out2 = Match(Token_type.Identifier, out1["index"])
-        Children.append(out2["node"])
-
-        out3 = VarNameDash(out2["index"])
-        if out3:
-            out2 = out3
-            Children.append(out3["node"])
-
-        Node = Tree("VarNameDash", Children)
-        output["node"] = Node
-        output["index"] = out2["index"]
-        return output
-    else:
-        return
-
-
-def VarName(indexPointer):
-    Children = []
-    output = dict()
-    out1 = Match(Token_type.Identifier, indexPointer)
-    Children.append(out1["node"])
-
-    out2 = VarNameDash(out1["index"])
-    if out2:
-        out1 = out2
-        Children.append(out2["node"])
-
-    Node = Tree("VarName", Children)
-    output["node"] = Node
-    output["index"] = out1["index"]
-    return output
-
-
-def varDecleration1Dash(indexPointer):              # CHECK CODE AGAIN
-    Children = []
-    output = dict()
-    out1 = VarName(indexPointer)
-    tempString = str(out1["node"])
-    # tempString = str(out1["node"]).replace("(VarName", "")
-    # tempString = tempString.replace(")", "")
-    # tempString = tempString.replace(" ", "")
-    print(re.match("^[a-zA-Z][a-zA-Z0-9]*$", tempString), tempString)
-    if str(out1["node"]) != "(VarName ['error'])":
-        Children.append(out1["node"])
-
-        out2 = Match(Token_type.Colon, out1["index"])
-        Children.append(out2["node"])
-
-        out3 = DataType(out2["index"])
-        Children.append(out3["node"])
-
-        out4 = Match(Token_type.Semicolon, out3["index"])
-        Children.append(out4["node"])
-
-        out5 = varDecleration1Dash(out4["index"])
-        if out5:
-            out4 = out5
-            Children.append(out5["node"])
-
-        Node = Tree("varDecleration1Dash", Children)
-        output["node"] = Node
-        output["index"] = out4["index"]
-        return output
-    else:
-        return
-
-
-def varDecleration1(indexPointer):
-    Children = []
-    output = dict()
-    out1 = VarName(indexPointer)
-    Children.append(out1["node"])
-
-    out2 = Match(Token_type.Colon, out1["index"])
-    Children.append(out2["node"])
-
-    out3 = DataType(out2["index"])
-    Children.append(out3["node"])
-
-    out4 = Match(Token_type.Semicolon, out3["index"])
-    Children.append(out4["node"])
-
-    out5 = varDecleration1Dash(out4["index"])
-    if out5:
-        out4 = out5
-        Children.append(out5["node"])
-
-    Node = Tree("varDecleration1", Children)
-    output["node"] = Node
-    output["index"] = out4["index"]
-    return output
-
-
-def varDecleration(indexPointer):
-    Children = []
-    output = dict()
-    out1 = Match(Token_type.Var, indexPointer)
-
-    if str(out1["node"]) == 'VAR':
-        Children.append(out1["node"])
-
-        out2 = varDecleration1(out1["index"])
-        Children.append(out2["node"])
-
-        Node = Tree("varDecleration", Children)
-        output["node"] = Node
-        output["index"] = out2["index"]
-        return output
-    else:
-        return
 
 
 def Decleration(indexPointer):
@@ -374,23 +162,7 @@ def Decleration(indexPointer):
     return output
 
 
-def Match(tokenmatch, index):
-    newindex = index+1
-    output = dict()
-    if (index < len(Tokens)):
-        Temp = Tokens[index].to_dict()
-        if (Temp['token_type'] == tokenmatch):
-            output["node"] = Temp['Lex']
-            output["index"] = newindex
-        else:
-            output["node"] = ["error"]
-            output["index"] = index
-            errors.append("Syntax error : " +'token: "'+ Temp['Lex']+'" type: ' + str(tokenmatch))
-        return output
-    else:
-        output["node"] = ["error"]
-        output["index"] = newindex
-        return output
+
 
 
 def Scan():
