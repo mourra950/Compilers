@@ -29,7 +29,7 @@ Main Program Division
 15. varName' -> , identifier  varName' | ε
 	
 	Function Decleration
-16. functionDecleration -> function identifier arguments : dataType ; funcAndProcdBody functionDecleration' | functionDecleration' 
+16. functionDecleration -> function identifier arguments : dataType ; funcAndProcdBody functionDecleration' | functionDecleration' | ε
 17. functionDecleration' -> function identifier arguments : dataType ; funcAndProcdBody functionDecleration' | ε
 18. arguments -> ( argument ) 
 19. argument -> finalArgument argument' | argument'		
