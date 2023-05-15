@@ -63,11 +63,14 @@ Main Program Division
 28. execution -> begin statements end .
 
 	Statements Decleraion Cont.d
-29. writeBody -> writeBody , writeArgument | writeArgument
+29. WriteBody -> writeArgument writeBodyDash
+29.5. writeBodyDash -> , writeArgument writeBodeyDash | ε
 30. writeArgument -> str | identifier
 31. condition -> Expresion RelOp Expression
-32. Expresion -> Expresion AddOp Term | Term
-33. Term -> Term MultOp Factor | Factor
+32. Expresion -> Term ExpressionDash
+32.5 ExpresionDash -> AddOp Term ExpressionDash | ε
+33. Term -> Factor TermDash
+33.5 TermDash -> MultOp Factor TermDash | ε
 33. Factor -> identifier | constant   				--Constant means a number
 34. RelOp -> <= | >= | = | > | <
 35. AddOp -> + | -
