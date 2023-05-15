@@ -19,7 +19,7 @@ def funcAndProcdBody(indexPointer):
     out4 = Match(Token_type.Semicolon, out3["index"])
     Children.append(out4["node"])
 
-    Node = Tree("Header", Children)
+    Node = Tree("funcAndProcdBody", Children)
     output["node"] = Node
     output["index"] = out4["index"]
     return output
@@ -38,7 +38,7 @@ def statements(indexPointer):
         tempIndex = out2
         Children.append(out2["node"])
 
-    Node = Tree("Header", Children)
+    Node = Tree("statements", Children)
     output["node"] = Node
     output["index"] = tempIndex["index"]
     return output
@@ -57,7 +57,7 @@ def statementsDash(indexPointer):
         out3 = statementsDash(out2["index"])
         Children.append(out3["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("statementsDash", Children)
         output["node"] = Node
         output["index"] = out3["index"]
         return output
@@ -191,7 +191,7 @@ def statement(indexPointer):
         match2 = Match(Token_type.Assignment, out8["index"])
         Children.append(match2["node"])
 
-        match3 = expression(match2["index"])
+        match3 = Expression(match2["index"])
         Children.append(match3["node"])
         tempIndex = match3
 
@@ -203,7 +203,7 @@ def statement(indexPointer):
         Children.append(out10["node"])
         tempIndex = out10["index"]
 
-    Node = Tree("Header", Children)
+    Node = Tree("statement", Children)
     output["node"] = Node
     output["index"] = tempIndex["index"]
     return output

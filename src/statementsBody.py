@@ -12,7 +12,7 @@ def WriteBody(indexPointer):
     out2 = WriteBodyDash(out1["index"])
     Children.append(out2["node"])
 
-    Node = Tree("Header", Children)
+    Node = Tree("WriteBody", Children)
     output["node"] = Node
     output["index"] = out2["index"]
     return output
@@ -34,7 +34,7 @@ def WriteBodyDash(indexPointer):
             tempIndex = out3
             Children.append(out2["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("WriteBodyDash", Children)
         output["node"] = Node
         output["index"] = tempIndex["index"]
         return output
@@ -50,21 +50,21 @@ def WriteArgument(indexPointer):
     out2 = Match(Token_type.Identifier, indexPointer, True)
     if re.match('^"[A-Za-z]*[0-9]*"$', str(out1["node"])):
         Children.append(out1["node"])
-        Node = Tree("Header", Children)
+        Node = Tree("WriteArgument", Children)
         output["node"] = Node
         output["index"] = out1["index"]
         return output
 
     elif re.match("^[a-zA-Z][a-zA-Z0-9]*$", str(out2["node"])):
         Children.append(out2["node"])
-        Node = Tree("Header", Children)
+        Node = Tree("WriteArgument", Children)
         output["node"] = Node
         output["index"] = out2["index"]
         return output
 
     else:
         Children.append(["error"])
-        Node = Tree("DataType", Children)
+        Node = Tree("WriteArgument", Children)
         output["node"] = Node
         output["index"] = indexPointer + 1
         return output
@@ -86,7 +86,7 @@ def ExpressionDash(indexPointer):
             tempIndex = out3
             Children.append(out3["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("ExpressionDash", Children)
         output["node"] = Node
         output["index"] = tempIndex["index"]
         return output
@@ -106,12 +106,12 @@ def Expression(indexPointer):
         tempIndex = out2
         Children.append(out2["node"])
 
-    Node = Tree("Header", Children)
+    Node = Tree("Expression", Children)
     output["node"] = Node
     output["index"] = tempIndex["index"]
     return output
  
-def condition(indexPointer):
+def Condition(indexPointer):
     Children = []
     output = dict()
 
@@ -124,7 +124,7 @@ def condition(indexPointer):
     out3 = Expression(out2["index"])
     Children.append(out3["node"])
 
-    Node = Tree("Header", Children)
+    Node = Tree("Condition", Children)
     output["node"] = Node
     output["index"] = out3["index"]
     return output
@@ -142,7 +142,7 @@ def Term(indexPointer):
         tempIndex = out2
         Children.append(out2["node"])
 
-    Node = Tree("Header", Children)
+    Node = Tree("Term", Children)
     output["node"] = Node
     output["index"] = tempIndex["index"]
     return output
@@ -164,7 +164,7 @@ def TermDash(indexPointer):
             tempIndex = out3
             Children.append(out3["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("TermDash", Children)
         output["node"] = Node
         output["index"] = tempIndex["index"]
         return output
@@ -179,14 +179,14 @@ def Factor(indexPointer):
     out1 = Match(Token_type.Identifier, indexPointer)
     if re.match("^[a-zA-Z][a-zA-Z0-9]*$", str(out1["node"])):
         Children.append(out1["node"])
-        Node = Tree("Header", Children)
+        Node = Tree("Factor", Children)
         output["node"] = Node
         output["index"] = out1["index"]
         return output
     else:
         out2 = Constant(indexPointer)
         Children.append(out2["node"])
-        Node = Tree("Header", Children)
+        Node = Tree("Factor", Children)
         output["node"] = Node
         output["index"] = out2["index"]
         return output
@@ -221,7 +221,7 @@ def RelOp(indexPointer):
         Children.append(out5["node"])
         tempIndex = out5
         
-    Node = Tree("Header", Children)
+    Node = Tree("RelOp", Children)
     output["node"] = Node
     output["index"] = tempIndex["index"]
     return output
@@ -242,7 +242,7 @@ def AddOp(indexPointer):
         Children.append(out2["node"])
         tempIndex = out2
         
-    Node = Tree("Header", Children)
+    Node = Tree("AddOp", Children)
     output["node"] = Node
     output["index"] = tempIndex["index"]
     return output
@@ -263,12 +263,12 @@ def MultOp(indexPointer):
         Children.append(out2["node"])
         tempIndex = out2
         
-    Node = Tree("Header", Children)
+    Node = Tree("MultOp", Children)
     output["node"] = Node
     output["index"] = tempIndex["index"]
     return output
 
-def ElseCaluse(indexPointer):
+def ElseClause(indexPointer):
     Children = []
     output = dict()
 
@@ -279,7 +279,7 @@ def ElseCaluse(indexPointer):
         out2 = statements(out1["index"])
         Children.append(out2["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("ElseClause", Children)
         output["node"] = Node
         output["index"] = out2["index"]
         return output
@@ -295,21 +295,21 @@ def Constant(indexPointer):
     out2 = Match(Token_type.Real, indexPointer)
     if re.match("^[0-9]*$", str(out1["node"])):
         Children.append(out1["node"])
-        Node = Tree("Header", Children)
+        Node = Tree("Constant", Children)
         output["node"] = Node
         output["index"] = out1["index"]
         return output
 
     elif re.match( "^[0-9].[0-9]$" , str(out2["node"])):
         Children.append(out2["node"])
-        Node = Tree("Header", Children)
+        Node = Tree("Constant", Children)
         output["node"] = Node
         output["index"] = out2["index"]
         return output
 
     else:
         Children.append(["error"])
-        Node = Tree("DataType", Children)
+        Node = Tree("Constant", Children)
         output["node"] = Node
         output["index"] = indexPointer + 1
         return output

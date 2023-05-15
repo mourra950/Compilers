@@ -65,7 +65,7 @@ Main Program Division
 	Statements Decleraion Cont.d
 29. WriteBody -> writeArgument writeBodyDash
 29.5. writeBodyDash -> , writeArgument writeBodeyDash | ε
-30. writeArgument -> str | identifier
+30. WriteArgument -> str | identifier
 31. condition -> Expresion RelOp Expression
 32. Expresion -> Term ExpressionDash
 32.5 ExpresionDash -> AddOp Term ExpressionDash | ε
@@ -76,3 +76,4 @@ Main Program Division
 35. AddOp -> + | -
 36. MultOp -> * | /
 37. ElseClause -> else statements | ε
+38. Constant-> real | integer

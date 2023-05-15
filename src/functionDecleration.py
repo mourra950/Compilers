@@ -1,6 +1,7 @@
 from utils import *
 from functionDecleration import *
 from statements import *
+from compilers import *
 
 def finalArgument(indexPointer):
     Children = []
@@ -15,7 +16,7 @@ def finalArgument(indexPointer):
     out3 = DataType(out2["index"])
     Children.append(out3["node"])
 
-    Node = Tree("Header", Children)
+    Node = Tree("finalArgument", Children)
     output["node"] = Node
     output["index"] = out3["index"]
     return output
@@ -38,7 +39,7 @@ def argumentDash(indexPointer):
             tempIndex = out3
             Children.append(out3["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("argumentDash", Children)
         output["node"] = Node
         output["index"] = tempIndex["index"]
         return output
@@ -63,7 +64,7 @@ def argument(indexPointer):
         out2 = argumentDash(indexPointer)
         Children.append(out2["node"])
 
-    Node = Tree("Header", Children)
+    Node = Tree("argument", Children)
     output["node"] = Node
     output["index"] = out2["index"]
     return output
@@ -82,7 +83,7 @@ def arguments(indexPointer):
     out3 = Match(Token_type.CloseGroup, out2["index"])
     Children.append(out3["node"])
 
-    Node = Tree("Header", Children)
+    Node = Tree("arguments", Children)
     output["node"] = Node
     output["index"] = out3["index"]
     return output
@@ -120,7 +121,7 @@ def functionDeclerationDash(indexPointer):
             tempIndex = out8
             Children.append(out8["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("functionDeclerationDash", Children)
         output["node"] = Node
         output["index"] = tempIndex["index"]
         return output
@@ -161,7 +162,7 @@ def functionDecleration(indexPointer):
             tempIndex = out8
             Children.append(out8["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("functionDecleration", Children)
         output["node"] = Node
         output["index"] = tempIndex["index"]
         return output
@@ -170,7 +171,7 @@ def functionDecleration(indexPointer):
         out1 =functionDeclerationDash(indexPointer)
         Children.append(out1["node"])
 
-        Node = Tree("Header", Children)
+        Node = Tree("functionDecleration", Children)
         output["node"] = Node
         output["index"] = out1["index"]
         return output

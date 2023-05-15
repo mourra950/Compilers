@@ -9,6 +9,8 @@ from pascaltokenizer import *
 from library import *
 from var import *
 from functionDecleration import *
+from statements import *
+from statementsBody import *
 
 
 def Parse():
@@ -160,10 +162,10 @@ def Decleration(indexPointer):
         tempIndex = out2["index"]
         Children.append(out2["node"])
            
-    # out3 = functionDecleration(tempIndex)
+    out3 = functionDecleration(tempIndex)
 
-    # if out3:
-    #     tempIndex = out3["index"]
+    if out3:
+        tempIndex = out3["index"]
 
     # out4 = procedureDecleration(tempIndex)
 
