@@ -66,6 +66,11 @@ class Token_type(Enum):
     Char = 60
     Boolean = 61
     Error = 62
+    Read = 63
+    ReadLn = 64
+    Write = 65
+    WriteLn = 66
+    Integer = 67
 
 
 class token:
@@ -124,6 +129,10 @@ ReservedWords = {                       # We Can add global?
     ":": Token_type.Colon,
     ":=": Token_type.Assignment,
     "USES": Token_type.Uses,
+    "READ": Token_type.Read,
+    "READLN": Token_type.ReadLn,
+    "WRITE": Token_type.Write,
+    "WRITELN": Token_type.WriteLn,
     # "IDENTIFIER": Token_type.Identifier,
     # "CONSTANT" : Token_type.Constant,
     # "REAL" : Token_type.Real,

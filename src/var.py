@@ -46,11 +46,7 @@ def varDecleration1Dash(indexPointer):              # CHECK CODE AGAIN
     Children = []
     output = dict()
     out1 = VarName(indexPointer)
-    tempString = str(out1["node"])
-    # tempString = str(out1["node"]).replace("(VarName", "")
-    # tempString = tempString.replace(")", "")
-    # tempString = tempString.replace(" ", "")
-    print(re.match("^[a-zA-Z][a-zA-Z0-9]*$", tempString,), tempString)
+
     if str(out1["node"]) != "(VarName ['error'])":
         Children.append(out1["node"])
 

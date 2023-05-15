@@ -41,7 +41,8 @@ Main Program Division
 23. funcAndProcdBody -> begin statements end ;
 	
 	Statements Decleration
-24. statements -> statements ; statement | statement
+24. statements -> statement statementsDash 
+24.5. statementsDash -> ; statement statementsDash | ε 
 25. statement -> read ( identifier ) |
 		     readln ( identifier ) |
 		     write ( writeArgument ) |
