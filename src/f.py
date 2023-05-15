@@ -1,7 +1,6 @@
 from utils import *
-from functionDecleration import *
 from statements import *
-from compilers import *
+
 
 def finalArgument(indexPointer):
     Children = []
@@ -57,16 +56,21 @@ def argument(indexPointer):
     if str(out1["node"]) != "(finalArgument ['error'])":
         Children.append(out1["node"])
 
+        tempString = out1
         out2 = argumentDash(out1["index"])
-        Children.append(out2["node"])
+        if out2:
+            tempString = out2
+            Children.append(out2["node"])
         
     else:
-        out2 = argumentDash(indexPointer)
-        Children.append(out2["node"])
-
+        tempString = out1
+        out2 = argumentDash(out1["index"])
+        if out2:
+            tempString = out2
+            Children.append(out2["node"])
     Node = Tree("argument", Children)
     output["node"] = Node
-    output["index"] = out2["index"]
+    output["index"] = tempString["index"]
     return output
 
 
@@ -130,7 +134,8 @@ def functionDeclerationDash(indexPointer):
         return
 
 
-def functionDecleration(indexPointer):
+
+def FunctionDelaration(indexPointer):
     Children = []
     output = dict()
     
@@ -175,6 +180,3 @@ def functionDecleration(indexPointer):
         output["node"] = Node
         output["index"] = out1["index"]
         return output
-
-
-    

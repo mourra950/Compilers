@@ -78,7 +78,7 @@ def statement(indexPointer):
     out7 = Match(Token_type.Repeat, indexPointer, True)
     out8 = Match(Token_type.Identifier, indexPointer, True)
     out9 = varDecleration(indexPointer)
-    out10 = constDeleration(indexPointer)
+    out10 = constDecleration(indexPointer)
     if str(out1["node"]) == 'READ':
         Children.append(out1["node"])
 

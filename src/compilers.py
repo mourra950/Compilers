@@ -8,7 +8,7 @@ from pascaltokens import *
 from pascaltokenizer import *
 from library import *
 from var import *
-from functionDecleration import *
+from f import *
 from statements import *
 from statementsBody import *
 
@@ -119,7 +119,7 @@ def ConstName(indexPointer):
     return output
 
 
-def constDeleration(indexPointer):
+def constDecleration(indexPointer):
     Children = []
     output = dict()
     out1 = Match(Token_type.Const, indexPointer)
@@ -147,7 +147,7 @@ def Decleration(indexPointer):
     Children = []
     output = dict()
 
-    out1 = constDeleration(indexPointer)
+    out1 = constDecleration(indexPointer)
     
 
     outTemp = {}
@@ -162,7 +162,7 @@ def Decleration(indexPointer):
         tempIndex = out2["index"]
         Children.append(out2["node"])
            
-    out3 = functionDecleration(tempIndex)
+    out3 = FunctionDelaration(tempIndex)
 
     if out3:
         tempIndex = out3["index"]
@@ -239,22 +239,24 @@ def Scan():
 
 
 # GUI
-root = tk.Tk()
+if __name__ == "__main__":
 
-canvas1 = tk.Canvas(root, width=400, height=300, relief='raised')
-canvas1.pack()
+    root = tk.Tk()
 
-label1 = tk.Label(root, text='Scanner Phase')
-label1.config(font=('helvetica', 14))
-canvas1.create_window(200, 25, window=label1)
+    canvas1 = tk.Canvas(root, width=400, height=300, relief='raised')
+    canvas1.pack()
 
-label2 = tk.Label(root, text='Source code:')
-label2.config(font=('helvetica', 10))
-canvas1.create_window(200, 100, window=label2)
+    label1 = tk.Label(root, text='Scanner Phase')
+    label1.config(font=('helvetica', 14))
+    canvas1.create_window(200, 25, window=label1)
 
-entry1 = tk.Entry(root)
-canvas1.create_window(200, 140, window=entry1)
-button1 = tk.Button(text='Scan', command=Scan, bg='brown',
-                    fg='white', font=('helvetica', 9, 'bold'))
-canvas1.create_window(200, 180, window=button1)
-root.mainloop()
+    label2 = tk.Label(root, text='Source code:')
+    label2.config(font=('helvetica', 10))
+    canvas1.create_window(200, 100, window=label2)
+
+    entry1 = tk.Entry(root)
+    canvas1.create_window(200, 140, window=entry1)
+    button1 = tk.Button(text='Scan', command=Scan, bg='brown',
+                        fg='white', font=('helvetica', 9, 'bold'))
+    canvas1.create_window(200, 180, window=button1)
+    root.mainloop()
