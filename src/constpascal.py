@@ -1,5 +1,5 @@
 from utils import *
-
+from statementsBody import *
 
 def constDecleration(indexPointer):
     Children = []
@@ -30,7 +30,7 @@ def ConstName(indexPointer):
     out2 = Match(Token_type.Equal, out1["index"])
     Children.append(out2["node"])
 
-    out3 = Match(Token_type.Constant, out2["index"])
+    out3 = Constant(out2["index"])
     Children.append(out3["node"])
 
     out4 = Match(Token_type.Semicolon, out3["index"])
@@ -58,7 +58,7 @@ def ConstNameDash(indexPointer):
         out2 = Match(Token_type.Equal, out1["index"])
         Children.append(out2["node"])
 
-        out3 = Match(Token_type.Constant, out2["index"])
+        out3 = Constant(out2["index"])
         Children.append(out3["node"])
 
         out4 = Match(Token_type.Semicolon, out3["index"])

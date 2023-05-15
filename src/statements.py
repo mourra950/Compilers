@@ -78,7 +78,7 @@ def statement(indexPointer):
     out8 = Match(Token_type.Identifier, indexPointer, True)
     out9 = varDecleration(indexPointer)
     out10 = constDecleration(indexPointer)
-    print(str(out9["node"]))
+    tempIndex = indexPointer
     if str(out1["node"]) == 'READ':
         Children.append(out1["node"])
 
@@ -91,6 +91,10 @@ def statement(indexPointer):
         match4 = Match(Token_type.CloseGroup, match3["index"])
         Children.append(match4["node"])
         tempIndex = match4
+        Node = Tree("statement", Children)
+        output["node"] = Node
+        output["index"] = tempIndex["index"]
+        return output
 
     elif str(out2["node"]) == 'READLN':
         Children.append(out2["node"])
@@ -104,6 +108,10 @@ def statement(indexPointer):
         match4 = Match(Token_type.CloseGroup, match3["index"])
         Children.append(match4["node"])
         tempIndex = match4
+        Node = Tree("statement", Children)
+        output["node"] = Node
+        output["index"] = tempIndex["index"]
+        return output
 
     elif str(out3["node"]) == 'WRITE':
         Children.append(out3["node"])
@@ -117,6 +125,10 @@ def statement(indexPointer):
         match4 = Match(Token_type.CloseGroup, match3["index"])
         Children.append(match4["node"])
         tempIndex = match4
+        Node = Tree("statement", Children)
+        output["node"] = Node
+        output["index"] = tempIndex["index"]
+        return output
 
     elif str(out4["node"]) == 'WRITELN':
         Children.append(out4["node"])
@@ -130,6 +142,10 @@ def statement(indexPointer):
         match4 = Match(Token_type.CloseGroup, match3["index"])
         Children.append(match4["node"])
         tempIndex = match4
+        Node = Tree("statement", Children)
+        output["node"] = Node
+        output["index"] = tempIndex["index"]
+        return output
 
     elif str(out5["node"]) == 'IF':
         Children.append(out5["node"])
@@ -146,6 +162,10 @@ def statement(indexPointer):
         match5 = ElseClause(match4["index"])
         Children.append(match5["node"])
         tempIndex = match5
+        Node = Tree("statement", Children)
+        output["node"] = Node
+        output["index"] = tempIndex["index"]
+        return output
 
     elif str(out6["node"]) == 'FOR':
         Children.append(out6["node"])
@@ -171,6 +191,10 @@ def statement(indexPointer):
         match8 = statements(match7["index"])
         Children.append(match8["node"])
         tempIndex = match8
+        Node = Tree("statement", Children)
+        output["node"] = Node
+        output["index"] = tempIndex["index"]
+        return output
 
     elif str(out7["node"]) == 'REPEAT':
         Children.append(out7["node"])
@@ -184,6 +208,10 @@ def statement(indexPointer):
         match4 = Condition(match3["index"])
         Children.append(match4["node"])
         tempIndex = match4
+        Node = Tree("statement", Children)
+        output["node"] = Node
+        output["index"] = tempIndex["index"]
+        return output
 
     elif re.match("^[a-zA-Z][a-zA-Z0-9]*$", str(out8["node"])):
         Children.append(out8["node"])
@@ -194,18 +222,33 @@ def statement(indexPointer):
         match3 = Expression(match2["index"])
         Children.append(match3["node"])
         tempIndex = match3
+        Node = Tree("statement", Children)
+        output["node"] = Node
+        output["index"] = tempIndex["index"]
+        return output
 
-    elif str(out9["node"]) != "(varDecleration ['error'])":
-        Children.append(out9["node"])
-        tempIndex = out9["index"]
+    elif out9:
+        if str(out9["node"]) != "(varDecleration ['error'])":
+            Children.append(out9["node"])
+            tempIndex = out9
+            Node = Tree("statement", Children)
+            output["node"] = Node
+            output["index"] = tempIndex["index"]
+            return output
 
-    elif str(out10["node"]) != "(constDeleration ['error'])":
-        Children.append(out10["node"])
-        tempIndex = out10["index"]
+    elif out10:
+        if str(out10["node"]) != "(constDeleration ['error'])":
+            Children.append(out10["node"])
+            tempIndex = out10
+            Node = Tree("statement", Children)
+            output["node"] = Node
+            output["index"] = tempIndex["index"]
+            return output
 
-    Node = Tree("statement", Children)
-    output["node"] = Node
-    output["index"] = tempIndex["index"]
-    return output
+    else:
+        Node = Tree("statement", Children)
+        output["node"] = "[error]"
+        output["index"] = indexPointer + 1
+        return output
 
 

@@ -98,7 +98,7 @@ def functionDeclerationDash(indexPointer):
     output = dict()
     
     out1 = Match(Token_type.Function, indexPointer, True)
-    if out1:
+    if out1["node"] == "FUNCTION":
         Children.append(out1["node"])
 
         out2 = Match(Token_type.Identifier, out1["index"])
@@ -140,7 +140,8 @@ def FunctionDelaration(indexPointer):
     output = dict()
     
     out1 = Match(Token_type.Function, indexPointer, True)
-    if out1:
+    out1Temp =functionDeclerationDash(indexPointer)
+    if out1["node"] == "FUNCTION":
         Children.append(out1["node"])
 
         out2 = Match(Token_type.Identifier, out1["index"])
@@ -172,11 +173,14 @@ def FunctionDelaration(indexPointer):
         output["index"] = tempIndex["index"]
         return output
 
-    else:
-        out1 =functionDeclerationDash(indexPointer)
-        Children.append(out1["node"])
+    elif out1Temp:
+        if str(out1Temp["node"]) != "(functionDeclerationDash ['error'])":
+            Children.append(out1["node"])
 
-        Node = Tree("functionDecleration", Children)
-        output["node"] = Node
-        output["index"] = out1["index"]
-        return output
+            Node = Tree("functionDecleration", Children)
+            output["node"] = Node
+            output["index"] = out1["index"]
+            return output
+    
+    else:
+        return
