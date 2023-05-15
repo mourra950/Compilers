@@ -14,8 +14,19 @@ def seperator(text):
     counter = len(text)
     i = 0
     while (i < counter):
-        # print(text[i])
-        if text[i] in splitters:
+        if text[i]== '"':
+            if tempArray:
+                SplittedArray.append("".join(tempArray))
+                tempArray = []
+            tempArray.append(text[i])
+            i+=1
+            while text[i]!='"' and i<counter:
+                tempArray.append(text[i])
+                i+=1
+            tempArray.append(text[i])
+            SplittedArray.append("".join(tempArray))
+            tempArray = []
+        elif text[i] in splitters:
             if text[i:i+2] in doublesplitters:
                 SplittedArray.append("".join(text[i:i+2]))
                 i += 1
