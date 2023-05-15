@@ -62,4 +62,11 @@ def DataType(indexPointer):
         Node = Tree("DataType", Children)
         output["node"] = Node
         output["index"] = out5["index"]
+
+    else:
+        Children.append(["error"])
+        Node = Tree("DataType", Children)
+        output["node"] = Node
+        output["index"] = indexPointer + 1
+    
     return output

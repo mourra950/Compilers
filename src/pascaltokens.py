@@ -65,6 +65,7 @@ class Token_type(Enum):
     Real = 59
     Char = 60
     Boolean = 61
+    Error = 62
 
 
 class token:

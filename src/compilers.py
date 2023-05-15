@@ -8,6 +8,7 @@ from pascaltokens import *
 from pascaltokenizer import *
 from library import *
 from var import *
+from functionDecleration import *
 
 
 def Parse():
@@ -48,7 +49,7 @@ def Header(indexPointer):
     Children.append(programDict["node"])
 
     tempDict = Match(Token_type.Uses, programDict["index"])
-    print(str(tempDict['node']))
+
 
     if (str(tempDict["node"]) == 'USES'):
         programDict = LibrarySection(programDict["index"])
@@ -136,27 +137,69 @@ def constDeleration(indexPointer):
         return
 
 
+
+
+
+
 def Decleration(indexPointer):
     Children = []
     output = dict()
 
     out1 = constDeleration(indexPointer)
+    
+
     outTemp = {}
+    tempIndex = indexPointer
     if out1:
-        outTemp = out1
+        tempIndex = out1["index"]
         Children.append(out1["node"])
-        out2 = varDecleration(out1["index"])
-    else:
-        out2 = varDecleration(indexPointer)
+
+    out2 = varDecleration(tempIndex)
+
     if out2:
-        outTemp = out2
+        tempIndex = out2["index"]
         Children.append(out2["node"])
+           
+    # out3 = functionDecleration(tempIndex)
+
+    # if out3:
+    #     tempIndex = out3["index"]
+
+    # out4 = procedureDecleration(tempIndex)
+
+
+
+    # if out1:
+    #     outTemp = out1
+    #     Children.append(out1["node"])
+    #     out2 = varDecleration(out1["index"])
+    #     if out2:
+    #         outTemp = out2
+    #         Children.append(out2["node"])
+    #         out3 = functionDecleration(out2["index"])
+    #         if out3:
+    #             outTemp = out3
+    #             Children.append(out3["node"])
+    #             out4 = procedureDecleration(out3["index"])
+    #             if out4:
+    #                 outTemp = out4
+    #                 Children.append(out4["node"])
+    # else:
+
+    #     out2 = varDecleration(indexPointer)
+    # if out2:
+    #     outTemp = out2
+    #     Children.append(out2["node"])
+    
+    
+
+    
     Node = Tree("Decleration", Children)
     output["node"] = Node
-    if outTemp:
-        output["index"] = outTemp["index"]
-    else:
-        output["index"] = indexPointer
+    # if outTemp:
+    #     output["index"] = outTemp["index"]
+    # else:
+    output["index"] = tempIndex
     return output
 
 
