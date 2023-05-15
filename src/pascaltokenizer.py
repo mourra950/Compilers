@@ -63,7 +63,16 @@ def tokenizer(T):
             ap = token(x, Token_type.Real)
             Tokens.append(ap)
         elif re.match("^[0-9]*$", x):
-            ap = token(x, Token_type.Constant)
+            ap = token(x, Token_type.Integer)
+            Tokens.append(ap)
+        elif re.match("^[a-zA-Z]$", x):
+            ap = token(x, Token_type.Char)
+            Tokens.append(ap)
+        elif re.match("^[TRUE | FALSE]$", x):
+            ap = token(x, Token_type.Boolean)
+            Tokens.append(ap)
+        elif re.match('^"[A-Za-z]*[0-9]*"$', x):
+            ap = token(x, Token_type.Str)
             Tokens.append(ap)
         else:
             ap = token(x, Token_type.Error)

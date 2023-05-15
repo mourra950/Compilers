@@ -120,7 +120,6 @@ ReservedWords = {                       # We Can add global?
     "TYPE": Token_type.Type,
     "UNTIL": Token_type.Until,
     "VAR": Token_type.Var,
-    "STR": Token_type.Str,
     "WHILE": Token_type.While,
     "WITH": Token_type.With,
     "DO": Token_type.Do,

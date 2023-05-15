@@ -27,11 +27,12 @@ def Match(tokenmatch, index,check=False):
 def DataType(indexPointer):
     Children = []
     output = dict()
-    out1 = Match(Token_type.Constant, indexPointer,True)
+    out1 = Match(Token_type.Integer, indexPointer,True)
     out2 = Match(Token_type.Real, indexPointer,True)
     out3 = Match(Token_type.Char, indexPointer,True)
     out4 = Match(Token_type.Identifier, indexPointer,True)
     out5 = Match(Token_type.Boolean, indexPointer,True)
+    out6 = Match(Token_type.Str, indexPointer,True)
 
     if re.match("^[0-9]*$", str(out1["node"])):
         Children.append(out1["node"])
@@ -63,6 +64,11 @@ def DataType(indexPointer):
         output["node"] = Node
         output["index"] = out5["index"]
 
+    elif re.match('^"[A-Za-z]*[0-9]*"$', str(out6["node"])):
+        Children.append(out6["node"])
+        Node = Tree("DataType", Children)
+        output["node"] = Node
+        output["index"] = out6["index"]
     else:
         Children.append(["error"])
         Node = Tree("DataType", Children)
