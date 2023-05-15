@@ -1,30 +1,33 @@
 from pascaltokens import *
 import re
+
+
 def find_token(text):
     arr = seperator(text)
-    
+
     tokenizer(arr)
 
 
 def seperator(text):
-    splitters = [',', ':', ' ', ';', '+', '-', '/', '*', '<', '>', '=']
+    splitters = [',', ':', ' ', ';', '+', '-',
+                 '/', '*', '<', '>', '=', '(', ')']
     doublesplitters = [':=', '<=', '>=']
     SplittedArray = []
     tempArray = []
     counter = len(text)
     i = 0
     while (i < counter):
-        if text[i]== '"':
+        if text[i] == '"':
             if tempArray:
-                SplittedArray.append("".join(tempArray))
+                SplittedArray.append("".join(tempArray).strip())
                 tempArray = []
             tempArray.append(text[i])
-            i+=1
-            while text[i]!='"' and i<counter:
+            i += 1
+            while text[i] != '"' and i < counter:
                 tempArray.append(text[i])
-                i+=1
+                i += 1
             tempArray.append(text[i])
-            SplittedArray.append("".join(tempArray))
+            SplittedArray.append("".join(tempArray).strip())
             tempArray = []
         elif text[i] in splitters:
             if text[i:i+2] in doublesplitters:
@@ -43,7 +46,7 @@ def seperator(text):
             tempArray.append(text[i])
         i += 1
     if tempArray:
-        SplittedArray.append("".join(tempArray))
+        SplittedArray.append("".join(tempArray).strip())
 
     return SplittedArray
 
@@ -88,4 +91,3 @@ def tokenizer(T):
         else:
             ap = token(x, Token_type.Error)
             Tokens.append(ap)
-   
