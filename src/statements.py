@@ -1,8 +1,7 @@
 from utils import *
 from var import *
-from compilers import *
 from statementsBody import *
-
+from constpascal import *
 def funcAndProcdBody(indexPointer):
     Children = []
     output = dict()
@@ -79,6 +78,7 @@ def statement(indexPointer):
     out8 = Match(Token_type.Identifier, indexPointer, True)
     out9 = varDecleration(indexPointer)
     out10 = constDecleration(indexPointer)
+    print(str(out9["node"]))
     if str(out1["node"]) == 'READ':
         Children.append(out1["node"])
 
