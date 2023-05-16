@@ -176,7 +176,7 @@ def Factor(indexPointer):
     Children = []
     output = dict()
 
-    out1 = Match(Token_type.Identifier, indexPointer)
+    out1 = Match(Token_type.Identifier, indexPointer, True)
     if re.match("^[a-zA-Z][a-zA-Z0-9]*$", str(out1["node"])):
         Children.append(out1["node"])
         Node = Tree("Factor", Children)
@@ -257,15 +257,15 @@ def MultOp(indexPointer):
     
     if str(out1["node"]) == '*':
         Children.append(out1["node"])
-        tempIndex = out1
+        tempIndex = out1["index"]
 
     elif str(out2["node"]) == '/':
         Children.append(out2["node"])
-        tempIndex = out2
+        tempIndex = out2["index"]
         
     Node = Tree("MultOp", Children)
     output["node"] = Node
-    output["index"] = tempIndex["index"]
+    output["index"] = tempIndex
     return output
 
 def ElseClause(indexPointer):
@@ -291,8 +291,8 @@ def Constant(indexPointer):
     Children = []
     output = dict()
 
-    out1 = Match(Token_type.Integer, indexPointer)
-    out2 = Match(Token_type.Real, indexPointer)
+    out1 = Match(Token_type.Integer, indexPointer, True)
+    out2 = Match(Token_type.Real, indexPointer, True)
     if re.match("^[0-9]*$", str(out1["node"])):
         Children.append(out1["node"])
         Node = Tree("Constant", Children)
