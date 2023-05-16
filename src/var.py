@@ -46,11 +46,11 @@ def varDecleration1Dash(indexPointer):              # CHECK CODE AGAIN
     Children = []
     output = dict()
     out1 = VarName(indexPointer)
-
-    if str(out1["node"]) != "(VarName ['error'])":
+    out2 = Match(Token_type.Colon, out1["index"])
+    if str(out1["node"]) != "(VarName ['error'])" and str(out2["node"]) == ":":
         Children.append(out1["node"])
 
-        out2 = Match(Token_type.Colon, out1["index"])
+        
         Children.append(out2["node"])
 
         out3 = DataType(out2["index"])

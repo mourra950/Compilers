@@ -1,0 +1,23 @@
+------------------------------------------------TEST1------------------------------------------
+Program sfafa; USES FEFWF, FWEFWF,FFEWFWF; Const eqqefqf = 23131; qeqefqqe = 2172193; VAR qwqwrqwr: 5768; qweqeqw, qweqweq1231w:132123;
+------------------------------------------------TEST2------------------------------------------
+program FunctionExample;
+var
+num, square: Integer;
+function CalculateSquare(num: Integer): Integer;
+begin
+CalculateSquare := num * num;
+end;
+------------------------------------------------TEST3------------------------------------------
+program LoopFunction;
+function SumOfNumbers(n: integer): integer;
+
+begin
+var
+    i, sum: integer;
+    sum := 0;
+    for i := 1 to 10 do
+        sum := sum + i;
+    SumOfNumbers := sum;
+end;
+------------------------------------------------TEST4------------------------------------------

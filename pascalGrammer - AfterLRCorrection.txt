@@ -42,17 +42,18 @@ Main Program Division
 	
 	Statements Decleration
 24. statements -> statement statementsDash 
-24.5. statementsDash -> ; statement statementsDash | ε 
-25. statement -> read ( identifier ) |
-		     readln ( identifier ) |
-		     write ( writeArgument ) |
-		     writeln ( writeBody ) |
-		     if condition then statements ElseClause |
-		     for identifier := integer to integer do statements |
-		     repeat statements until condition |
-		     identifier := expression |
+24.5. statementsDash ->  statement statementsDash | ε 
+25. statement -> read ( identifier ) ;|
+		     readln ( identifier ) ;|
+		     write ( writeArgument ) ;|
+		     writeln ( writeBody ) ;|
+		     if condition then statements ElseClause ;|
+		     for identifier := integer to integer do statements ;|		// Integer can be variable?
+		     repeat statements until condition ;|
+		     identifier := expression ;|
 		     varDecleration |
-		     constDeleration
+		     constDeleration |
+			ε
 
 	Procedure Deleration
 26. procedureDecleration -> procedure identifier arguments ; funcAndProcdBody procedureDecleration' | procedureDecleration' 

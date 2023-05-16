@@ -27,36 +27,37 @@ def funcAndProcdBody(indexPointer):
 def statements(indexPointer):
     Children = []
     output = dict()
-
+    tempIndex = indexPointer
     out1 = statement(indexPointer)
-    Children.append(out1["node"])
+    if out1:
+        tempIndex = out1["index"]
+        Children.append(out1["node"])
 
-    tempIndex = out1
-    out2 = statementsDash(out1["index"])
+    
+    out2 = statementsDash(tempIndex)
     if out2:
-        tempIndex = out2
+        tempIndex = out2["index"]
         Children.append(out2["node"])
 
     Node = Tree("statements", Children)
     output["node"] = Node
-    output["index"] = tempIndex["index"]
+    output["index"] = tempIndex
     return output
 
 def statementsDash(indexPointer):
     Children = []
     output = dict()
 
-    out1 = Match(Token_type.Semicolon, indexPointer, True)
-    if str(out1["node"])==';':
-        Children.append(out1["node"])
+    #out1 = Match(Token_type.Semicolon, indexPointer, True)
+    out2 = statement(indexPointer)
+    # if str(out1["node"])==';':
+    #     Children.append(out1["node"])
 
-        out2 = statement(out1["index"])
-        tempNode = out1
-        if out2:
-            tempNode = out2
-            Children.append(out2["node"])
-
-        out3 = statementsDash(tempNode["index"])
+        #out2 = statement(out1["index"])
+    if out2:
+        Children.append(out2["node"])
+        tempNode = out2
+        out3 = statementsDash(out2["index"])
         
         if out3:
             tempNode = out3
@@ -96,7 +97,10 @@ def statement(indexPointer):
 
         match4 = Match(Token_type.CloseGroup, match3["index"])
         Children.append(match4["node"])
-        tempIndex = match4
+
+        match5 = Match(Token_type.Semicolon, match4["index"])
+        Children.append(match5["node"])
+        tempIndex = match5
         Node = Tree("statement", Children)
         output["node"] = Node
         output["index"] = tempIndex["index"]
@@ -113,7 +117,10 @@ def statement(indexPointer):
 
         match4 = Match(Token_type.CloseGroup, match3["index"])
         Children.append(match4["node"])
-        tempIndex = match4
+        
+        match5 = Match(Token_type.Semicolon, match4["index"])
+        Children.append(match5["node"])
+        tempIndex = match5
         Node = Tree("statement", Children)
         output["node"] = Node
         output["index"] = tempIndex["index"]
@@ -130,7 +137,10 @@ def statement(indexPointer):
 
         match4 = Match(Token_type.CloseGroup, match3["index"])
         Children.append(match4["node"])
-        tempIndex = match4
+        
+        match5 = Match(Token_type.Semicolon, match4["index"])
+        Children.append(match5["node"])
+        tempIndex = match5
         Node = Tree("statement", Children)
         output["node"] = Node
         output["index"] = tempIndex["index"]
@@ -147,7 +157,10 @@ def statement(indexPointer):
 
         match4 = Match(Token_type.CloseGroup, match3["index"])
         Children.append(match4["node"])
-        tempIndex = match4
+        
+        match5 = Match(Token_type.Semicolon, match4["index"])
+        Children.append(match5["node"])
+        tempIndex = match5
         Node = Tree("statement", Children)
         output["node"] = Node
         output["index"] = tempIndex["index"]
@@ -167,7 +180,10 @@ def statement(indexPointer):
 
         match5 = ElseClause(match4["index"])
         Children.append(match5["node"])
-        tempIndex = match5
+        
+        match6 = Match(Token_type.Semicolon, match5["index"])
+        Children.append(match6["node"])
+        tempIndex = match6
         Node = Tree("statement", Children)
         output["node"] = Node
         output["index"] = tempIndex["index"]
@@ -182,13 +198,13 @@ def statement(indexPointer):
         match3 = Match(Token_type.Assignment, match2["index"])
         Children.append(match3["node"])
 
-        match4 = Match(Token_type.Integer, match3["index"])
+        match4 = Match(Token_type.Int, match3["index"])
         Children.append(match4["node"])
 
         match5 = Match(Token_type.To, match4["index"])
         Children.append(match5["node"])
 
-        match6 = Match(Token_type.Integer, match5["index"])
+        match6 = Match(Token_type.Int, match5["index"])
         Children.append(match6["node"])
 
         match7 = Match(Token_type.Do, match6["index"])
@@ -196,6 +212,7 @@ def statement(indexPointer):
 
         match8 = statements(match7["index"])
         Children.append(match8["node"])
+
         tempIndex = match8
         Node = Tree("statement", Children)
         output["node"] = Node
@@ -213,7 +230,10 @@ def statement(indexPointer):
 
         match4 = Condition(match3["index"])
         Children.append(match4["node"])
-        tempIndex = match4
+        
+        match5 = Match(Token_type.Semicolon, match4["index"])
+        Children.append(match5["node"])
+        tempIndex = match5
         Node = Tree("statement", Children)
         output["node"] = Node
         output["index"] = tempIndex["index"]
@@ -227,7 +247,10 @@ def statement(indexPointer):
 
         match3 = Expression(match2["index"])
         Children.append(match3["node"])
-        tempIndex = match3
+        
+        match4 = Match(Token_type.Semicolon, match3["index"])
+        Children.append(match4["node"])
+        tempIndex = match4
         Node = Tree("statement", Children)
         output["node"] = Node
         output["index"] = tempIndex["index"]
