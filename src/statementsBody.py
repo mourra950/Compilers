@@ -99,8 +99,8 @@ def Expression(indexPointer):
 
     out1 = Term(indexPointer)
     Children.append(out1["node"])
-
     tempIndex = out1
+    
     out2 = ExpressionDash(out1["index"])
     if out2:
         tempIndex = out2
@@ -148,7 +148,7 @@ def Term(indexPointer):
     return output
 
 def TermDash(indexPointer):
-    Children = []
+    Children = [] 
     output = dict()
 
     out1 = MultOp(indexPointer)
@@ -233,18 +233,19 @@ def AddOp(indexPointer):
     tempIndex = indexPointer
     out1 = Match(Token_type.PlusOp, indexPointer, True)
     out2 = Match(Token_type.MinusOp, indexPointer, True)
-    
-    if str(out1["node"]) == '+':
+    if str(out1["node"]) == "['error']" and str(out2["node"]) == "['error']" :
+        Children.append(["error"])
+    elif str(out1["node"]) == '+':
         Children.append(out1["node"])
-        tempIndex = out1
+        tempIndex = out1["index"]
 
     elif str(out2["node"]) == '-':
         Children.append(out2["node"])
-        tempIndex = out2
+        tempIndex = out2["index"]
         
     Node = Tree("AddOp", Children)
     output["node"] = Node
-    output["index"] = tempIndex["index"]
+    output["index"] = tempIndex
     return output
 
 def MultOp(indexPointer):
@@ -254,15 +255,16 @@ def MultOp(indexPointer):
     tempIndex = indexPointer
     out1 = Match(Token_type.MultiplyOp, indexPointer, True)
     out2 = Match(Token_type.DivideOp, indexPointer, True)
-    
-    if str(out1["node"]) == '*':
+    if str(out1["node"]) == "['error']" and str(out2["node"]) == "['error']" :
+        Children.append(["error"])
+    elif str(out1["node"]) == '*':
         Children.append(out1["node"])
         tempIndex = out1["index"]
 
     elif str(out2["node"]) == '/':
         Children.append(out2["node"])
         tempIndex = out2["index"]
-        
+    
     Node = Tree("MultOp", Children)
     output["node"] = Node
     output["index"] = tempIndex
@@ -290,8 +292,7 @@ def ElseClause(indexPointer):
 def Constant(indexPointer):
     Children = []
     output = dict()
-
-    out1 = Match(Token_type.Integer, indexPointer, True)
+    out1 = Match(Token_type.Int, indexPointer, True)
     out2 = Match(Token_type.Real, indexPointer, True)
     if re.match("^[0-9]*$", str(out1["node"])):
         Children.append(out1["node"])

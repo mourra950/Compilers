@@ -71,6 +71,7 @@ class Token_type(Enum):
     Write = 65
     WriteLn = 66
     Integer = 67
+    Int=68
 
 
 class token:
@@ -132,6 +133,7 @@ ReservedWords = {                       # We Can add global?
     "READLN": Token_type.ReadLn,
     "WRITE": Token_type.Write,
     "WRITELN": Token_type.WriteLn,
+    "INTEGER":Token_type.Integer,
     # "IDENTIFIER": Token_type.Identifier,
     # "CONSTANT" : Token_type.Constant,
     # "REAL" : Token_type.Real,

@@ -13,6 +13,7 @@ from statements import *
 from statementsBody import *
 from constpascal import *
 
+
 def Parse():
     j = 0
     Children = []
@@ -60,8 +61,6 @@ def Header(indexPointer):
     output["node"] = Node
     output["index"] = programDict["index"]
     return output
-
-
 
 
 def Decleration(indexPointer):

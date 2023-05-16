@@ -2,10 +2,10 @@ from pascaltokenizer import *
 from pascaltokens import *
 
 
-def Match(tokenmatch, index,check=False):
+def Match(tokenmatch, index, check=False):
     newindex = index+1
     output = dict()
-    
+
     if (index < len(Tokens)):
         Temp = Tokens[index].to_dict()
         if (Temp['token_type'] == tokenmatch):
@@ -16,7 +16,7 @@ def Match(tokenmatch, index,check=False):
             output["index"] = index
             if not check:
                 errors.append("Syntax error : " + 'token: "' +
-                        Temp['Lex']+'" type: ' + str(tokenmatch))
+                              Temp['Lex']+'" type: ' + str(tokenmatch))
         return output
     else:
         output["node"] = ["error"]
@@ -27,12 +27,12 @@ def Match(tokenmatch, index,check=False):
 def DataType(indexPointer):
     Children = []
     output = dict()
-    out1 = Match(Token_type.Integer, indexPointer,True)
-    out2 = Match(Token_type.Real, indexPointer,True)
-    out3 = Match(Token_type.Char, indexPointer,True)
-    out4 = Match(Token_type.Identifier, indexPointer,True)
-    out5 = Match(Token_type.Boolean, indexPointer,True)
-    out6 = Match(Token_type.Str, indexPointer,True)
+    out1 = Match(Token_type.Int, indexPointer, True)
+    out2 = Match(Token_type.Real, indexPointer, True)
+    out3 = Match(Token_type.Char, indexPointer, True)
+    out4 = Match(Token_type.Identifier, indexPointer, True)
+    out5 = Match(Token_type.Boolean, indexPointer, True)
+    out6 = Match(Token_type.Str, indexPointer, True)
 
     if re.match("^[0-9]*$", str(out1["node"])):
         Children.append(out1["node"])
@@ -74,7 +74,5 @@ def DataType(indexPointer):
         Node = Tree("DataType", Children)
         output["node"] = Node
         output["index"] = indexPointer + 1
-    
+
     return output
-
-

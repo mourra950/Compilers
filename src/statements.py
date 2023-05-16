@@ -47,7 +47,7 @@ def statementsDash(indexPointer):
     output = dict()
 
     out1 = Match(Token_type.Semicolon, indexPointer, True)
-    if out1:
+    if str(out1)==';':
         Children.append(out1["node"])
 
         out2 = statement(out1["index"])
