@@ -9,7 +9,7 @@ def find_token(text):
 
 
 def seperator(text):
-    splitters = [',', ':', ' ', ';', '+', '-',
+    splitters = [',', ':', ' ', '\n', ';', '+', '-',
                  '/', '*', '<', '>', '=', '(', ')']
     doublesplitters = [':=', '<=', '>=']
     SplittedArray = []
@@ -36,10 +36,10 @@ def seperator(text):
             else:
                 if tempArray:
                     SplittedArray.append("".join(tempArray))
-                if text[i] != ' ':
+                if text[i] != ' ' and text[i] != '\n':
                     SplittedArray.append(text[i])
-                elif text[i] == ' ':
-                    while (text[i+1] == ' '):
+                elif text[i] == ' ' or text[i] == '\n':
+                    while (text[i+1] == ' ' or text[i] == '\n'):
                         i += 1
             tempArray = []
         else:
