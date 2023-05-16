@@ -48,7 +48,7 @@ Main Program Division
 		     write ( writeArgument ) ;|
 		     writeln ( writeBody ) ;|
 		     if condition then statements ElseClause ;|
-		     for identifier := integer to integer do statements ;|		// Integer can be variable?
+		     for identifier := integer to integer do statements|		// Integer can be variable?
 		     repeat statements until condition ;|
 		     identifier := expression ;|
 		     varDecleration |
