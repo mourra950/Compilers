@@ -33,6 +33,11 @@ def DataType(indexPointer):
     out4 = Match(Token_type.Identifier, indexPointer, True)
     out5 = Match(Token_type.Boolean, indexPointer, True)
     out6 = Match(Token_type.Str, indexPointer, True)
+    out7 = Match(Token_type.Integer, indexPointer, True)
+    out8 = Match(Token_type.RealType, indexPointer, True)
+    out9 = Match(Token_type.CharType, indexPointer, True)
+    out10 = Match(Token_type.StringType, indexPointer, True)
+    out11 = Match(Token_type.BooleanType, indexPointer, True)
 
     if re.match("^[0-9]*$", str(out1["node"])):
         Children.append(out1["node"])
@@ -69,6 +74,37 @@ def DataType(indexPointer):
         Node = Tree("DataType", Children)
         output["node"] = Node
         output["index"] = out6["index"]
+
+    elif str(out7["node"]) == "INTEGER":
+        Children.append(out7["node"])
+        Node = Tree("DataType", Children)
+        output["node"] = Node
+        output["index"] = out7["index"]
+    
+    elif str(out8["node"]) == "REAL":
+        Children.append(out8["node"])
+        Node = Tree("DataType", Children)
+        output["node"] = Node
+        output["index"] = out8["index"]
+
+    elif str(out9["node"]) == "CHAR":
+        Children.append(out9["node"])
+        Node = Tree("DataType", Children)
+        output["node"] = Node
+        output["index"] = out9["index"]
+
+    elif str(out10["node"]) == "STRING":
+        Children.append(out10["node"])
+        Node = Tree("DataType", Children)
+        output["node"] = Node
+        output["index"] = out10["index"]
+
+    elif str(out11["node"]) == "BOOLEAN":
+        Children.append(out11["node"])
+        Node = Tree("DataType", Children)
+        output["node"] = Node
+        output["index"] = out11["index"]
+
     else:
         Children.append(["error"])
         Node = Tree("DataType", Children)

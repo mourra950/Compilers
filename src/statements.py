@@ -47,18 +47,24 @@ def statementsDash(indexPointer):
     output = dict()
 
     out1 = Match(Token_type.Semicolon, indexPointer, True)
-    if str(out1)==';':
+    if str(out1["node"])==';':
         Children.append(out1["node"])
 
         out2 = statement(out1["index"])
-        Children.append(out2["node"])
+        tempNode = out1
+        if out2:
+            tempNode = out2
+            Children.append(out2["node"])
 
-        out3 = statementsDash(out2["index"])
-        Children.append(out3["node"])
+        out3 = statementsDash(tempNode["index"])
+        
+        if out3:
+            tempNode = out3
+            Children.append(out3["node"])
 
         Node = Tree("statementsDash", Children)
         output["node"] = Node
-        output["index"] = out3["index"]
+        output["index"] = tempNode["index"]
         return output
     
     else:
@@ -246,9 +252,6 @@ def statement(indexPointer):
             return output
 
     else:
-        Node = Tree("statement", Children)
-        output["node"] = "[error]"
-        output["index"] = indexPointer + 1
-        return output
+        return 
 
 

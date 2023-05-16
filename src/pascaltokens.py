@@ -72,7 +72,10 @@ class Token_type(Enum):
     WriteLn = 66
     Integer = 67
     Int=68
-
+    RealType = 69
+    CharType = 70
+    StringType = 71
+    BooleanType = 72
 
 class token:
     def __init__(self, lex, token_type):
@@ -134,6 +137,11 @@ ReservedWords = {                       # We Can add global?
     "WRITE": Token_type.Write,
     "WRITELN": Token_type.WriteLn,
     "INTEGER":Token_type.Integer,
+    "REAL": Token_type.RealType,
+    "CHAR": Token_type.CharType,
+    "STRING": Token_type.StringType,
+    "BOOLEAN": Token_type.BooleanType,
+
     # "IDENTIFIER": Token_type.Identifier,
     # "CONSTANT" : Token_type.Constant,
     # "REAL" : Token_type.Real,

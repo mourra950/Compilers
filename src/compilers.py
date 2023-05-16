@@ -80,11 +80,13 @@ def Decleration(indexPointer):
     if out2:
         tempIndex = out2["index"]
         Children.append(out2["node"])
+        
 
     out3 = FunctionDelaration(tempIndex)
 
     if out3:
         tempIndex = out3["index"]
+        Children.append(out3["node"])
 
     # out4 = procedureDecleration(tempIndex)
 

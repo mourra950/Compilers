@@ -9,7 +9,7 @@ def finalArgument(indexPointer):
     out1 = Match(Token_type.Identifier, indexPointer, True)
     Children.append(out1["node"])
 
-    out2 = Match(Token_type.Colon, indexPointer, True)
+    out2 = Match(Token_type.Colon, out1["index"], True)
     Children.append(out2["node"])
 
     out3 = DataType(out2["index"])
@@ -141,7 +141,15 @@ def FunctionDelaration(indexPointer):
     
     out1 = Match(Token_type.Function, indexPointer, True)
     out1Temp =functionDeclerationDash(indexPointer)
-    if out1["node"] == "FUNCTION":
+    if out1Temp:
+        if str(out1Temp["node"]) != "(functionDeclerationDash ['error'])":
+            Children.append(out1Temp["node"])
+
+            Node = Tree("functionDecleration", Children)
+            output["node"] = Node
+            output["index"] = out1Temp["index"]
+            return output
+    elif out1["node"] == "FUNCTION":
         Children.append(out1["node"])
 
         out2 = Match(Token_type.Identifier, out1["index"])
@@ -173,14 +181,7 @@ def FunctionDelaration(indexPointer):
         output["index"] = tempIndex["index"]
         return output
 
-    elif out1Temp:
-        if str(out1Temp["node"]) != "(functionDeclerationDash ['error'])":
-            Children.append(out1["node"])
-
-            Node = Tree("functionDecleration", Children)
-            output["node"] = Node
-            output["index"] = out1["index"]
-            return output
+    
     
     else:
         return
