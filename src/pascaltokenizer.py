@@ -36,11 +36,14 @@ def seperator(text):
             else:
                 if tempArray:
                     SplittedArray.append("".join(tempArray))
+                    tempArray=[]
                 if text[i] != ' ' and text[i] != '\n':
                     SplittedArray.append(text[i])
-                elif text[i] == ' ' or text[i] == '\n':
+                elif text[i] == ' ' :
                     while (text[i+1] == ' ' or text[i] == '\n'):
                         i += 1
+                elif text[i] == '\n':
+                    pass
             tempArray = []
         else:
             tempArray.append(text[i])
