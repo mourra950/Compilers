@@ -21,3 +21,29 @@ var
     SumOfNumbers := sum;
 end;
 ------------------------------------------------TEST4------------------------------------------
+program FibonacciProgram;
+function Fibonacci(n: integer): integer;
+begin
+    var i, a, b, c: integer;
+    a := 0;
+    b := 1;
+    for i := 1 to 10 do
+        c := a + b;
+        a := b;
+        b := c;
+Fibonacci:=a; <---- elmafrood dih hat3ml error l2en msh 3amleen assignment lel function ,
+test mn 3'ero haytla3 kol 7aga sa7
+end;
+----------------------------------------------Test5-----------------------------------------------
+program MaxProgram;
+function max(a: Integer; b: Integer): Integer;
+var
+  result: Integer;
+begin
+  if a > b then
+    result := a;
+  else
+    result := b;
+end;
+
+----->>>> statements msh mazboota
