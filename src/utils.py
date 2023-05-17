@@ -80,7 +80,7 @@ def DataType(indexPointer):
         Node = Tree("DataType", Children)
         output["node"] = Node
         output["index"] = out7["index"]
-    
+
     elif str(out8["node"]) == "REAL":
         Children.append(out8["node"])
         Node = Tree("DataType", Children)

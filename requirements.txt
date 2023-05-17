@@ -5,3 +5,4 @@ tk
 dfa
 pandastable
 nltk
+automata-lib

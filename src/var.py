@@ -1,5 +1,6 @@
 from utils import *
 
+
 def VarName(indexPointer):
     Children = []
     output = dict()
@@ -15,6 +16,7 @@ def VarName(indexPointer):
     output["node"] = Node
     output["index"] = out1["index"]
     return output
+
 
 def VarNameDash(indexPointer):
     Children = []
@@ -39,9 +41,6 @@ def VarNameDash(indexPointer):
         return
 
 
-
-
-
 def varDecleration1Dash(indexPointer):              # CHECK CODE AGAIN
     Children = []
     output = dict()
@@ -50,7 +49,6 @@ def varDecleration1Dash(indexPointer):              # CHECK CODE AGAIN
     if str(out1["node"]) != "(VarName ['error'])" and str(out2["node"]) == ":":
         Children.append(out1["node"])
 
-        
         Children.append(out2["node"])
 
         out3 = DataType(out2["index"])

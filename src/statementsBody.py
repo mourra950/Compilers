@@ -2,6 +2,7 @@ from utils import *
 from statements import *
 from var import *
 
+
 def WriteBody(indexPointer):
     Children = []
     output = dict()
@@ -17,11 +18,12 @@ def WriteBody(indexPointer):
     output["index"] = out2["index"]
     return output
 
+
 def WriteBodyDash(indexPointer):
     Children = []
     output = dict()
 
-    out1 = Match(Token_type.Comma, indexPointer,True)
+    out1 = Match(Token_type.Comma, indexPointer, True)
     if str(out1["node"]) == ',':
         Children.append(out1["node"])
 
@@ -38,10 +40,11 @@ def WriteBodyDash(indexPointer):
         output["node"] = Node
         output["index"] = tempIndex["index"]
         return output
-    
+
     else:
         return
-    
+
+
 def WriteArgument(indexPointer):
     Children = []
     output = dict()
@@ -68,7 +71,8 @@ def WriteArgument(indexPointer):
         output["node"] = Node
         output["index"] = indexPointer + 1
         return output
-    
+
+
 def ExpressionDash(indexPointer):
     Children = []
     output = dict()
@@ -79,7 +83,7 @@ def ExpressionDash(indexPointer):
 
         out2 = Term(out1["index"])
         Children.append(out2["node"])
-    
+
         tempIndex = out2
         out3 = ExpressionDash(out2["index"])
         if out3:
@@ -91,8 +95,9 @@ def ExpressionDash(indexPointer):
         output["index"] = tempIndex["index"]
         return output
     else:
-        return 
-       
+        return
+
+
 def Expression(indexPointer):
     Children = []
     output = dict()
@@ -100,7 +105,7 @@ def Expression(indexPointer):
     out1 = Term(indexPointer)
     Children.append(out1["node"])
     tempIndex = out1
-    
+
     out2 = ExpressionDash(out1["index"])
     if out2:
         tempIndex = out2
@@ -110,7 +115,8 @@ def Expression(indexPointer):
     output["node"] = Node
     output["index"] = tempIndex["index"]
     return output
- 
+
+
 def Condition(indexPointer):
     Children = []
     output = dict()
@@ -128,6 +134,7 @@ def Condition(indexPointer):
     output["node"] = Node
     output["index"] = out3["index"]
     return output
+
 
 def Term(indexPointer):
     Children = []
@@ -147,8 +154,9 @@ def Term(indexPointer):
     output["index"] = tempIndex["index"]
     return output
 
+
 def TermDash(indexPointer):
-    Children = [] 
+    Children = []
     output = dict()
 
     out1 = MultOp(indexPointer)
@@ -168,10 +176,11 @@ def TermDash(indexPointer):
         output["node"] = Node
         output["index"] = tempIndex["index"]
         return output
-    
+
     else:
         return
-    
+
+
 def Factor(indexPointer):
     Children = []
     output = dict()
@@ -190,7 +199,8 @@ def Factor(indexPointer):
         output["node"] = Node
         output["index"] = out2["index"]
         return output
-    
+
+
 def RelOp(indexPointer):
     Children = []
     output = dict()
@@ -212,7 +222,7 @@ def RelOp(indexPointer):
     elif str(out3["node"]) == '=':
         Children.append(out3["node"])
         tempIndex = out3
-    
+
     elif str(out4["node"]) == '>':
         Children.append(out4["node"])
         tempIndex = out4
@@ -220,12 +230,13 @@ def RelOp(indexPointer):
     elif str(out5["node"]) == '<':
         Children.append(out5["node"])
         tempIndex = out5
-        
+
     Node = Tree("RelOp", Children)
     output["node"] = Node
     output["index"] = tempIndex["index"]
     return output
-    
+
+
 def AddOp(indexPointer):
     Children = []
     output = dict()
@@ -233,7 +244,7 @@ def AddOp(indexPointer):
     tempIndex = indexPointer
     out1 = Match(Token_type.PlusOp, indexPointer, True)
     out2 = Match(Token_type.MinusOp, indexPointer, True)
-    if str(out1["node"]) == "['error']" and str(out2["node"]) == "['error']" :
+    if str(out1["node"]) == "['error']" and str(out2["node"]) == "['error']":
         Children.append(["error"])
     elif str(out1["node"]) == '+':
         Children.append(out1["node"])
@@ -242,11 +253,12 @@ def AddOp(indexPointer):
     elif str(out2["node"]) == '-':
         Children.append(out2["node"])
         tempIndex = out2["index"]
-        
+
     Node = Tree("AddOp", Children)
     output["node"] = Node
     output["index"] = tempIndex
     return output
+
 
 def MultOp(indexPointer):
     Children = []
@@ -255,7 +267,7 @@ def MultOp(indexPointer):
     tempIndex = indexPointer
     out1 = Match(Token_type.MultiplyOp, indexPointer, True)
     out2 = Match(Token_type.DivideOp, indexPointer, True)
-    if str(out1["node"]) == "['error']" and str(out2["node"]) == "['error']" :
+    if str(out1["node"]) == "['error']" and str(out2["node"]) == "['error']":
         Children.append(["error"])
     elif str(out1["node"]) == '*':
         Children.append(out1["node"])
@@ -264,11 +276,12 @@ def MultOp(indexPointer):
     elif str(out2["node"]) == '/':
         Children.append(out2["node"])
         tempIndex = out2["index"]
-    
+
     Node = Tree("MultOp", Children)
     output["node"] = Node
     output["index"] = tempIndex
     return output
+
 
 def ElseClause(indexPointer):
     Children = []
@@ -285,10 +298,11 @@ def ElseClause(indexPointer):
         output["node"] = Node
         output["index"] = out2["index"]
         return output
-    
+
     else:
         return
-    
+
+
 def Constant(indexPointer):
     Children = []
     output = dict()
@@ -301,7 +315,7 @@ def Constant(indexPointer):
         output["index"] = out1["index"]
         return output
 
-    elif re.match( "^[0-9].[0-9]$" , str(out2["node"])):
+    elif re.match("^[0-9].[0-9]$", str(out2["node"])):
         Children.append(out2["node"])
         Node = Tree("Constant", Children)
         output["node"] = Node
