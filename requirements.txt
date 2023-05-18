@@ -6,3 +6,4 @@ dfa
 pandastable
 nltk
 automata-lib
+pyside6
