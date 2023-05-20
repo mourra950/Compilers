@@ -138,7 +138,7 @@ def functionDeclerationDash(indexPointer):
 
 
 
-def FunctionDelaration(indexPointer):
+def FunctionDelaration(indexPointer):       # TODO: UPDATE THIS SHIT CODE, Match Functions REDO, ERRORS HANDLING
     Children = []
     output = dict()
     
@@ -191,5 +191,24 @@ def FunctionDelaration(indexPointer):
         output["index"] = tempNode["index"]
         return output
   
+    else:
+        return
+
+def returnStatement(indexPointer):
+    Children = []
+    output = dict()
+    
+    if str(Tokens[indexPointer].token_type) == 'Token_type.Colon':
+        out1 = Match(Token_type.Colon, indexPointer)
+        Children.append(out1["node"])
+
+        out2 = DataType(out1["index"])
+        Children.append(out2["node"])
+
+
+        Node = Tree("returnStatement", Children)
+        output["node"] = Node
+        output["index"] = out2["index"]
+        return output
     else:
         return
