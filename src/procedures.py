@@ -28,7 +28,7 @@ def procedureDecleration(indexPointer):
 
         out6 = funcAndProcdBody(tempNode["index"])
         Children.append(out6["node"])
-
+        tempNode = out6
         out7 = procedureDeclerationDash(out6["index"])
         if out7:
             tempNode = out7
@@ -54,7 +54,7 @@ def procedureDeclerationDash(indexPointer):
     Children = []
     output = dict()
 
-    if str(Tokens[indexPointer]) == 'PROCEDURE':
+    if str(Tokens[indexPointer].token_type) == 'Token_type.Procedure':
         out1 = Match(Token_type.Procedure, indexPointer)
         Children.append(out1["node"])
 
@@ -62,9 +62,11 @@ def procedureDeclerationDash(indexPointer):
         Children.append(out2["node"])
 
         out3 = arguments(out2["index"])
-        Children.append(out3["node"])
+        if out3:
+            out2 = out3
+            Children.append(out3["node"])
 
-        out4 = Match(Token_type.Semicolon, out3["index"])
+        out4 = Match(Token_type.Semicolon, out2["index"])
         Children.append(out4["node"])
         tempNode = out4
         out5 = varDecleration(out4["index"])
@@ -74,7 +76,7 @@ def procedureDeclerationDash(indexPointer):
 
         out6 = funcAndProcdBody(tempNode["index"])
         Children.append(out6["node"])
-
+        tempNode = out6
         out7 = procedureDeclerationDash(out6["index"])
         if out7:
             tempNode = out7

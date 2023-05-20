@@ -49,20 +49,17 @@ def statementsDash(indexPointer):
     Children = []
     output = dict()
 
-    #out1 = Match(Token_type.Semicolon, indexPointer, True)
-    out2 = statement(indexPointer)
-    # if str(out1["node"])==';':
-    #     Children.append(out1["node"])
-
-        #out2 = statement(out1["index"])
-    if out2:
-        Children.append(out2["node"])
-        tempNode = out2
-        out3 = statementsDash(out2["index"])
+    
+    out1 = statement(indexPointer)
+    
+    if out1:
+        Children.append(out1["node"])
+        tempNode = out1
+        out2 = statementsDash(out1["index"])
         
-        if out3:
-            tempNode = out3
-            Children.append(out3["node"])
+        if out2:
+            tempNode = out2
+            Children.append(out2["node"])
 
         Node = Tree("statementsDash", Children)
         output["node"] = Node

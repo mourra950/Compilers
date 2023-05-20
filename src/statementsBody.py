@@ -36,7 +36,7 @@ def WriteBodyDash(indexPointer):
         out3 = WriteBodyDash(out2["index"])
         if out3:
             tempIndex = out3
-            Children.append(out2["node"])
+            Children.append(out3["node"])
 
         Node = Tree("WriteBodyDash", Children)
         output["node"] = Node

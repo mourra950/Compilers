@@ -33,7 +33,7 @@ def DataType(indexPointer):
     out4 = Match(Token_type.Identifier, indexPointer, True)
     out5 = Match(Token_type.Boolean, indexPointer, True)
     out6 = Match(Token_type.Str, indexPointer, True)
-    out7 = Match(Token_type.Integer, indexPointer, True)
+    out7 = Match(Token_type.IntegerType, indexPointer, True)
     out8 = Match(Token_type.RealType, indexPointer, True)
     out9 = Match(Token_type.CharType, indexPointer, True)
     out10 = Match(Token_type.StringType, indexPointer, True)

@@ -106,13 +106,8 @@ end;
 
 
 begin
-  clrscr;
-
-  GreetUser; 
-
-  writeln; 
-
-  CalculateSum; 
-
-  readln;
+  for i := 1 to 10 do
+        c := a + b;
+        a := b;
+        b := c;
 end.
