@@ -8,11 +8,11 @@ from pascaltokens import *
 from pascaltokenizer import *
 from library import *
 from var import *
-from f import *
+from functions import *
 from statements import *
 from statementsBody import *
 from constpascal import *
-
+from procedures import *
 
 def Parse():
     j = 0
@@ -21,6 +21,8 @@ def Parse():
     Children.append(Header_dict["node"])
     Decleration_dict = Decleration(Header_dict["index"])
     Children.append(Decleration_dict["node"])
+    Exec_dict = execution(Decleration_dict["index"])
+    Children.append(Exec_dict["node"])
     Node = Tree('Program', Children)
 
     return Node
@@ -88,35 +90,14 @@ def Decleration(indexPointer):
         tempIndex = out3["index"]
         Children.append(out3["node"])
 
-    # out4 = procedureDecleration(tempIndex)
+    out4 = procedureDecleration(tempIndex)
 
-    # if out1:
-    #     outTemp = out1
-    #     Children.append(out1["node"])
-    #     out2 = varDecleration(out1["index"])
-    #     if out2:
-    #         outTemp = out2
-    #         Children.append(out2["node"])
-    #         out3 = functionDecleration(out2["index"])
-    #         if out3:
-    #             outTemp = out3
-    #             Children.append(out3["node"])
-    #             out4 = procedureDecleration(out3["index"])
-    #             if out4:
-    #                 outTemp = out4
-    #                 Children.append(out4["node"])
-    # else:
-
-    #     out2 = varDecleration(indexPointer)
-    # if out2:
-    #     outTemp = out2
-    #     Children.append(out2["node"])
+    if out4:
+        tempIndex = out4["index"]
+        Children.append(out4["node"])
 
     Node = Tree("Decleration", Children)
     output["node"] = Node
-    # if outTemp:
-    #     output["index"] = outTemp["index"]
-    # else:
     output["index"] = tempIndex
     return output
 

@@ -76,6 +76,7 @@ class Token_type(Enum):
     CharType = 70
     StringType = 71
     BooleanType = 72
+    EndProgram = 73
 
 class token:
     def __init__(self, lex, token_type):
@@ -141,6 +142,7 @@ ReservedWords = {                       # We Can add global?
     "CHAR": Token_type.CharType,
     "STRING": Token_type.StringType,
     "BOOLEAN": Token_type.BooleanType,
+    "END.": Token_type.EndProgram,
 
     # "IDENTIFIER": Token_type.Identifier,
     # "CONSTANT" : Token_type.Constant,

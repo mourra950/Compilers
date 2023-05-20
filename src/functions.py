@@ -1,6 +1,6 @@
 from utils import *
 from statements import *
-
+from var import *
 
 def finalArgument(indexPointer):
     Children = []
@@ -77,20 +77,23 @@ def argument(indexPointer):
 def arguments(indexPointer):
     Children = []
     output = dict()
+    
+    if str(Tokens[indexPointer].token_type) == 'Token_type.OpenGroup':
+        out1 = Match(Token_type.OpenGroup, indexPointer)
+        Children.append(out1["node"])
 
-    out1 = Match(Token_type.OpenGroup, indexPointer)
-    Children.append(out1["node"])
+        out2 = argument(out1["index"])
+        Children.append(out2["node"])
 
-    out2 = argument(out1["index"])
-    Children.append(out2["node"])
+        out3 = Match(Token_type.CloseGroup, out2["index"])
+        Children.append(out3["node"])
 
-    out3 = Match(Token_type.CloseGroup, out2["index"])
-    Children.append(out3["node"])
-
-    Node = Tree("arguments", Children)
-    output["node"] = Node
-    output["index"] = out3["index"]
-    return output
+        Node = Tree("arguments", Children)
+        output["node"] = Node
+        output["index"] = out3["index"]
+        return output
+    else:
+        return
 
 
 def functionDeclerationDash(indexPointer):
@@ -156,9 +159,11 @@ def FunctionDelaration(indexPointer):
         Children.append(out2["node"])
 
         out3 = arguments(out2["index"])
-        Children.append(out3["node"])
+        if out3:
+            out2 = out3
+            Children.append(out3["node"])
 
-        out4 = Match(Token_type.Colon, out3["index"])
+        out4 = Match(Token_type.Colon, out2["index"])
         Children.append(out4["node"])
 
         out5 = DataType(out4["index"])
@@ -167,21 +172,24 @@ def FunctionDelaration(indexPointer):
         out6 = Match(Token_type.Semicolon, out5["index"])
         Children.append(out6["node"])
 
-        out7 = funcAndProcdBody(out6["index"])
-        Children.append(out7["node"])
+        tempNode = out6
+        out7 = varDecleration(out6["index"])
+        if out7:
+            tempNode = out7
+            Children.append(out7["node"])
 
-        tempIndex = out7
-        out8 = functionDeclerationDash(out7["index"])
-        if out8:
-            tempIndex = out8
-            Children.append(out8["node"])
+        out8 = funcAndProcdBody(tempNode["index"])
+        Children.append(out8["node"])
+
+        out9 = functionDeclerationDash(out8["index"])
+        if out9:
+            tempNode = out9
+            Children.append(out9["node"])
 
         Node = Tree("functionDecleration", Children)
         output["node"] = Node
-        output["index"] = tempIndex["index"]
+        output["index"] = tempNode["index"]
         return output
-
-    
-    
+  
     else:
         return

@@ -47,3 +47,72 @@ begin
 end;
 
 ----->>>> statements msh mazboota
+----------------------------------------------Test6-----------------------------------------------
+program RepeatUntilFunctionExample;
+
+var
+  limit: Integer;
+  result: Integer;
+
+function CountUpToLimit(limit: Integer): Integer;
+begin
+  count := 1;
+
+  repeat
+    writeln("Count: ", count);
+    count := count + 1;
+  until count > limit;
+
+  CountUpToLimit := count - 1;
+end;
+
+begin
+  writeln("Enter a limit:");
+  readln(limit);
+
+  result := count - 1; 
+
+  writeln("Loop finished!");
+  writeln("Result: ", result);
+end.
+----------------------------------------------Test7-----------------------------------------------
+program ProcedureExample;
+
+uses
+  crt;
+
+
+procedure GreetUser;
+var
+  name: string;
+begin
+  writeln("Enter your name: ");
+  readln(name);
+  writeln("Hello, ", name, "! Welcome to the program.");
+end;
+
+procedure CalculateSum;
+var
+  num1, num2, sum: integer;
+begin
+  writeln("Enter the first number: ");
+  readln(num1);
+  writeln("Enter the second number: ");
+  readln(num2);
+
+  sum := num1 + num2;
+  writeln("The sum of ", num1, " and ", num2, " is ", sum);
+end;
+
+
+begin
+  clrscr;
+
+  GreetUser; 
+
+  writeln; 
+
+  CalculateSum; 
+
+  readln;
+end.

@@ -88,7 +88,7 @@ def tokenizer(T):
         elif re.match("^[TRUE | FALSE]$", x):
             ap = token(x, Token_type.Boolean)
             Tokens.append(ap)
-        elif re.match('^"[A-Za-z]*[0-9]*"$', x):
+        elif re.match('^".*"$', x):
             ap = token(x, Token_type.Str)
             Tokens.append(ap)
         else:

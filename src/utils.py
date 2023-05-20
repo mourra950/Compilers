@@ -69,7 +69,7 @@ def DataType(indexPointer):
         output["node"] = Node
         output["index"] = out5["index"]
 
-    elif re.match('^"[A-Za-z]*[0-9]*"$', str(out6["node"])):
+    elif re.match('^".*"$', str(out6["node"])):
         Children.append(out6["node"])
         Node = Tree("DataType", Children)
         output["node"] = Node

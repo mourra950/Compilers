@@ -27,11 +27,12 @@ def Library(indexPointer):
 
     out2 = LibraryDash(out1["index"])
     if out2:
+        out1 = out2
         Children.append(out2["node"])
 
     Node = Tree("Library", Children)
     output["node"] = Node
-    output["index"] = out2["index"]
+    output["index"] = out1["index"]
     return output
 
 

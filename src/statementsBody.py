@@ -11,11 +11,13 @@ def WriteBody(indexPointer):
     Children.append(out1["node"])
 
     out2 = WriteBodyDash(out1["index"])
-    Children.append(out2["node"])
+    if out2:
+        out1 = out2
+        Children.append(out2["node"])
 
     Node = Tree("WriteBody", Children)
     output["node"] = Node
-    output["index"] = out2["index"]
+    output["index"] = out1["index"]
     return output
 
 
@@ -31,7 +33,7 @@ def WriteBodyDash(indexPointer):
         Children.append(out2["node"])
 
         tempIndex = out2
-        out3 = WriteBodyDash(out1["index"])
+        out3 = WriteBodyDash(out2["index"])
         if out3:
             tempIndex = out3
             Children.append(out2["node"])
@@ -51,7 +53,7 @@ def WriteArgument(indexPointer):
 
     out1 = Match(Token_type.Str, indexPointer, True)
     out2 = Match(Token_type.Identifier, indexPointer, True)
-    if re.match('^"[A-Za-z]*[0-9]*"$', str(out1["node"])):
+    if re.match('^".*"$', str(out1["node"])):
         Children.append(out1["node"])
         Node = Tree("WriteArgument", Children)
         output["node"] = Node
@@ -213,27 +215,27 @@ def RelOp(indexPointer):
     out5 = Match(Token_type.Lesser, indexPointer, True)
     if str(out1["node"]) == '<=':
         Children.append(out1["node"])
-        tempIndex = out1
+        tempIndex = out1["index"]
 
     elif str(out2["node"]) == '>=':
         Children.append(out2["node"])
-        tempIndex = out2
+        tempIndex = out2["index"]
 
     elif str(out3["node"]) == '=':
         Children.append(out3["node"])
-        tempIndex = out3
+        tempIndex = out3["index"]
 
     elif str(out4["node"]) == '>':
         Children.append(out4["node"])
-        tempIndex = out4
+        tempIndex = out4["index"]
 
     elif str(out5["node"]) == '<':
         Children.append(out5["node"])
-        tempIndex = out5
+        tempIndex = out5["index"]
 
     Node = Tree("RelOp", Children)
     output["node"] = Node
-    output["index"] = tempIndex["index"]
+    output["index"] = tempIndex
     return output
 
 
