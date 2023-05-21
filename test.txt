@@ -111,3 +111,55 @@ begin
         a := b;
         b := c;
 end.
+----------------------------------------------Test8-----------------------------------------------
+program RepeatUntilFunctionExample;
+
+var
+  limit: Integer;
+  result: Integer;
+
+function CountUpToLimit: Integer;
+begin
+  count := 1;
+
+  repeat
+    writeln("Count: ", count);
+    count := count + 1;
+  until count > limit;
+
+  CountUpToLimit := count - 1;
+end;
+
+function CountUpToLimit2( 4gesg : INTEGER);
+begin
+  count2 := 1;
+
+  repeat
+    writeln("Count2: ", count2);
+    count2 := count2 + 1;
+  until count2 > limit2;
+
+  CountUpToLimit2 := count2 - 1;
+end;
+
+function CountUpToLimit3;
+begin
+  count3 := 1;
+
+  repeat
+    writeln("Count3: ", count3);
+    count3 := count3 + 1;
+  until count3 > limit3;
+
+  CountUpToLimit3 := count3 - 1;
+end;
+
+begin
+  writeln("Enter a limit:");
+  readln(limit);
+
+  result := count - 1; 
+
+  writeln("Loop finished!");
+  writeln("Result: ", result);
+end.

@@ -7,7 +7,7 @@ from compilers import *
 Lex = ['aashda', 'adasda', 'sadaw a', 'asdwda']
 Token = ['Int', 'Int', 'Int', 'Int']
 
-
+# TODO: Match Some Functions REDO, ERRORS HANDLING, Check all datatypes are correct by testing it
 class Home(QMainWindow):
     def __init__(self) -> None:
         super(Home, self).__init__()
