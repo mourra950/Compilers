@@ -4,19 +4,23 @@ from utils import *
 def LibrarySection(indexPointer):
     Children = []
     output = dict()
-    out1 = Match(Token_type.Uses, indexPointer)
-    Children.append(out1["node"])
 
-    out2 = Library(out1["index"])
-    Children.append(out2["node"])
+    if str(Tokens[indexPointer].token_type) == 'Token_type.Uses':
+        out1 = Match(Token_type.Uses, indexPointer)
+        Children.append(out1["node"])
 
-    out3 = Match(Token_type.Semicolon, out2["index"])
-    Children.append(out3["node"])
+        out2 = Library(out1["index"])
+        Children.append(out2["node"])
 
-    Node = Tree("LibrarySection", Children)
-    output["node"] = Node
-    output["index"] = out3["index"]
-    return output
+        out3 = Match(Token_type.Semicolon, out2["index"])
+        Children.append(out3["node"])
+
+        Node = Tree("LibrarySection", Children)
+        output["node"] = Node
+        output["index"] = out3["index"]
+        return output
+    else:
+        return
 
 
 def Library(indexPointer):
@@ -39,8 +43,9 @@ def Library(indexPointer):
 def LibraryDash(indexPointer):
     Children = []
     output = dict()
-    out1 = Match(Token_type.Comma, indexPointer, True)
-    if (str(out1["node"]) == ','):
+    
+    if str(Tokens[indexPointer].token_type) == 'Token_type.Comma':
+        out1 = Match(Token_type.Comma, indexPointer)
         Children.append(out1["node"])
 
         out2 = Match(Token_type.Identifier, out1["index"])

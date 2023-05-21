@@ -50,18 +50,18 @@ def ProgramName(indexPointer):
 def Header(indexPointer):
     Children = []
     output = dict()
-    programDict = ProgramName(indexPointer)
-    Children.append(programDict["node"])
+    out1 = ProgramName(indexPointer)
+    Children.append(out1["node"])
 
-    tempDict = Match(Token_type.Uses, programDict["index"])
-
-    if (str(tempDict["node"]) == 'USES'):
-        programDict = LibrarySection(programDict["index"])
-        Children.append(programDict["node"])
+    
+    out2 = LibrarySection(out1["index"])
+    if out2:
+        out1 = out2
+        Children.append(out2["node"])
 
     Node = Tree("Header", Children)
     output["node"] = Node
-    output["index"] = programDict["index"]
+    output["index"] = out1["index"]
     return output
 
 
@@ -71,7 +71,7 @@ def Decleration(indexPointer):
 
     out1 = constDecleration(indexPointer)
 
-    outTemp = {}
+
     tempIndex = indexPointer
     if out1:
         tempIndex = out1["index"]
