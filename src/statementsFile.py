@@ -1,5 +1,6 @@
 from utils import *
 from var import *
+from statementsBody import *
 from constpascal import *
 
 def funcAndProcdBody(indexPointer):
