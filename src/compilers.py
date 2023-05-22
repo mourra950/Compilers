@@ -19,9 +19,13 @@ def Parse():
     Children = []
     Header_dict = Header(j)
     Children.append(Header_dict["node"])
-    Decleration_dict = Decleration(Header_dict["index"])
-    Children.append(Decleration_dict["node"])
-    Exec_dict = execution(Decleration_dict["index"])
+    tempNode = Header_dict
+    Decleration_dict = Decleration(tempNode["index"])
+    print(Decleration_dict)
+    if Decleration_dict:
+        Children.append(Decleration_dict["node"])
+
+    Exec_dict = execution(tempNode["index"])
     Children.append(Exec_dict["node"])
     Node = Tree('Program', Children)
 
@@ -50,6 +54,7 @@ def ProgramName(indexPointer):
 def Header(indexPointer):
     Children = []
     output = dict()
+    
     out1 = ProgramName(indexPointer)
     Children.append(out1["node"])
 
@@ -69,6 +74,7 @@ def Decleration(indexPointer):
     Children = []
     output = dict()
 
+    
     out1 = constDecleration(indexPointer)
 
 
@@ -95,11 +101,14 @@ def Decleration(indexPointer):
     if out4:
         tempIndex = out4["index"]
         Children.append(out4["node"])
-
-    Node = Tree("Decleration", Children)
-    output["node"] = Node
-    output["index"] = tempIndex
-    return output
+        
+    if Children:
+        Node = Tree("Decleration", Children)
+        output["node"] = Node
+        output["index"] = tempIndex
+        return output
+    else:
+        return
 
 def Scan_Qt6(Input):
     Tokens.clear()

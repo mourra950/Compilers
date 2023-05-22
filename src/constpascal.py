@@ -4,7 +4,8 @@ from statementsBody import *
 def constDecleration(indexPointer):
     Children = []
     output = dict()
-    
+    if len(Tokens) <= indexPointer:
+        return
     if str(Tokens[indexPointer].lex) == 'CONST':
         out1 = Match(Token_type.Const, indexPointer)
         Children.append(out1["node"])
@@ -23,6 +24,7 @@ def constDecleration(indexPointer):
 def ConstName(indexPointer):
     Children = []
     output = dict()
+
     out1 = Match(Token_type.Identifier, indexPointer)
     Children.append(out1["node"])
 
@@ -49,7 +51,8 @@ def ConstName(indexPointer):
 def ConstNameDash(indexPointer):
     Children = []
     output = dict()
-    
+    if len(Tokens) <= indexPointer:
+        return
 
     if re.match("^[a-zA-Z][a-zA-Z0-9]*$", str(Tokens[indexPointer].lex)):
         out1 = Match(Token_type.Identifier, indexPointer)

@@ -5,7 +5,7 @@ from pascaltokens import *
 def Match(tokenmatch, index):
     newindex = index+1
     output = dict()
-
+    
     if (index < len(Tokens)):
         Temp = Tokens[index].to_dict()
         if (Temp['token_type'] == tokenmatch):
@@ -28,7 +28,8 @@ def DataType(indexPointer):
     Children = []
     output = dict()
     #print(str(Tokens[indexPointer].lex))
-
+    if len(Tokens) <= indexPointer:
+        return
     if str(Tokens[indexPointer].lex) == "INTEGER":
         out7 = Match(Token_type.IntegerType, indexPointer)
         Children.append(out7["node"])

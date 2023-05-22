@@ -4,7 +4,8 @@ from utils import *
 def LibrarySection(indexPointer):
     Children = []
     output = dict()
-
+    if len(Tokens) <= indexPointer:
+        return
     if str(Tokens[indexPointer].lex) == 'USES':
         out1 = Match(Token_type.Uses, indexPointer)
         Children.append(out1["node"])
@@ -26,6 +27,7 @@ def LibrarySection(indexPointer):
 def Library(indexPointer):
     Children = []
     output = dict()
+
     out1 = Match(Token_type.Identifier, indexPointer)
     Children.append(out1["node"])
 
@@ -43,7 +45,8 @@ def Library(indexPointer):
 def LibraryDash(indexPointer):
     Children = []
     output = dict()
-    
+    if len(Tokens) <= indexPointer:
+        return
     if str(Tokens[indexPointer].lex) == ',':
         out1 = Match(Token_type.Comma, indexPointer)
         Children.append(out1["node"])

@@ -10,8 +10,10 @@
 8. constName -> constName  identifier = constant ; | identifier = constant ;				--LR --Constant means a number
 9. varDecleration -> var varDecleration1 | ε
 10. varDecleration1 -> varDecleration1 varName : dataType ; | varName : dataType ;			--LR
-11. varName -> varName identifier , | identifier								--LR
-12. functionDecleration -> functionDecleration function identifier arguments : dataType ; funcAndProcdBody | function identifier arguments : dataType ; funcAndProcdBody | ε --LR
+11. varName -> varName identifier , | identifier
+								--LR
+12. functionDecleration ->  function identifier arguments : dataType ; funcAndProcdBody | functionDecleration function identifier arguments : dataType ; funcAndProcdBody | ε --LR
+
 13. arguments -> ( argument ) 
 14. argument -> argument ; finalArgument | finalArgument | ε		--LR
 15. finalArgument -> identifier : dataType

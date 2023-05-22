@@ -24,7 +24,8 @@ def WriteBody(indexPointer):
 def WriteBodyDash(indexPointer):
     Children = []
     output = dict()
-
+    if len(Tokens) <= indexPointer:
+        return
     
     if str(Tokens[indexPointer].lex) == ',':
         out1 = Match(Token_type.Comma, indexPointer)
@@ -51,7 +52,8 @@ def WriteBodyDash(indexPointer):
 def WriteArgument(indexPointer):
     Children = []
     output = dict()
-
+    if len(Tokens) <= indexPointer:
+        return
     if re.match('^".*"$', str(Tokens[indexPointer].lex)):
         out1 = Match(Token_type.Str, indexPointer)
         Children.append(out1["node"])
@@ -80,7 +82,8 @@ def ExpressionDash(indexPointer):
     Children = []
     output = dict()
 
-    
+    if len(Tokens) <= indexPointer:
+        return
     if str(Tokens[indexPointer].lex) == '+' or str(Tokens[indexPointer].lex) == '-':
         out1 = AddOp(indexPointer)
         Children.append(out1["node"])
@@ -162,7 +165,8 @@ def Term(indexPointer):
 def TermDash(indexPointer):
     Children = []
     output = dict()
-
+    if len(Tokens) <= indexPointer:
+        return
     
     if str(Tokens[indexPointer].lex) == '*' or str(Tokens[indexPointer].lex) == '/':
         out1 = MultOp(indexPointer)
@@ -189,7 +193,8 @@ def TermDash(indexPointer):
 def Factor(indexPointer):
     Children = []
     output = dict()
-
+    if len(Tokens) <= indexPointer:
+        return
     
     if re.match("^[a-zA-Z][a-zA-Z0-9]*$", str(Tokens[indexPointer].lex)):
         out1 = Match(Token_type.Identifier, indexPointer)
@@ -217,7 +222,8 @@ def Factor(indexPointer):
 def RelOp(indexPointer):
     Children = []
     output = dict()
-    
+    if len(Tokens) <= indexPointer:
+        return
     if str(Tokens[indexPointer].lex) == "<=":
         out1 = Match(Token_type.LessEqual, indexPointer)
         Children.append(out1["node"])
@@ -272,7 +278,8 @@ def AddOp(indexPointer):
     Children = []
     output = dict()
 
-
+    if len(Tokens) <= indexPointer:
+        return
     if str(Tokens[indexPointer].lex) == "+":
         out1 = Match(Token_type.PlusOp, indexPointer)
         Children.append(out1["node"])
@@ -300,7 +307,8 @@ def AddOp(indexPointer):
 def MultOp(indexPointer):
     Children = []
     output = dict()
-    
+    if len(Tokens) <= indexPointer:
+        return
     if str(Tokens[indexPointer].lex) == "*":
         out1 = Match(Token_type.MultiplyOp, indexPointer)
         Children.append(out1["node"])
@@ -329,7 +337,8 @@ def ElseClause(indexPointer):
     Children = []
     output = dict()
 
-    
+    if len(Tokens) <= indexPointer:
+        return
     if str(Tokens[indexPointer].lex) == "ELSE":
         out1 = Match(Token_type.Else, indexPointer)
         Children.append(out1["node"])
@@ -349,7 +358,8 @@ def ElseClause(indexPointer):
 def Constant(indexPointer):
     Children = []
     output = dict()
-    
+    if len(Tokens) <= indexPointer:
+        return
     if re.match("^[0-9]*$", str(Tokens[indexPointer].lex)):
         out1 = Match(Token_type.Int, indexPointer)
         Children.append(out1["node"])

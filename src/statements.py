@@ -28,6 +28,7 @@ def funcAndProcdBody(indexPointer):
 def statements(indexPointer):
     Children = []
     output = dict()
+
     tempIndex = indexPointer
     out1 = statement(indexPointer)
     if out1:
@@ -72,7 +73,8 @@ def statementsDash(indexPointer):
 def statement(indexPointer):
     Children = []
     output = dict()
-
+    if len(Tokens) <= indexPointer:
+        return
     
     tempIndex = indexPointer
     
