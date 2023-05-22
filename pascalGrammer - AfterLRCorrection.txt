@@ -48,7 +48,7 @@ Main Program Division
 		     readln ( identifier ) ;|
 		     write ( writeArgument ) ;|
 		     writeln ( writeBody ) ;|
-		     if condition then statements ElseClause ;|
+		     if condition then statements ElseClause|
 		     for identifier := int to int do statements|		// Integer can be variable?
 		     repeat statements until condition ;|
 		     identifier := expression ;|

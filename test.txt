@@ -31,9 +31,10 @@ begin
         c := a + b;
         a := b;
         b := c;
-Fibonacci:=a; <---- elmafrood dih hat3ml error l2en msh 3amleen assignment lel function ,
-test mn 3'ero haytla3 kol 7aga sa7
+        Fibonacci:=a;
 end;
+begin
+end.
 ----------------------------------------------Test5-----------------------------------------------
 program MaxProgram;
 function max(a: Integer; b: Integer): Integer;
@@ -45,6 +46,8 @@ begin
   else
     result := b;
 end;
+begin
+end.
 
 ----->>>> statements msh mazboota
 ----------------------------------------------Test6-----------------------------------------------

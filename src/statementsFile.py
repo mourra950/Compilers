@@ -178,9 +178,7 @@ def statement(indexPointer):
         match5 = ElseClause(match4["index"])
         Children.append(match5["node"])
         
-        match6 = Match(Token_type.Semicolon, match5["index"])
-        Children.append(match6["node"])
-        tempIndex = match6
+        tempIndex = match5
         Node = Tree("statement", Children)
         output["node"] = Node
         output["index"] = tempIndex["index"]
@@ -283,3 +281,23 @@ def statement(indexPointer):
         return 
 
 
+def ElseClause(indexPointer):
+    Children = []
+    output = dict()
+
+    if len(Tokens) <= indexPointer:
+        return
+    if str(Tokens[indexPointer].lex) == "ELSE":
+        out1 = Match(Token_type.Else, indexPointer)
+        Children.append(out1["node"])
+
+        out2 = statements(out1["index"])
+        Children.append(out2["node"])
+
+        Node = Tree("ElseClause", Children)
+        output["node"] = Node
+        output["index"] = out2["index"]
+        return output
+
+    else:
+        return

@@ -333,26 +333,7 @@ def MultOp(indexPointer):
         return output
 
 
-def ElseClause(indexPointer):
-    Children = []
-    output = dict()
 
-    if len(Tokens) <= indexPointer:
-        return
-    if str(Tokens[indexPointer].lex) == "ELSE":
-        out1 = Match(Token_type.Else, indexPointer)
-        Children.append(out1["node"])
-
-        out2 = statements(out1["index"])
-        Children.append(out2["node"])
-
-        Node = Tree("ElseClause", Children)
-        output["node"] = Node
-        output["index"] = out2["index"]
-        return output
-
-    else:
-        return
 
 
 def Constant(indexPointer):
