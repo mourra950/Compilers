@@ -8,8 +8,8 @@ Main Program Division
 2. header -> programName librarySection | programName
 3. programName -> program str ;
 4. librarySection -> uses library ; | ε
-5. library -> str library'								
-6. library' -> , str library' | ε
+5. library -> identifier library'								
+6. library' -> , identifier library' | ε
 
 
 	Program Decleration
@@ -29,11 +29,11 @@ Main Program Division
 15. varName' -> , identifier  varName' | ε
 	
 	Function Decleration
-16. functionDecleration -> function identifier arguments returnStatement ; varDecleration funcAndProcdBody functionDecleration' | functionDecleration' | ε
+16. functionDecleration -> function identifier arguments returnStatement ; varDecleration funcAndProcdBody functionDecleration' | functionDecleration' 
 17. functionDecleration' -> function identifier arguments returnStatement ; varDecleration funcAndProcdBody functionDecleration' | ε
 17.5. returnStatement - > : dataType | ε
 18. arguments -> ( argument ) | ε
-19. argument -> finalArgument argument' | argument'		
+19. argument -> finalArgument argument' 		
 20. argument' -> ; finalArgument argument' | ε
 21. finalArgument -> identifier : dataType
 22. dataType -> int | real | char | str | boolean | INTEGER | STRING | BOOLEAN | REAL | CHAR
