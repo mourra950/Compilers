@@ -105,9 +105,7 @@ def Scan_Qt6(Input):
     Tokens.clear()
     errors.clear()
     find_token(Input)
-    # Node = Parse()
-    # Node.draw()
-    
+    Node = Parse()
     return Tokens,errors
     
     #Token:Type List (have all token from the tokenizer)  , errors:Type List (Hold all the errors if there is one) 
