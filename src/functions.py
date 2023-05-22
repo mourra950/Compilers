@@ -24,7 +24,8 @@ def finalArgument(indexPointer):
 def argumentDash(indexPointer):
     Children = []
     output = dict()
-
+    if len(Tokens) <= indexPointer:
+        return
    
     if str(Tokens[indexPointer].lex) == ';':
         out1 = Match(Token_type.Semicolon, indexPointer)
@@ -69,7 +70,8 @@ def argument(indexPointer):
 def arguments(indexPointer):
     Children = []
     output = dict()
-    
+    if len(Tokens) <= indexPointer:
+        return
     if str(Tokens[indexPointer].lex) == '(':
         out1 = Match(Token_type.OpenGroup, indexPointer)
         Children.append(out1["node"])
@@ -92,7 +94,8 @@ def arguments(indexPointer):
 def functionDeclerationDash(indexPointer):
     Children = []
     output = dict()
-      
+    if len(Tokens) <= indexPointer:
+        return
     if str(Tokens[indexPointer].lex) == 'FUNCTION':
         
         out1 = Match(Token_type.Function, indexPointer)
@@ -144,23 +147,70 @@ def functionDeclerationDash(indexPointer):
 def FunctionDelaration(indexPointer):       
     Children = []
     output = dict()
-    tempIndex = indexPointer
-    out1Temp =functionDeclerationDash(indexPointer)
-    if out1Temp:
-        tempIndex = out1Temp["index"]
-        Children.append(out1Temp["node"])
 
-    Node = Tree("functionDecleration", Children)
-    output["node"] = Node
-    output["index"] = tempIndex
-    return output
+    
+
+    if len(Tokens) <= indexPointer:
+        return
+    if str(Tokens[indexPointer].lex) == 'FUNCTION':
+        
+        out1 = Match(Token_type.Function, indexPointer)
+        Children.append(out1["node"])
+
+        out2 = Match(Token_type.Identifier, out1["index"])
+        Children.append(out2["node"])
+
+        tempNode = out2
+        out3 = arguments(tempNode["index"])
+        if out3:
+            tempNode = out3
+            Children.append(out3["node"])
+
+        out4 = returnStatement(tempNode["index"])
+        if out4:
+            tempNode = out4
+            Children.append(out4["node"])
+
+        out5 = Match(Token_type.Semicolon, tempNode["index"])
+        Children.append(out5["node"])
+        tempNode = out5
+        
+        out6 = varDecleration(out5["index"])
+        if out6:
+            tempNode = out6
+            Children.append(out6["node"])
+
+        out7 = funcAndProcdBody(tempNode["index"])
+        Children.append(out7["node"])
+
+        tempNode = out7
+        out8 = functionDeclerationDash(tempNode["index"])
+        if out8:
+            tempNode = out8
+            Children.append(out8["node"])
+
+        Node = Tree("functionDeclerationDash", Children)
+        output["node"] = Node
+        output["index"] = tempNode["index"]
+        return output
+    else:
+        tempIndex = indexPointer
+        out1Temp =functionDeclerationDash(indexPointer)
+        if out1Temp:
+            tempIndex = out1Temp["index"]
+            Children.append(out1Temp["node"])
+        Node = Tree("functionDecleration", Children)
+        output["node"] = Node
+        output["index"] = tempIndex
+        return output
     
 
 
 def returnStatement(indexPointer):
     Children = []
     output = dict()
-    
+    if len(Tokens) <= indexPointer:
+        return
     if str(Tokens[indexPointer].lex) == ':':
         out1 = Match(Token_type.Colon, indexPointer)
         Children.append(out1["node"])
