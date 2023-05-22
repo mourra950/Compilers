@@ -1,5 +1,5 @@
 from utils import *
-from statements import *
+from statementsFile import *
 from var import *
 
 def finalArgument(indexPointer):

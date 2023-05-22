@@ -9,7 +9,7 @@ from pascaltokenizer import *
 from library import *
 from var import *
 from functions import *
-from statements import *
+from statementsFile import *
 from statementsBody import *
 from constpascal import *
 from procedures import *
