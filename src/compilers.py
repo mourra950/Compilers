@@ -23,6 +23,7 @@ def Parse():
     Decleration_dict = Decleration(tempNode["index"])
     print(Decleration_dict)
     if Decleration_dict:
+        tempNode = Decleration_dict
         Children.append(Decleration_dict["node"])
 
     Exec_dict = execution(tempNode["index"])
@@ -101,7 +102,7 @@ def Decleration(indexPointer):
     if out4:
         tempIndex = out4["index"]
         Children.append(out4["node"])
-        
+
     if Children:
         Node = Tree("Decleration", Children)
         output["node"] = Node
