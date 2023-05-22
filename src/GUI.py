@@ -60,7 +60,6 @@ class Home(QMainWindow):
         Input = self.inputText.toPlainText()
         Tokens, Errors = Scan_Qt6(Input)
         self.populate_Table(Tokens)
-        print(Errors)
         self.populate_errorTable(Errors)
        
 
