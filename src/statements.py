@@ -73,18 +73,11 @@ def statement(indexPointer):
     Children = []
     output = dict()
 
-    out1 = Match(Token_type.Read, indexPointer, True)
-    out2 = Match(Token_type.ReadLn, indexPointer, True)
-    out3 = Match(Token_type.Write, indexPointer, True)
-    out4 = Match(Token_type.WriteLn, indexPointer, True)
-    out5 = Match(Token_type.If, indexPointer, True)
-    out6 = Match(Token_type.For, indexPointer, True)
-    out7 = Match(Token_type.Repeat, indexPointer, True)
-    out8 = Match(Token_type.Identifier, indexPointer, True)
-    out9 = varDecleration(indexPointer)
-    out10 = constDecleration(indexPointer)
+    
     tempIndex = indexPointer
-    if str(out1["node"]) == 'READ':
+    
+    if str(Tokens[indexPointer].lex) == "READ":
+        out1 = Match(Token_type.Read, indexPointer)
         Children.append(out1["node"])
 
         match2 = Match(Token_type.OpenGroup, out1["index"])
@@ -104,7 +97,8 @@ def statement(indexPointer):
         output["index"] = tempIndex["index"]
         return output
 
-    elif str(out2["node"]) == 'READLN':
+    elif str(Tokens[indexPointer].lex) == "READLN":
+        out2 = Match(Token_type.ReadLn, indexPointer)
         Children.append(out2["node"])
 
         match2 = Match(Token_type.OpenGroup, out2["index"])
@@ -124,7 +118,8 @@ def statement(indexPointer):
         output["index"] = tempIndex["index"]
         return output
 
-    elif str(out3["node"]) == 'WRITE':
+    elif str(Tokens[indexPointer].lex) == "WRITE":
+        out3 = Match(Token_type.Write, indexPointer)
         Children.append(out3["node"])
 
         match2 = Match(Token_type.OpenGroup, out3["index"])
@@ -144,7 +139,8 @@ def statement(indexPointer):
         output["index"] = tempIndex["index"]
         return output
 
-    elif str(out4["node"]) == 'WRITELN':
+    elif str(Tokens[indexPointer].lex) == "WRITELN":
+        out4 = Match(Token_type.WriteLn, indexPointer)
         Children.append(out4["node"])
 
         match2 = Match(Token_type.OpenGroup, out4["index"])
@@ -164,7 +160,8 @@ def statement(indexPointer):
         output["index"] = tempIndex["index"]
         return output
 
-    elif str(out5["node"]) == 'IF':
+    elif str(Tokens[indexPointer].lex) == "IF":
+        out5 = Match(Token_type.If, indexPointer)
         Children.append(out5["node"])
 
         match2 = Condition(out5["index"])
@@ -187,7 +184,8 @@ def statement(indexPointer):
         output["index"] = tempIndex["index"]
         return output
 
-    elif str(out6["node"]) == 'FOR':
+    elif str(Tokens[indexPointer].lex) == "FOR":
+        out6 = Match(Token_type.For, indexPointer)
         Children.append(out6["node"])
 
         match2 = Match(Token_type.Identifier, out6["index"])
@@ -217,7 +215,9 @@ def statement(indexPointer):
         output["index"] = tempIndex["index"]
         return output
 
-    elif str(out7["node"]) == 'REPEAT':
+    
+    elif str(Tokens[indexPointer].lex) == "REPEAT":
+        out7 = Match(Token_type.Repeat, indexPointer)
         Children.append(out7["node"])
 
         match2 = statements(out7["index"])
@@ -237,7 +237,29 @@ def statement(indexPointer):
         output["index"] = tempIndex["index"]
         return output
 
-    elif re.match("^[a-zA-Z][a-zA-Z0-9]*$", str(out8["node"])):
+    elif str(Tokens[indexPointer].lex) == "VAR":
+        out9 = varDecleration(indexPointer)
+        Children.append(out9["node"])
+        tempIndex = out9
+        Node = Tree("statement", Children)
+        output["node"] = Node
+        output["index"] = tempIndex["index"]
+        return output
+
+    elif str(Tokens[indexPointer].lex) == "CONST":
+        out10 = constDecleration(indexPointer)
+        Children.append(out10["node"])
+        tempIndex = out10
+        Node = Tree("statement", Children)
+        output["node"] = Node
+        output["index"] = tempIndex["index"]
+        return output
+    
+    elif str(Tokens[indexPointer].lex) in ReservedWords:
+        return
+    
+    elif re.match("^[a-zA-Z][a-zA-Z0-9]*$", str(Tokens[indexPointer].lex)):
+        out8 = Match(Token_type.Identifier, indexPointer)
         Children.append(out8["node"])
 
         match2 = Match(Token_type.Assignment, out8["index"])
@@ -254,23 +276,6 @@ def statement(indexPointer):
         output["index"] = tempIndex["index"]
         return output
 
-    elif out9:
-        if str(out9["node"]) != "(varDecleration ['error'])":
-            Children.append(out9["node"])
-            tempIndex = out9
-            Node = Tree("statement", Children)
-            output["node"] = Node
-            output["index"] = tempIndex["index"]
-            return output
-
-    elif out10:
-        if str(out10["node"]) != "(constDeleration ['error'])":
-            Children.append(out10["node"])
-            tempIndex = out10
-            Node = Tree("statement", Children)
-            output["node"] = Node
-            output["index"] = tempIndex["index"]
-            return output
 
     else:
         return 

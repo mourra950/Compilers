@@ -5,7 +5,7 @@ def LibrarySection(indexPointer):
     Children = []
     output = dict()
 
-    if str(Tokens[indexPointer].token_type) == 'Token_type.Uses':
+    if str(Tokens[indexPointer].lex) == 'USES':
         out1 = Match(Token_type.Uses, indexPointer)
         Children.append(out1["node"])
 
@@ -44,7 +44,7 @@ def LibraryDash(indexPointer):
     Children = []
     output = dict()
     
-    if str(Tokens[indexPointer].token_type) == 'Token_type.Comma':
+    if str(Tokens[indexPointer].lex) == ',':
         out1 = Match(Token_type.Comma, indexPointer)
         Children.append(out1["node"])
 

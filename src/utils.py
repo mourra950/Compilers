@@ -2,7 +2,7 @@ from pascaltokenizer import *
 from pascaltokens import *
 
 
-def Match(tokenmatch, index, check=False):
+def Match(tokenmatch, index):
     newindex = index+1
     output = dict()
 
@@ -14,8 +14,8 @@ def Match(tokenmatch, index, check=False):
         else:
             output["node"] = ["error"]
             output["index"] = newindex 
-            if not check:
-                errors.append("Syntax error : " + 'token: "' +
+            
+            errors.append("Syntax error : " + 'token: "' +
                               Temp['Lex']+'" type: ' + str(tokenmatch))
         return output
     else:

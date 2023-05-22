@@ -6,7 +6,7 @@ from var import *
 def procedureDecleration(indexPointer):
     Children = []
     output = dict()
-    if str(Tokens[indexPointer].token_type) == 'Token_type.Procedure':
+    if str(Tokens[indexPointer].lex) == 'PROCEDURE':
         out1 = Match(Token_type.Procedure, indexPointer)
         Children.append(out1["node"])
 
@@ -54,7 +54,7 @@ def procedureDeclerationDash(indexPointer):
     Children = []
     output = dict()
 
-    if str(Tokens[indexPointer].token_type) == 'Token_type.Procedure':
+    if str(Tokens[indexPointer].lex) == 'PROCEDURE':
         out1 = Match(Token_type.Procedure, indexPointer)
         Children.append(out1["node"])
 

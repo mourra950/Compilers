@@ -4,7 +4,7 @@ from utils import *
 def VarName(indexPointer):
     Children = []
     output = dict()
-    out1 = Match(Token_type.Identifier, indexPointer, True)
+    out1 = Match(Token_type.Identifier, indexPointer)
     Children.append(out1["node"])
 
     out2 = VarNameDash(out1["index"])
@@ -21,8 +21,9 @@ def VarName(indexPointer):
 def VarNameDash(indexPointer):
     Children = []
     output = dict()
-    out1 = Match(Token_type.Comma, indexPointer, True)
-    if str(out1["node"]) == ',':
+    
+    if str(Tokens[indexPointer].lex) == ',':
+        out1 = Match(Token_type.Comma, indexPointer)
         Children.append(out1["node"])
 
         out2 = Match(Token_type.Identifier, out1["index"])
@@ -44,11 +45,14 @@ def VarNameDash(indexPointer):
 def varDecleration1Dash(indexPointer):              # CHECK CODE AGAIN
     Children = []
     output = dict()
-    out1 = VarName(indexPointer)
-    out2 = Match(Token_type.Colon, out1["index"])
-    if str(out1["node"]) != "(VarName ['error'])" and str(out2["node"]) == ":":
+    
+    if str(Tokens[indexPointer].lex) in ReservedWords:
+        return
+    if re.match("^[a-zA-Z][a-zA-Z0-9]*$", str(Tokens[indexPointer].lex)):
+        out1 = VarName(indexPointer)
         Children.append(out1["node"])
 
+        out2 = Match(Token_type.Colon, out1["index"])
         Children.append(out2["node"])
 
         out3 = DataType(out2["index"])
@@ -99,9 +103,10 @@ def varDecleration1(indexPointer):
 def varDecleration(indexPointer):
     Children = []
     output = dict()
-    out1 = Match(Token_type.Var, indexPointer, True)
+    
 
-    if str(out1["node"]) == 'VAR':
+    if str(Tokens[indexPointer].lex) == 'VAR':
+        out1 = Match(Token_type.Var, indexPointer)
         Children.append(out1["node"])
 
         out2 = varDecleration1(out1["index"])
