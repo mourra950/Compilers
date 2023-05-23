@@ -17,6 +17,7 @@ def seperator(text):
     counter = len(text)
     i = 0
     while (i < counter):
+        #check for strings
         if text[i] == '"':
             if tempArray:
                 SplittedArray.append("".join(tempArray).strip())
@@ -31,13 +32,12 @@ def seperator(text):
             tempArray = []
             i+=1
         if text[i] == '{':
-
+            flag=0
             if tempArray:
                 SplittedArray.append("".join(tempArray).strip())
                 tempArray = []
             i += 1
             if text[i] == '*':
-                flag=0
                 while  i < counter and flag==0:
                     if text[i] == '*'and text[i+1] == '}':
                         flag=1
@@ -46,14 +46,14 @@ def seperator(text):
                     error_comments.append("Unclosed_Comment")
                 tempArray = []
             else:
-                while  i < counter:
+                while  i < counter and flag==0:
                     if  text[i] == '}' :
-                        break
+                        flag=1
                     if text[i] == '\n':
-                        error_comments.append("Unclosed_Comment")
-                        break
+                        flag=0
                     i += 1
-                tempArray = []
+                if flag ==0:
+                        error_comments.append("Unclosed_Comment")
         elif text[i] in splitters:
             if text[i:i+2] in doublesplitters:
                 if tempArray:
