@@ -166,3 +166,11 @@ begin
   writeln("Loop finished!");
   writeln("Result: ", result);
 end.
+----------------------------------------------Test8-----------------------------------------------
+
+program Test;
+begin
+   writeln("Hello");
+   writeln("World");
+end.
+
