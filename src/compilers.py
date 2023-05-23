@@ -152,14 +152,13 @@ def Scan():
         dTDaPT2 = pt.Table(dTDa2, dataframe=df1,
                            showtoolbar=True, showstatusbar=True)
         dTDaPT2.show()
+    Node=str(Node)
+    Node.replace("(statements )"," ")
+    Node.replace("(procedureDecleration )"," ")
+    Node.replace("(Decleration )"," ")
+    
+    Node=Tree.fromstring(Node)
     Node.draw()
-    # clear your list
-    # label3 = tk.Label(root, text='Lexem ' + x1 + ' is:', font=('helvetica', 10))
-    # canvas1.create_window(200, 210, window=label3)
-
-    # label4 = tk.Label(root, text="Token_type"+x1, font=('helvetica', 10, 'bold'))
-    # canvas1.create_window(200, 230, window=label4)
-
 
 # GUI
 if __name__ == "__main__":

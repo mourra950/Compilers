@@ -51,10 +51,9 @@ def varDecleration1Dash(indexPointer):              # CHECK CODE AGAIN
         return
     if str(Tokens[indexPointer].lex) in ReservedWords:
         return
-    if re.match("^[a-zA-Z][a-zA-Z0-9]*$", str(Tokens[indexPointer].lex)):
+    if re.match("^[a-zA-Z][a-zA-Z0-9]*$", str(Tokens[indexPointer].lex)) and str(Tokens[indexPointer+1].lex)==':':
         out1 = VarName(indexPointer)
         Children.append(out1["node"])
-
         out2 = Match(Token_type.Colon, out1["index"])
         Children.append(out2["node"])
 

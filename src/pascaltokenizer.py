@@ -31,6 +31,8 @@ def seperator(text):
             tempArray = []
         elif text[i] in splitters:
             if text[i:i+2] in doublesplitters:
+                if tempArray:
+                    SplittedArray.append("".join(tempArray).strip())
                 SplittedArray.append("".join(text[i:i+2]))
                 i += 1
             else:
