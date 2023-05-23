@@ -1,4 +1,3 @@
- Program sfafa; USES FEFWF, FWEFWF,FFEWFWF; Const eqqefqf = 23131; qeqefqqe = 2172193; VAR qwqwrqwr: 5768; qweqeqw, qweqweq1231w:132123;	
 
 Main Program Division
 1. program -> header declaration execution
@@ -6,7 +5,7 @@ Main Program Division
 
 	Program Header
 2. header -> programName librarySection | programName
-3. programName -> program str ;
+3. programName -> program identifier ;
 4. librarySection -> uses library ; | ε
 5. library -> identifier library'								
 6. library' -> , identifier library' | ε
@@ -23,13 +22,13 @@ Main Program Division
 	Var Decleration
 11. varDecleration -> var varDecleration1 | ε
 12. varDecleration1 ->  varName : dataType ; varDecleration1'
-12.5. dataType -> constant | real | char | identifier | boolean			
-13. varDecleration1' ->  varName : dataType ; varDecleration1' | ε
-14. varName -> identifier varName'  								
-15. varName' -> , identifier  varName' | ε
+13. dataType -> constant | real | char | identifier | boolean			
+14. varDecleration1' ->  varName : dataType ; varDecleration1' | ε
+15. varName -> identifier varName'  								
+16. varName' -> , identifier  varName' | ε
 	
 	Function Decleration
-16. functionDecleration -> function identifier arguments returnStatement ; varDecleration funcAndProcdBody functionDecleration' | functionDecleration' 
+17. functionDecleration -> function identifier arguments returnStatement ; varDecleration funcAndProcdBody functionDecleration' | functionDecleration' 
 17. functionDecleration' -> function identifier arguments returnStatement ; varDecleration funcAndProcdBody functionDecleration' | ε
 17.5. returnStatement - > : dataType | ε
 18. arguments -> ( argument ) | ε
@@ -49,7 +48,7 @@ Main Program Division
 		     write ( writeArgument ) ;|
 		     writeln ( writeBody ) ;|
 		     if condition then statements ElseClause|
-		     for identifier := int to int do statements|		// Integer can be variable?
+		     for identifier := int to int do ForBody|		// Integer can be variable?
 		     repeat statements until condition ;|
 		     identifier := expression ;|
 		     varDecleration |
@@ -78,4 +77,5 @@ Main Program Division
 35. AddOp -> + | -
 36. MultOp -> * | /
 37. ElseClause -> else statements | ε
-38. Constant-> real | integer
+38. Constant -> real | integer
+39. ForBody -> Begin statements end | statement 

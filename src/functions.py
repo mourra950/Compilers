@@ -148,8 +148,6 @@ def FunctionDelaration(indexPointer):
     Children = []
     output = dict()
 
-    
-
     if len(Tokens) <= indexPointer:
         return
     if str(Tokens[indexPointer].lex) == 'FUNCTION':

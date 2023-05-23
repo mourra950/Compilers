@@ -363,3 +363,7 @@ def Constant(indexPointer):
         output["node"] = Node
         output["index"] = indexPointer + 1
         return output
+
+
+def ForBody(indexPointer):
+    return
