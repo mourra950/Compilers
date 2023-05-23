@@ -193,7 +193,7 @@ begin
         a := b;
         b := c;
 end.""", """program RepeatUntilFunctionExample;
-
+{This program highlights that we continue if we see an error}
 var
   limit: Integer;
   result: Integer;

@@ -126,6 +126,16 @@ def ShowTree_Qt6(Input):
     errors.clear()
     find_token(Input)
     Node = Parse()
+
+    Node=str(Node)
+    print(Node)
+    Node=Node.replace('(statements )'," ")
+    Node=Node.replace("(procedureDecleration )"," ")
+    Node=Node.replace("(functionDecleration )"," ")
+    Node=Node.replace("(Decleration )"," ")
+    print(Node)
+    Node=Tree.fromstring(Node)
+
     Node.draw()
     
 
@@ -154,10 +164,11 @@ def Scan():
                            showtoolbar=True, showstatusbar=True)
         dTDaPT2.show()
     Node=str(Node)
-    #Node=Node.replace('(statements )'," ")
-    #Node=Node.replace("(procedureDecleration )"," ")
-    #Node=Node.replace("(functionDecleration )"," ")
-    #Node=Node.replace("(Decleration )"," ")
+    print(Node)
+    Node=Node.replace('(statements )'," ")
+    Node=Node.replace("(procedureDecleration )"," ")
+    Node=Node.replace("(functionDecleration )"," ")
+    Node=Node.replace("(Decleration )"," ")
     print(Node)
     Node=Tree.fromstring(Node)
     
