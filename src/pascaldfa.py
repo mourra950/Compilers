@@ -1,5 +1,6 @@
 from automata.fa.dfa import DFA
 from transitiondfa import transitionsdfa
+from visual_automata.fa.dfa import VisualDFA
 """
 start
 A
@@ -235,7 +236,15 @@ dfa = DFA(
                   '(', ')', '{', '}', '<', '>', '=', '+', '-', '*', '/',
                   }
 )
-token = '1PROGRAM'
+token = '21OSAODOASD'
 steps = dfa.read_input_stepwise(token)
-for i in steps:
-    print(i)
+try:
+    for i in steps:
+        print(i)
+except:
+    pass
+# dfar = VisualDFA(dfa)
+# dfar.show_diagram(filename='DFAA',view=True,state_seperation=4) 
+dfa.show_diagram()
+# print(dfar.table)
+# print('ahmed')
