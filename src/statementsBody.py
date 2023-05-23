@@ -366,4 +366,34 @@ def Constant(indexPointer):
 
 
 def ForBody(indexPointer):
-    return
+    Children = []
+    output = dict()
+    
+    if len(Tokens) <= indexPointer:
+        return
+    if str(Tokens[indexPointer].lex) == "BEGIN":
+        out1 = Match(Token_type.Begin, indexPointer)
+        Children.append(out1["node"])
+
+        out2 = statements(out1["index"])
+        if out2:
+            out1 = out2
+            Children.append(out2["node"])
+
+        out3 = Match(Token_type.End, out1["index"])
+        Children.append(out3["node"])
+
+        Node = Tree("For Body", Children)
+        output["node"] = Node
+        output["index"] = out3["index"]
+        return output
+    else:
+        tempIndex = indexPointer
+        out1 = statement(indexPointer)
+        if out1:
+            tempIndex = out1["index"]
+            Children.append(out1["node"])
+        Node = Tree("For Statement", Children)
+        output["node"] = Node
+        output["index"] = tempIndex
+        return output
