@@ -72,7 +72,7 @@ def DataType(indexPointer):
         output["node"] = Node
         output["index"] = out1["index"]
 
-    elif re.match("^[0-9].[0-9]$", str(Tokens[indexPointer].lex)):
+    elif re.match("^[0-9]+\.[0-9]+$", str(Tokens[indexPointer].lex)):
         out2 = Match(Token_type.Real, indexPointer)
         Children.append(out2["node"])
         Node = Tree("DataType", Children)
@@ -111,6 +111,7 @@ def DataType(indexPointer):
 
     else:
         Children.append(["error"])
+        errors.append("Syntax error : " + 'token: "' + Tokens[indexPointer].lex +'" type: ' + str(Tokens[indexPointer].token_type))
         Node = Tree("DataType", Children)
         output["node"] = Node
         output["index"] = indexPointer + 1

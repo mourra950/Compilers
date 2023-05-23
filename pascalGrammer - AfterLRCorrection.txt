@@ -1,4 +1,3 @@
-
 Main Program Division
 1. program -> header declaration execution
 
@@ -16,8 +15,8 @@ Main Program Division
 
 	Const Decleration
 8. constDecleration -> const constName | ε
-9. constName ->  identifier = constant ; constName'				--Constant means a number
-10. constName' -> identifier = constant ; constName' | ε
+9. constName ->  identifier = Constant ; constName'				
+10. constName' -> identifier = Constant ; constName' | ε
 
 	Var Decleration
 11. varDecleration -> var varDecleration1 | ε
@@ -29,53 +28,61 @@ Main Program Division
 	
 	Function Decleration
 17. functionDecleration -> function identifier arguments returnStatement ; varDecleration funcAndProcdBody functionDecleration' | functionDecleration' 
-17. functionDecleration' -> function identifier arguments returnStatement ; varDecleration funcAndProcdBody functionDecleration' | ε
-17.5. returnStatement - > : dataType | ε
-18. arguments -> ( argument ) | ε
-19. argument -> finalArgument argument' 		
-20. argument' -> ; finalArgument argument' | ε
-21. finalArgument -> identifier : dataType
-22. dataType -> int | real | char | str | boolean | INTEGER | STRING | BOOLEAN | REAL | CHAR
+18. functionDecleration' -> function identifier arguments returnStatement ; varDecleration funcAndProcdBody functionDecleration' | ε
+19. returnStatement - > : dataType | ε
+20. arguments -> ( argument ) | ε
+21. argument -> finalArgument argument' 		
+22. argument' -> ; finalArgument argument' | ε
+23. finalArgument -> identifier : dataType
+24. dataType -> int | real | char | str | boolean | INTEGER | STRING | BOOLEAN | REAL | CHAR
 
 	Function and Procedure Body
-23. funcAndProcdBody -> begin statements end ;
+25. funcAndProcdBody -> begin statements end ;
 	
 	Statements Decleration
-24. statements -> statement statementsDash 
-24.5. statementsDash ->  statement statementsDash | ε 
-25. statement -> read ( identifier ) ;|
+26. statements -> statement statementsDash 
+27. statementsDash ->  statement statementsDash | ε 
+28. statement -> read ( identifier ) ;|
 		     readln ( identifier ) ;|
-		     write ( writeArgument ) ;|
+		     write ( writeBody ) ;|
 		     writeln ( writeBody ) ;|
 		     if condition then statements ElseClause|
-		     for identifier := int to int do ForBody|		// Integer can be variable?
+		     for identifier := int to ToStatment do ForBody|		
 		     repeat statements until condition ;|
-		     identifier := expression ;|
+		     identifier := AssignedStatement ;|
 		     varDecleration |
 		     constDeleration |
+		     FunctionAndProcedureCall |
 			ε
 
 	Procedure Deleration
-26. procedureDecleration -> procedure identifier arguments ; varDecleration funcAndProcdBody procedureDecleration' | procedureDecleration' 
-27. procedureDecleration' -> procedure identifier arguments ; varDecleration funcAndProcdBody procedureDecleration' | ε
+29. procedureDecleration -> procedure identifier arguments ; varDecleration funcAndProcdBody procedureDecleration' | procedureDecleration' 
+30. procedureDecleration' -> procedure identifier arguments ; varDecleration funcAndProcdBody procedureDecleration' | ε
 
 
 	Execution
-28. execution -> begin statements end .
+31. execution -> begin statements end .
 
 	Statements Decleraion Cont.d
-29. WriteBody -> writeArgument writeBodyDash
-29.5. writeBodyDash -> , writeArgument writeBodeyDash | ε
-30. WriteArgument -> str | identifier
-31. condition -> Expresion RelOp Expression
-32. Expresion -> Term ExpressionDash
-32.5 ExpresionDash -> AddOp Term ExpressionDash | ε
-33. Term -> Factor TermDash
-33.5 TermDash -> MultOp Factor TermDash | ε
-33. Factor -> identifier | constant   				--Constant means a number
-34. RelOp -> <= | >= | = | > | <
-35. AddOp -> + | -
-36. MultOp -> * | /
-37. ElseClause -> else statements | ε
-38. Constant -> real | integer
-39. ForBody -> Begin statements end | statement 
+32. WriteBody -> writeArgument writeBodyDash
+33. writeBodyDash -> , writeArgument writeBodeyDash | ε
+34. WriteArgument -> str | identifier | FunctionCall
+35. condition -> Expresion RelOp Expression
+36. Expresion -> Term ExpressionDash
+37. ExpresionDash -> AddOp Term ExpressionDash | ε
+38. Term -> Factor TermDash
+39. TermDash -> MultOp Factor TermDash | ε
+40. Factor -> identifier | constant   				
+41. RelOp -> <= | >= | = | > | <
+42. AddOp -> + | -
+43. MultOp -> * | /
+44. ElseClause -> else statements | ε
+45. Constant -> real | integer
+46. ForBody -> Begin statements end | statement
+47. AssignedStatement -> expression | FunctionCall
+48. FunctionAndProcedureCall -> identifier FunctionCallArgument
+49. FunctionAndProcedureCallArgument -> ( FunctionArgument ) | ε 
+50. ToStatment -> identifier | int
+51. FunctionArgument -> identifier FunctionArgument'
+52. FunctionArgument' -> , identifier FunctionArgument' | ε 		
+

@@ -78,9 +78,9 @@ def tokenizer(T):
         elif re.match("^[a-zA-Z][a-zA-Z0-9]*$", x):
             ap = token(x, Token_type.Identifier)
             Tokens.append(ap)
-        elif re.match("^[0-9].[0-9]$", x):
+        elif re.match("^[0-9]+\.[0-9]+$", x):
             ap = token(x, Token_type.Real)
-            Tokens.append(ap)
+            Tokens.append(ap)    
         elif re.match("^[0-9]*$", x):
             ap = token(x, Token_type.Int)
             Tokens.append(ap)
