@@ -205,28 +205,18 @@ dfa = DFA(
             'READL', 'READLN',
             'S', 'SE', 'SET',
             'ST', 'STR', 'STRI', 'STRIN', 'STRING',
-
             'T', 'TH', 'THE', 'THEN',
-
             'TO',
-
             'TY', 'TYP', 'TYPE',
-
             'U', 'UN', 'UNT', 'UNTI', 'UNTIL',
-
             'US', 'USE', 'USES',
-
             'V', 'VA', 'VAR',
-
             'W', 'WH', 'WHI', 'WHIL', 'WHILE',
-
             'WR', 'WRI', 'WRIT', 'WRITE',
-
             'WRITEL', 'WRITELN',
-
             'INTEGERstate', 'REAL', 'ERROR', '(',
             ')', '{', '}', '<', '>', '=', '+', '-', '*', '/',
-            '<=', '>=',},
+            '<=', '>='},
     input_symbols={'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
                    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
                    '(', ')', '{', '}', '<', '>', '=', '+', '-', '*', '/',
@@ -245,7 +235,7 @@ dfa = DFA(
                   '(', ')', '{', '}', '<', '>', '=', '+', '-', '*', '/',
                   }
 )
-token = 'PROGRAM'
+token = '1PROGRAM'
 steps = dfa.read_input_stepwise(token)
 for i in steps:
     print(i)

@@ -21,7 +21,6 @@ def Parse():
     Children.append(Header_dict["node"])
     tempNode = Header_dict
     Decleration_dict = Decleration(tempNode["index"])
-    print(Decleration_dict)
     if Decleration_dict:
         tempNode = Decleration_dict
         Children.append(Decleration_dict["node"])
@@ -153,11 +152,12 @@ def Scan():
                            showtoolbar=True, showstatusbar=True)
         dTDaPT2.show()
     Node=str(Node)
-    Node.replace("(statements )"," ")
-    Node.replace("(procedureDecleration )"," ")
-    Node.replace("(Decleration )"," ")
-    
+    Node=Node.replace('(statements )'," ")
+    Node=Node.replace("(procedureDecleration )"," ")
+    Node=Node.replace("(Decleration )"," ")
+    print(Node)
     Node=Tree.fromstring(Node)
+    
     Node.draw()
 
 # GUI
