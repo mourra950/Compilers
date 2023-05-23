@@ -2,7 +2,7 @@
 Program sfafa; USES FEFWF, FWEFWF,FFEWFWF; Const eqqefqf = 23131; qeqefqqe = 2172193; VAR qwqwrqwr: 5768; qweqeqw, qweqweq1231w:132123; begin end.
 ------------------------------------------------TEST2------------------------------------------
 program FunctionExample;
-{ahdhashdhadha
+{ahdhashdhadha}
 var
 num, square: Integer;
 function CalculateSquare(num: Integer): Integer;
@@ -124,7 +124,7 @@ begin
 end.
 ----------------------------------------------Test8-----------------------------------------------
 program RepeatUntilFunctionExample;
-
+{This program highlights that we continue if we see an error}
 var
   limit: Integer;
   result: Integer;
@@ -211,8 +211,8 @@ end.
 program Factorial;
 var
   i: integer;
-  factorial: int;
-function CalculateFactorial(number: integer): int;
+  factorial: integer;
+function CalculateFactorial(number: integer): integer;
 begin
   factorial := 1;
   for i := 1 to number do

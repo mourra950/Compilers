@@ -29,6 +29,7 @@ def seperator(text):
             tempArray.append(text[i])
             SplittedArray.append("".join(tempArray).strip())
             tempArray = []
+            i+=1
         if text[i] == '{':
 
             if tempArray:
