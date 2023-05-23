@@ -28,9 +28,11 @@ begin
     a := 0;
     b := 1;
     for i := 1 to 10 do
+        Begin
         c := a + b;
         a := b;
         b := c;
+        end
         Fibonacci:=a;
 end;
 begin
@@ -166,7 +168,7 @@ begin
   writeln("Loop finished!");
   writeln("Result: ", result);
 end.
-----------------------------------------------Test8-----------------------------------------------
+----------------------------------------------Test9-----------------------------------------------
 
 program Test;
 begin

@@ -206,7 +206,7 @@ def statement(indexPointer):
         match7 = Match(Token_type.Do, match6["index"])
         Children.append(match7["node"])
 
-        match8 = statements(match7["index"])
+        match8 = ForBody(match7["index"])
         Children.append(match8["node"])
 
         tempIndex = match8
@@ -301,3 +301,43 @@ def ElseClause(indexPointer):
 
     else:
         return
+    
+def ForBody(indexPointer):
+    Children = []
+    output = dict()
+    
+    if len(Tokens) <= indexPointer:
+        return
+    if str(Tokens[indexPointer].lex) == "BEGIN":
+        out1 = Match(Token_type.Begin, indexPointer)
+        Children.append(out1["node"])
+
+        out2 = statements(out1["index"])
+        if out2:
+            out1 = out2
+            Children.append(out2["node"])
+
+        out3 = Match(Token_type.End, out1["index"])
+        Children.append(out3["node"])
+
+        Node = Tree("For Body", Children)
+        output["node"] = Node
+        output["index"] = out3["index"]
+        return output
+    else:
+        tempIndex = indexPointer
+        out1 = statement(indexPointer)
+        if out1:
+            tempIndex = out1["index"]
+            Children.append(out1["node"])
+            Node = Tree("For Statement", Children)
+            output["node"] = Node
+            output["index"] = tempIndex
+            return output
+        else:
+            Children.append(["error"])
+            Node = Tree("WriteArgument", Children)
+            output["node"] = Node
+            output["index"] = indexPointer + 1
+            return output
+    
