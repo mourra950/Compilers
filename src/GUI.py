@@ -272,8 +272,8 @@ begin
 end.""", """program Factorial;
 var
   i: integer;
-  factorial: int;
-function CalculateFactorial(number: integer): int;
+  factorial: integer;
+function CalculateFactorial(number: integer): integer;
 begin
   factorial := 1;
   for i := 1 to number do
