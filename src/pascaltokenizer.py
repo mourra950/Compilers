@@ -1,10 +1,10 @@
 from pascaltokens import *
 import re
-
+error_comments=[]
 
 def find_token(text):
     arr = seperator(text)
-
+    error_comments=[]
     tokenizer(arr)
 
 
@@ -29,6 +29,30 @@ def seperator(text):
             tempArray.append(text[i])
             SplittedArray.append("".join(tempArray).strip())
             tempArray = []
+        if text[i] == '{':
+
+            if tempArray:
+                SplittedArray.append("".join(tempArray).strip())
+                tempArray = []
+            i += 1
+            if text[i] == '*':
+                flag=0
+                while  i < counter and flag==0:
+                    if text[i] == '*'and text[i+1] == '}':
+                        flag=1
+                    i += 1
+                if flag==0:
+                    error_comments.append("Unclosed_Comment")
+                tempArray = []
+            else:
+                while  i < counter:
+                    if  text[i] == '}' :
+                        break
+                    if text[i] == '\n':
+                        error_comments.append("Unclosed_Comment")
+                        break
+                    i += 1
+                tempArray = []
         elif text[i] in splitters:
             if text[i:i+2] in doublesplitters:
                 if tempArray:
@@ -38,10 +62,10 @@ def seperator(text):
             else:
                 if tempArray:
                     SplittedArray.append("".join(tempArray))
-                    tempArray=[]
+                    tempArray = []
                 if text[i] != ' ' and text[i] != '\n':
                     SplittedArray.append(text[i])
-                elif text[i] == ' ' :
+                elif text[i] == ' ':
                     while (text[i+1] == ' ' or text[i] == '\n'):
                         i += 1
                 elif text[i] == '\n':
@@ -80,7 +104,7 @@ def tokenizer(T):
             Tokens.append(ap)
         elif re.match("^[0-9]+\.[0-9]+$", x):
             ap = token(x, Token_type.Real)
-            Tokens.append(ap)    
+            Tokens.append(ap)
         elif re.match("^[0-9]*$", x):
             ap = token(x, Token_type.Int)
             Tokens.append(ap)

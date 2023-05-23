@@ -2,6 +2,7 @@
 Program sfafa; USES FEFWF, FWEFWF,FFEWFWF; Const eqqefqf = 23131; qeqefqqe = 2172193; VAR qwqwrqwr: 5768; qweqeqw, qweqweq1231w:132123; begin end.
 ------------------------------------------------TEST2------------------------------------------
 program FunctionExample;
+{ahdhashdhadha
 var
 num, square: Integer;
 function CalculateSquare(num: Integer): Integer;
