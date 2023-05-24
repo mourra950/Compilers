@@ -2,7 +2,8 @@ from statementsFile import *
 from utils import *
 from var import *
 
-def procedureDecleration(indexPointer):
+
+def procedureDeclaration(indexPointer):
     Children = []
     output = dict()
     if len(Tokens) <= indexPointer:
@@ -27,7 +28,7 @@ def procedureDecleration(indexPointer):
         out4 = Match(Token_type.Semicolon, out2["index"])
         Children.append(out4["node"])
         tempNode = out4
-        out5 = varDecleration(out4["index"])
+        out5 = varDeclaration(out4["index"])
         if out5:
             tempNode = out5
             Children.append(out5["node"])
@@ -54,7 +55,7 @@ def procedureDecleration(indexPointer):
         output["node"] = Node
         output["index"] = tempIndex
         return output
-    
+
 
 def procedureDeclerationDash(indexPointer):
     Children = []
@@ -76,7 +77,7 @@ def procedureDeclerationDash(indexPointer):
         out4 = Match(Token_type.Semicolon, out2["index"])
         Children.append(out4["node"])
         tempNode = out4
-        out5 = varDecleration(out4["index"])
+        out5 = varDeclaration(out4["index"])
         if out5:
             tempNode = out5
             Children.append(out5["node"])
@@ -95,12 +96,12 @@ def procedureDeclerationDash(indexPointer):
         return output
     else:
         return
-    
+
 
 def execution(indexPointer):
     Children = []
     output = dict()
-    
+
     out1 = Match(Token_type.Begin, indexPointer)
     Children.append(out1["node"])
 

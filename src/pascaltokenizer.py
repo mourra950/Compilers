@@ -1,10 +1,11 @@
 from pascaltokens import *
 import re
-error_comments=[]
+error_comments = []
+
 
 def find_token(text):
     arr = seperator(text)
-    error_comments=[]
+    error_comments = []
     tokenizer(arr)
 
 
@@ -17,7 +18,7 @@ def seperator(text):
     counter = len(text)
     i = 0
     while (i < counter):
-        #check for strings
+        # check for strings
         if text[i] == "'":
             if tempArray:
                 SplittedArray.append("".join(tempArray).strip())
@@ -30,30 +31,30 @@ def seperator(text):
             tempArray.append(text[i])
             SplittedArray.append("".join(tempArray).strip())
             tempArray = []
-            i+=1
+            i += 1
         if text[i] == '{':
-            flag=0
+            flag = 0
             if tempArray:
                 SplittedArray.append("".join(tempArray).strip())
                 tempArray = []
             i += 1
             if text[i] == '*':
-                while  i < counter and flag==0:
-                    if text[i] == '*'and text[i+1] == '}':
-                        flag=1
+                while i < counter and flag == 0:
+                    if text[i] == '*' and text[i+1] == '}':
+                        flag = 1
                     i += 1
-                if flag==0:
+                if flag == 0:
                     error_comments.append("Unclosed_Comment")
                 tempArray = []
             else:
-                while  i < counter and flag==0:
-                    if  text[i] == '}' :
-                        flag=1
+                while i < counter and flag == 0:
+                    if text[i] == '}':
+                        flag = 1
                     if text[i] == '\n':
-                        flag=0
+                        flag = 0
                     i += 1
-                if flag ==0:
-                        error_comments.append("Unclosed_Comment")
+                if flag == 0:
+                    error_comments.append("Unclosed_Comment")
         elif text[i] in splitters:
             if text[i:i+2] in doublesplitters:
                 if tempArray:
@@ -98,7 +99,7 @@ def tokenizer(T):
             ap = token(x, Group[x])
             Tokens.append(ap)
         elif x in Comment:
-            ap = token(x, Comment[x])   
+            ap = token(x, Comment[x])
             Tokens.append(ap)
         elif re.match("^[a-zA-Z][a-zA-Z0-9_]*$", x):
             ap = token(x, Token_type.Identifier)

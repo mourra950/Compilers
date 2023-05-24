@@ -5,7 +5,7 @@ from pascaltokens import *
 def Match(tokenmatch, index):
     newindex = index+1
     output = dict()
-    
+
     if (index < len(Tokens)):
         Temp = Tokens[index].to_dict()
         if (Temp['token_type'] == tokenmatch):
@@ -13,10 +13,10 @@ def Match(tokenmatch, index):
             output["index"] = newindex
         else:
             output["node"] = ["error"]
-            output["index"] = newindex 
-            
+            output["index"] = newindex
+
             errors.append("Syntax error : " + 'token: "' +
-                              Temp['Lex']+'" type: ' + str(tokenmatch))
+                          Temp['Lex']+'" type: ' + str(tokenmatch))
         return output
     else:
         output["node"] = ["error"]
@@ -27,7 +27,7 @@ def Match(tokenmatch, index):
 def DataType(indexPointer):
     Children = []
     output = dict()
-    #print(str(Tokens[indexPointer].lex))
+    # print(str(Tokens[indexPointer].lex))
     if len(Tokens) <= indexPointer:
         return
     if str(Tokens[indexPointer].lex) == "INTEGER":
@@ -64,7 +64,7 @@ def DataType(indexPointer):
         Node = Tree("DataType", Children)
         output["node"] = Node
         output["index"] = out11["index"]
-        
+
     elif re.match("^[0-9]*$", str(Tokens[indexPointer].lex)):
         out1 = Match(Token_type.Int, indexPointer)
         Children.append(out1["node"])
@@ -86,7 +86,6 @@ def DataType(indexPointer):
         output["node"] = Node
         output["index"] = out3["index"]
 
-
     elif re.match("^[TRUE | FALSE]$", str(Tokens[indexPointer].lex)):
         out5 = Match(Token_type.Boolean, indexPointer)
         Children.append(out5["node"])
@@ -100,10 +99,11 @@ def DataType(indexPointer):
         Node = Tree("DataType", Children)
         output["node"] = Node
         output["index"] = out6["index"]
-        
+
     else:
         Children.append(["error"])
-        errors.append("Syntax error : " + 'token: "' + Tokens[indexPointer].lex +'" type: ' + str(Tokens[indexPointer].token_type))
+        errors.append("Syntax error : " + 'token: "' +
+                      Tokens[indexPointer].lex + '" type: ' + str(Tokens[indexPointer].token_type))
         Node = Tree("DataType", Children)
         output["node"] = Node
         output["index"] = indexPointer + 1
