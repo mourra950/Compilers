@@ -344,3 +344,38 @@ begin
    readln(name);
    
 end.
+----------------------------------------------Test16-----------------------------------------------
+program NestedForLoop;
+var
+  i, j: integer;
+begin
+  for i := 1 to 5 do
+    begin
+      for j := 1 to i do
+        write('*');
+      writeln(i);
+    end;
+end.
+----------------------------------------------Test17-----------------------------------------------
+program Example;
+const
+  PI = 3.14;
+var
+  radius: real;
+  
+function Area(r: real): real;
+begin
+  Area := PI * r * r;
+end;
+
+procedure PrintArea(r: real);
+begin
+  writeln('The area of the circle is: ', Area(r));
+end;
+
+begin
+  write('Enter the radius of the circle: ');
+  readln(radius);
+  PrintArea(radius);
+end.
+

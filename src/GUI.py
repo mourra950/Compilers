@@ -9,7 +9,7 @@ import random
 class Home(QMainWindow):
     def __init__(self) -> None:
         super(Home, self).__init__()
-        loadUi('D:\Github\Compilers\Compilers\src\Compiler_gui.ui', self)
+        loadUi('.\Compiler_gui.ui', self)
         self.c = 0
         self.tokenviewtable = self.findChild(QTableView, 'tableView')
         self.errorviewtable = self.findChild(QTableView, 'tableviewerror')
@@ -400,9 +400,41 @@ begin
    writeln('Please Enter the name of your Organisation');
    readln(name);
    
-end."""
+end.""","""program NestedForLoop;
+var
+  i, j: integer;
+begin
+  for i := 1 to 5 do
+    begin
+      for j := 1 to i do
+        write('*');
+      writeln(i);
+    end;
+end.
+  """, """program Example;
+const
+  PI = 3.14;
+var
+  radius: real;
+  
+function Area(r: real): real;
+begin
+  Area := PI * r * r;
+end;
+
+procedure PrintArea(r: real);
+begin
+  writeln('The area of the circle is: ', Area(r));
+end;
+
+begin
+  write('Enter the radius of the circle: ');
+  readln(radius);
+  PrintArea(radius);
+end.
+  """
 ]
-        randomnumber=random.randrange(0,14)
+        randomnumber=random.randrange(0,16)
         self.inputText.insertPlainText(testcase[randomnumber])
 
 
