@@ -68,8 +68,9 @@ def seperator(text):
                 if text[i] != ' ' and text[i] != '\n':
                     SplittedArray.append(text[i])
                 elif text[i] == ' ':
-                    while (text[i+1] == ' ' or text[i] == '\n'):
-                        i += 1
+                    pass
+                    # while (text[i+1] == ' ' or text[i] == '\n'):
+                    #     i += 1
                 elif text[i] == '\n':
                     pass
             tempArray = []
