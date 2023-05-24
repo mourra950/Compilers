@@ -18,13 +18,13 @@ def seperator(text):
     i = 0
     while (i < counter):
         #check for strings
-        if text[i] == '"':
+        if text[i] == "'":
             if tempArray:
                 SplittedArray.append("".join(tempArray).strip())
                 tempArray = []
             tempArray.append(text[i])
             i += 1
-            while text[i] != '"' and i < counter:
+            while text[i] != "'" and i < counter:
                 tempArray.append(text[i])
                 i += 1
             tempArray.append(text[i])
@@ -98,9 +98,9 @@ def tokenizer(T):
             ap = token(x, Group[x])
             Tokens.append(ap)
         elif x in Comment:
-            ap = token(x, Comment[x])
+            ap = token(x, Comment[x])   
             Tokens.append(ap)
-        elif re.match("^[a-zA-Z][a-zA-Z0-9]*$", x):
+        elif re.match("^[a-zA-Z][a-zA-Z0-9_]*$", x):
             ap = token(x, Token_type.Identifier)
             Tokens.append(ap)
         elif re.match("^[0-9]+\.[0-9]+$", x):
@@ -115,7 +115,7 @@ def tokenizer(T):
         elif re.match("^[TRUE | FALSE]$", x):
             ap = token(x, Token_type.Boolean)
             Tokens.append(ap)
-        elif re.match('^".*"$', x):
+        elif re.match("^'.*'$", x):
             ap = token(x, Token_type.Str)
             Tokens.append(ap)
         else:

@@ -94,7 +94,7 @@ def DataType(indexPointer):
         output["node"] = Node
         output["index"] = out5["index"]
 
-    elif re.match('^".*"$', str(Tokens[indexPointer].lex)):
+    elif re.match("^'.*'$", str(Tokens[indexPointer].lex)):
         out6 = Match(Token_type.Str, indexPointer)
         Children.append(out6["node"])
         Node = Tree("DataType", Children)

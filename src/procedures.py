@@ -1,13 +1,17 @@
 from statementsFile import *
 from utils import *
-from functions import *
 from var import *
 
 def procedureDecleration(indexPointer):
     Children = []
     output = dict()
     if len(Tokens) <= indexPointer:
-        return
+        Children.append(["error"])
+        errors.append("Syntax error")
+        Node = Tree("procedureDecleration", Children)
+        output["node"] = Node
+        output["index"] = indexPointer + 1
+        return output
     if str(Tokens[indexPointer].lex) == 'PROCEDURE':
         out1 = Match(Token_type.Procedure, indexPointer)
         Children.append(out1["node"])
@@ -85,7 +89,7 @@ def procedureDeclerationDash(indexPointer):
             tempNode = out7
             Children.append(out7["node"])
 
-        Node = Tree("procedureDecleration", Children)
+        Node = Tree("procedureDeclerationDash", Children)
         output["node"] = Node
         output["index"] = tempNode["index"]
         return output

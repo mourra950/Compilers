@@ -67,9 +67,9 @@ Main Program Division
 32. WriteBody -> writeArgument writeBodyDash
 33. writeBodyDash -> , writeArgument writeBodeyDash | ε
 34. WriteArgument -> str | identifier | FunctionCall
-35. condition -> Expresion RelOp Expression
-36. Expresion -> Term ExpressionDash
-37. ExpresionDash -> AddOp Term ExpressionDash | ε
+35. condition -> Expression RelOp Expression | ( Expression RelOp Expression )
+36. Expression -> Term ExpressionDash
+37. ExpressionDash -> AddOp Term ExpressionDash | ε
 38. Term -> Factor TermDash
 39. TermDash -> MultOp Factor TermDash | ε
 40. Factor -> identifier | constant   				

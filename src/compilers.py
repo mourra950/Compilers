@@ -8,9 +8,7 @@ from pascaltokens import *
 from pascaltokenizer import *
 from library import *
 from var import *
-from functions import *
 from statementsFile import *
-from statementsBody import *
 from constpascal import *
 from procedures import *
 
@@ -127,14 +125,14 @@ def ShowTree_Qt6(Input):
     find_token(Input)
     Node = Parse()
 
-    Node=str(Node)
-    print(Node)
-    Node=Node.replace('(statements )'," ")
-    Node=Node.replace("(procedureDecleration )"," ")
-    Node=Node.replace("(functionDecleration )"," ")
-    Node=Node.replace("(Decleration )"," ")
-    print(Node)
-    Node=Tree.fromstring(Node)
+    # Node=str(Node)
+    # print(Node)
+    # Node=Node.replace('(statements )'," ")
+    # Node=Node.replace("(procedureDecleration )"," ")
+    # Node=Node.replace("(functionDecleration )"," ")
+    # Node=Node.replace("(Decleration )"," ")
+    # print(Node)
+    # Node=Tree.fromstring(Node)
 
     Node.draw()
     

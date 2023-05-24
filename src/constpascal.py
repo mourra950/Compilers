@@ -52,7 +52,7 @@ def ConstNameDash(indexPointer):
         return
     if str(Tokens[indexPointer].lex) in ReservedWords:
            return
-    if re.match("^[a-zA-Z][a-zA-Z0-9]*$", str(Tokens[indexPointer].lex)):
+    if re.match("^[a-zA-Z][a-zA-Z0-9_]*$", str(Tokens[indexPointer].lex)):
         out1 = Match(Token_type.Identifier, indexPointer)
         Children.append(out1["node"])
 
@@ -81,7 +81,12 @@ def Constant(indexPointer):
     Children = []
     output = dict()
     if len(Tokens) <= indexPointer:
-        return
+        Children.append(["error"])
+        errors.append("Syntax error")
+        Node = Tree("Constant", Children)
+        output["node"] = Node
+        output["index"] = indexPointer + 1
+        return output
     if re.match("^[0-9]*$", str(Tokens[indexPointer].lex)):
         out1 = Match(Token_type.Int, indexPointer)
         Children.append(out1["node"])

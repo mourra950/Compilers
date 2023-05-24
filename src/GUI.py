@@ -85,6 +85,7 @@ class Home(QMainWindow):
         self.testclear()
         testcase =[
             """program FunctionExample;
+{ahdhashdhadha}
 var
 num, square: Integer;
 function CalculateSquare(num: Integer): Integer;
@@ -142,7 +143,7 @@ begin
   count := 1;
 
   repeat
-    writeln("Count: ", count);
+    writeln('Count: ', count);
     count := count + 1;
   until count > limit;
 
@@ -150,13 +151,13 @@ begin
 end;
 
 begin
-  writeln("Enter a limit:");
+  writeln('Enter a limit:');
   readln(limit);
 
   result := count - 1; 
 
-  writeln("Loop finished!");
-  writeln("Result: ", result);
+  writeln('Loop finished!');
+  writeln('Result: ', result);
 end.""",
                     """program ProcedureExample;
 
@@ -168,22 +169,22 @@ procedure GreetUser;
 var
   name: string;
 begin
-  writeln("Enter your name: ");
+  writeln('Enter your name: ');
   readln(name);
-  writeln("Hello, ", name, "! Welcome to the program.");
+  writeln('Hello, ', name, '! Welcome to the program.');
 end;
 
 procedure CalculateSum;
 var
   num1, num2, sum: integer;
 begin
-  writeln("Enter the first number: ");
+  writeln('Enter the first number: ');
   readln(num1);
-  writeln("Enter the second number: ");
+  writeln('Enter the second number: ');
   readln(num2);
 
   sum := num1 + num2;
-  writeln("The sum of ", num1, " and ", num2, " is ", sum);
+  writeln('The sum of ', num1, ' and ', num2, ' is ', sum);
 end;
 
 
@@ -203,7 +204,7 @@ begin
   count := 1;
 
   repeat
-    writeln("Count: ", count);
+    writeln('Count: ', count);
     count := count + 1;
   until count > limit;
 
@@ -215,7 +216,7 @@ begin
   count2 := 1;
 
   repeat
-    writeln("Count2: ", count2);
+    writeln('Count2: ', count2);
     count2 := count2 + 1;
   until count2 > limit2;
 
@@ -227,7 +228,7 @@ begin
   count3 := 1;
 
   repeat
-    writeln("Count3: ", count3);
+    writeln('Count3: ', count3);
     count3 := count3 + 1;
   until count3 > limit3;
 
@@ -235,17 +236,17 @@ begin
 end;
 
 begin
-  writeln("Enter a limit:");
+  writeln('Enter a limit:');
   readln(limit);
 
   result := count - 1; 
 
-  writeln("Loop finished!");
-  writeln("Result: ", result);
+  writeln('Loop finished!');
+  writeln('Result: ', result);
 end.""", """program Test;
 begin
-   writeln("Hello");
-   writeln("World");
+   writeln('Hello');
+   writeln('World');
 end.
 """, """program Test;
 
@@ -259,7 +260,7 @@ end;
 
 procedure PrintResult(result: integer);
 begin
-   writeln("The result is: ", result);
+   writeln('The result is: ', result);
 end;
 
 begin
@@ -283,7 +284,7 @@ end;
 
 begin
   factorial := CalculateFactorial(number);
-  writeln("The factorial of  is ", factorial);
+  writeln('The factorial of  is ', factorial);
 end.""", """program TestGrammar;
 
 uses
@@ -318,13 +319,13 @@ begin
 end;
 
 begin
-  writeln("Testing Pascal Grammar");
+  writeln('Testing Pascal Grammar');
 
   x := 5;
   y := 3;
 
   if x > 0 then
-    writeln("x is positive");
+    writeln('x is positive');
 
   for x := 1 to 10 do
   begin
@@ -338,21 +339,69 @@ begin
 
   readln(x);
 
-  write("The value of x is: ", x);
+  write('The value of x is: ', x);
 
-  writeln("Hello, world!");
+  writeln('Hello, world!');
 
   z := x + y * x - y;
 
   MyProcedure;
 
   z := Multiply(x, y);
-  writeln("The result is: ", z);
+  writeln('The result is: ', z);
 
-  writeln("Program execution completed.");
+  writeln('Program execution completed.');
+end.""", """program forLoop;
+{This is a program to test loops}
+var
+   a: integer;
+   a2: integer;
+
+begin
+   for a := 10  to 20 do 
+      writeln('value of a: ', a);
+
+ a2 := 10;
+   { repeat until loop execution }
+   repeat
+      writeln('value of a: ', a);
+      a2 := a2 + 1;
+   until a2 = 20;
+
+end.""", """program nested_ifelseChecking;
+var
+   { local variable definition }
+   a, b : integer;
+
+begin
+   a := 100;
+   b:= 200;
+   
+   { check the boolean condition }
+   if (a = 100) then
+      { if condition is true then check the following }
+      if ( b = 200 ) then
+         { if nested if condition is true  then print the following }
+         writeln('Value of a is 100 and value of b is 200' );
+   
+   writeln('Exact value of a is: ', a );
+   writeln('Exact value of b is: ', b );
+end.""", """ program exString;
+var
+   greetings: string;
+   name: string;
+   x: integer;
+
+begin
+   greetings := 'Hello ';
+   x := 1;
+   
+   writeln('Please Enter the name of your Organisation');
+   readln(name);
+   
 end."""
 ]
-        randomnumber=random.randrange(0,11)
+        randomnumber=random.randrange(0,14)
         self.inputText.insertPlainText(testcase[randomnumber])
 
 
