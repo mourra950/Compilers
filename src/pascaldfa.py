@@ -196,7 +196,7 @@ dfa = DFA(
             'NO', 'NOT',
             'O', 'OF',
             'OR',
-            'P', 'PA', 'PAC', 'PACK','PACKE', 'PACKED',
+            'P', 'PA', 'PAC', 'PACK', 'PACKE', 'PACKED',
             'PR', 'PRO', 'PROC', 'PROCE', 'PROCED', 'PROCEDU', 'PROCEDUR', 'PROCEDURE',
             'PROG', 'PROGR', 'PROGRA', 'PROGRAM',
             'R', 'RE', 'REC', 'RECO', 'RECOR', 'RECORD',
@@ -225,8 +225,8 @@ dfa = DFA(
     transitions=transitionsdfa,
     initial_state='Start',
     final_states={'Start', 'IDENTIFIER', 'A', 'AN', 'AND', 'AR', 'ARR', 'ARRA', 'ARRAY', 'B', 'BE', 'BEG', 'BEGI', 'BEGIN',
-                  'BO', 'BOO', 'BOOL', 'BOOLE', 'BOOLEA', 'BOOLEAN','C', 'CA', 'CAS', 'CASE', 'CH', 'CHA', 'CHAR', 'CO', 'CON', 'CONS', 'CONST',
-                  'D', 'DI', 'DIV','DO', 'DOW', 'DOWN', 'DOWNT', 'DOWNTO', 'E', 'EL', 'ELS', 'ELSE', 'EN', 'END', 'F', 'FI', 'FIL', 'FILE', 'FO', 'FOR',
+                  'BO', 'BOO', 'BOOL', 'BOOLE', 'BOOLEA', 'BOOLEAN', 'C', 'CA', 'CAS', 'CASE', 'CH', 'CHA', 'CHAR', 'CO', 'CON', 'CONS', 'CONST',
+                  'D', 'DI', 'DIV', 'DO', 'DOW', 'DOWN', 'DOWNT', 'DOWNTO', 'E', 'EL', 'ELS', 'ELSE', 'EN', 'END', 'F', 'FI', 'FIL', 'FILE', 'FO', 'FOR',
                   'FU', 'FUN', 'FUNC', 'FUNCT', 'FUNCTI', 'FUNCTIO', 'FUNCTION', 'G', 'GO', 'GOT', 'GOTO', 'I', 'IF', 'IN', 'INT', 'INTE', 'INTEG',
                   'INTEGE', 'INTEGER', 'L', 'LA', 'LAB', 'LABE', 'LABEL', 'M', 'MO', 'MOD', 'MODE', 'N', 'NI', 'NIL', 'NO', 'NOT', 'O', 'OF', 'OR', 'P', 'PA', 'PAC', 'PACK',
                   'PACKED', 'PR', 'PRO', 'PROC', 'PROCE', 'PROCED', 'PROCEDU', 'PROCEDUR', 'PROCEDURE', 'PROG', 'PROGR', 'PROGRA', 'PROGRAM', 'R', 'RE', 'REC',
@@ -244,7 +244,7 @@ try:
 except:
     pass
 # dfar = VisualDFA(dfa)
-# dfar.show_diagram(filename='DFAA',view=True,state_seperation=4) 
+# dfar.show_diagram(filename='DFAA',view=True,state_seperation=4)
 dfa.show_diagram()
 # print(dfar.table)
 # print('ahmed')

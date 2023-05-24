@@ -1,7 +1,8 @@
 from enum import Enum
 from nltk.tree import *
 Tokens = []  # to add tokens to list
-errors = []  # to add errors 
+errors = []  # to add errors
+
 
 class Token_type(Enum):
     And = 1
@@ -71,12 +72,13 @@ class Token_type(Enum):
     Write = 65
     WriteLn = 66
     IntegerType = 67
-    Int=68
+    Int = 68
     RealType = 69
     CharType = 70
     StringType = 71
     BooleanType = 72
     EndProgram = 73
+
 
 class token:
     def __init__(self, lex, token_type):
@@ -88,7 +90,6 @@ class token:
             'Lex': self.lex,
             'token_type': self.token_type
         }
-
 
 
 # Reserved word Dictionary
@@ -137,7 +138,7 @@ ReservedWords = {                       # We Can add global?
     "READLN": Token_type.ReadLn,
     "WRITE": Token_type.Write,
     "WRITELN": Token_type.WriteLn,
-    "INTEGER":Token_type.IntegerType,
+    "INTEGER": Token_type.IntegerType,
     "REAL": Token_type.RealType,
     "CHAR": Token_type.CharType,
     "STRING": Token_type.StringType,

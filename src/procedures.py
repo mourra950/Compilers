@@ -2,6 +2,7 @@ from statementsFile import *
 from utils import *
 from var import *
 
+
 def procedureDeclaration(indexPointer):
     Children = []
     output = dict()
@@ -54,7 +55,7 @@ def procedureDeclaration(indexPointer):
         output["node"] = Node
         output["index"] = tempIndex
         return output
-    
+
 
 def procedureDeclerationDash(indexPointer):
     Children = []
@@ -95,12 +96,12 @@ def procedureDeclerationDash(indexPointer):
         return output
     else:
         return
-    
+
 
 def execution(indexPointer):
     Children = []
     output = dict()
-    
+
     out1 = Match(Token_type.Begin, indexPointer)
     Children.append(out1["node"])
 

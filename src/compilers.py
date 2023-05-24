@@ -12,6 +12,7 @@ from statementsFile import *
 from constpascal import *
 from procedures import *
 
+
 def Parse():
     j = 0
     Children = []
@@ -52,11 +53,10 @@ def ProgramName(indexPointer):
 def Header(indexPointer):
     Children = []
     output = dict()
-    
+
     out1 = ProgramName(indexPointer)
     Children.append(out1["node"])
 
-    
     out2 = LibrarySection(out1["index"])
     if out2:
         out1 = out2
@@ -72,9 +72,7 @@ def Decleration(indexPointer):
     Children = []
     output = dict()
 
-    
     out1 = constDecleration(indexPointer)
-
 
     tempIndex = indexPointer
     if out1:
@@ -86,7 +84,6 @@ def Decleration(indexPointer):
     if out2:
         tempIndex = out2["index"]
         Children.append(out2["node"])
-        
 
     out3 = FunctionDeclaration(tempIndex)
 
@@ -108,6 +105,7 @@ def Decleration(indexPointer):
     else:
         return
 
+
 def Scan_Qt6(Input):
     Tokens.clear()
     errors.clear()
@@ -115,9 +113,10 @@ def Scan_Qt6(Input):
     Node = Parse()
     if error_comments:
         errors.append(error_comments)
-    return Tokens,errors
-    
-    #Token:Type List (have all token from the tokenizer)  , errors:Type List (Hold all the errors if there is one) 
+    return Tokens, errors
+
+    # Token:Type List (have all token from the tokenizer)  , errors:Type List (Hold all the errors if there is one)
+
 
 def ShowTree_Qt6(Input):
     Tokens.clear()
@@ -125,57 +124,22 @@ def ShowTree_Qt6(Input):
     find_token(Input)
     Node = Parse()
 
-    Node=str(Node)
+    Node = str(Node)
     # print(Node)
-    Node=Node.replace('(statements )'," ")
-    Node=Node.replace("(procedureDeclaration )"," ")
-    Node=Node.replace("(FunctionDeclaration )"," ")
-    Node=Node.replace("(Decleration )"," ")
+    Node = Node.replace('(statements )', " ")
+    Node = Node.replace("(procedureDeclaration )", " ")
+    Node = Node.replace("(FunctionDeclaration )", " ")
+    Node = Node.replace("(Decleration )", " ")
     print(Node)
-    Node=Tree.fromstring(Node)
+    Node = Tree.fromstring(Node)
 
     Node.draw()
-    
 
-def Scan():
-    x1 = entry1.get()
-    Tokens.clear()
-    errors.clear()
-    find_token(x1)
-    df = pandas.DataFrame.from_records([t.to_dict() for t in Tokens])
-
-    # to display token stream as table
-    dTDa1 = tk.Toplevel()
-    dTDa1.title('Token Stream')
-    dTDaPT = pt.Table(dTDa1, dataframe=df,
-                      showtoolbar=True, showstatusbar=True)
-    dTDaPT.show()
-    # start Parsing
-    Node = Parse()
-
-    # to display errorlist
-    if errors:
-        df1 = pandas.DataFrame(errors)
-        dTDa2 = tk.Toplevel()
-        dTDa2.title('Error List')
-        dTDaPT2 = pt.Table(dTDa2, dataframe=df1,
-                           showtoolbar=True, showstatusbar=True)
-        dTDaPT2.show()
-    Node=str(Node)
-    print(Node)
-    Node=Node.replace('(statements )'," ")
-    Node=Node.replace("(procedureDeclaration )"," ")
-    Node=Node.replace("(FunctionDeclaration )"," ")
-    Node=Node.replace("(Declaration )"," ")
-    print(Node)
-    Node=Tree.fromstring(Node)
-    
-    Node.draw()
 
 # GUI
 if __name__ == "__main__":
 
-    Node="""(Program
+    Node = """(Program
   (Header (ProgramName PROGRAM EXSTRING ;))
   (Decleration
     (varDeclaration
@@ -210,12 +174,18 @@ if __name__ == "__main__":
             OpenBracket
             (WriteBody
               (WriteArgument
-                'PLEASE ENTER THE NAME OF YOUR ORGANISATION'))
+                'PLEASE 
+                ENTER 
+                THE 
+                NAME 
+                OF 
+                YOUR 
+                ORGANISATION'))
             ClosedBracket
             ;)
           (statementsDash
             (statement READLN OpenBracket NAME ClosedBracket ;)))))
     END.))"""
-    Node=Tree.fromstring(Node)
+    Node = Tree.fromstring(Node)
 
     Node.draw()
