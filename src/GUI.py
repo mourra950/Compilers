@@ -3,12 +3,13 @@ from PyQt6.QtGui import *
 from PyQt6.uic import *
 from PyQt6.QtCore import *
 from compilers import *
+import os
 import random
 # TODO: Match Some Functions REDO, ERRORS HANDLING, Check all datatypes are correct by testing it
 class Home(QMainWindow):
     def __init__(self) -> None:
         super(Home, self).__init__()
-        loadUi('./Compiler_gui.ui', self)
+        loadUi('D:\Github\Compilers\Compilers\src\Compiler_gui.ui', self)
         self.c = 0
         self.tokenviewtable = self.findChild(QTableView, 'tableView')
         self.errorviewtable = self.findChild(QTableView, 'tableviewerror')

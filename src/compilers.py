@@ -123,14 +123,13 @@ def ShowTree_Qt6(Input):
     errors.clear()
     find_token(Input)
     Node = Parse()
+    print(type(Node))
 
     Node = str(Node)
-    # print(Node)
     Node = Node.replace('(statements )', " ")
     Node = Node.replace("(procedureDeclaration )", " ")
     Node = Node.replace("(FunctionDeclaration )", " ")
     Node = Node.replace("(Decleration )", " ")
-    print(Node)
     Node = Tree.fromstring(Node)
 
     Node.draw()
@@ -139,53 +138,8 @@ def ShowTree_Qt6(Input):
 # GUI
 if __name__ == "__main__":
 
-    Node = """(Program
-  (Header (ProgramName PROGRAM EXSTRING ;))
-  (Decleration
-    (varDeclaration
-      VAR
-      (varDeclaration1
-        (VarName GREETINGS)
-        :
-        (DataType STRING)
-        ;
-        (varDeclaration1Dash
-          (VarName NAME)
-          :
-          (DataType STRING)
-          ;
-          (varDeclaration1Dash (VarName X) : (DataType INTEGER) ;))))
-
-    (procedureDecleration ))
-  (execution
-    BEGIN
-    (statements
-      (statement GREETINGS := (AssignedStatement 'HELLO ') ;)
-      (statementsDash
-        (statement
-          X
-          :=
-          (AssignedStatement
-            (Expression (Term (Factor (Constant 1)))))
-          ;)
-        (statementsDash
-          (statement
-            WRITELN
-            OpenBracket
-            (WriteBody
-              (WriteArgument
-                'PLEASE 
-                ENTER 
-                THE 
-                NAME 
-                OF 
-                YOUR 
-                ORGANISATION'))
-            ClosedBracket
-            ;)
-          (statementsDash
-            (statement READLN OpenBracket NAME ClosedBracket ;)))))
-    END.))"""
-    Node = Tree.fromstring(Node)
+    Node = """(= (Asd Awad-> As-> Awadawdawdad))"""
+    
+    Node = Tree.fromstring('(Node a b c)' )
 
     Node.draw()
