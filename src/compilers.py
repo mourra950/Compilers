@@ -109,6 +109,7 @@ def Decleration(indexPointer):
 def Scan_Qt6(Input):
     Tokens.clear()
     errors.clear()
+    error_comments.clear()
     find_token(Input)
     Node = Parse()
     if error_comments:
@@ -117,21 +118,12 @@ def Scan_Qt6(Input):
 
     # Token:Type List (have all token from the tokenizer)  , errors:Type List (Hold all the errors if there is one)
 
-
 def ShowTree_Qt6(Input):
     Tokens.clear()
     errors.clear()
+    error_comments.clear()
     find_token(Input)
     Node = Parse()
-    # print(type(Node))
-
-    # Node = str(Node)
-    # Node = Node.replace('(statements )', " ")
-    # Node = Node.replace("(procedureDeclaration )", " ")
-    # Node = Node.replace("(FunctionDeclaration )", " ")
-    # Node = Node.replace("(Decleration )", " ")
-    # Node = Tree.fromstring(Node)
-
     Node.draw()
 
 

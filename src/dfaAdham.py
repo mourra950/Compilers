@@ -667,4 +667,4 @@ varAssignment=VisualDFA(
     initial_state="start",
     final_states={"q4"}  
 )
-varAssignment.show_diagram(view=True)
+relationOperators.show_diagram(view=True)
