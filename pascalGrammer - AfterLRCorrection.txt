@@ -79,7 +79,7 @@ Main Program Division
 44. ElseClause -> else statements | ε
 45. Constant -> real | integer
 46. ForBody -> Begin statements end | statement
-47. AssignedStatement -> expression | FunctionCall
+47. AssignedStatement -> expression | FunctionCall | str
 48. FunctionAndProcedureCall -> identifier FunctionCallArgument
 49. FunctionAndProcedureCallArgument -> ( FunctionArgument ) | ε 
 50. ToStatment -> identifier | int
