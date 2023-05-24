@@ -48,8 +48,8 @@ dfa_string = VisualDFA(
     input_symbols={"'","ac",";"},
     transitions={
         "q0":{"'":"q1","ac":"dead",";":"dead"},
-        "q1":{"'":"q2","ac":"q1",";":"q2"},
-        "q2":{"'":"q0","ac":"dead",";":"q3"},
+        "q1":{"'":"q2","ac":"q1",";":"q1"},
+        "q2":{"'":"q2","ac":"q1",";":"q3"},
         "q3":{"'":"dead","ac":"dead",";":"dead"},
         "dead":{"'":"dead","ac":"dead",";":"dead"},
     },
@@ -667,4 +667,4 @@ varAssignment=VisualDFA(
     initial_state="start",
     final_states={"q4"}  
 )
-relationOperators.show_diagram(view=True)
+dfa_string.show_diagram(view=True)
