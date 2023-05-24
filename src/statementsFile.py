@@ -39,12 +39,13 @@ def statements(indexPointer):
     if out2:
         tempIndex = out2["index"]
         Children.append(out2["node"])
-
-    Node = Tree("statements", Children)
-    output["node"] = Node
-    output["index"] = tempIndex
-    return output
-
+    if Children:
+        Node = Tree("statements", Children)
+        output["node"] = Node
+        output["index"] = tempIndex
+        return output
+    else:
+        return
 
 def statementsDash(indexPointer):
     Children = []
@@ -965,12 +966,13 @@ def functionDeclarationDash(indexPointer):
         if out8:
             tempNode = out8
             Children.append(out8["node"])
-
-        Node = Tree("functionDeclarationDash", Children)
-        output["node"] = Node
-        output["index"] = tempNode["index"]
-        return output
-
+        if Children:
+            Node = Tree("functionDeclarationDash", Children)
+            output["node"] = Node
+            output["index"] = tempNode["index"]
+            return output
+        else:
+            return
     else:
         return
 
@@ -1022,22 +1024,26 @@ def FunctionDeclaration(indexPointer):
         if out8:
             tempNode = out8
             Children.append(out8["node"])
-
-        Node = Tree("FunctionDeclaration", Children)
-        output["node"] = Node
-        output["index"] = tempNode["index"]
-        return output
+        if Children:
+            Node = Tree("FunctionDeclaration", Children)
+            output["node"] = Node
+            output["index"] = tempNode["index"]
+            return output
+        else:
+            return
     else:
         tempIndex = indexPointer
         out1Temp = functionDeclarationDash(indexPointer)
         if out1Temp:
             tempIndex = out1Temp["index"]
             Children.append(out1Temp["node"])
-        Node = Tree("FunctionDeclaration", Children)
-        output["node"] = Node
-        output["index"] = tempIndex
-        return output
-
+        if Children:
+            Node = Tree("FunctionDeclaration", Children)
+            output["node"] = Node
+            output["index"] = tempIndex
+            return output
+        else:
+            return
 
 def returnStatement(indexPointer):
     Children = []

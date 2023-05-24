@@ -123,14 +123,14 @@ def ShowTree_Qt6(Input):
     errors.clear()
     find_token(Input)
     Node = Parse()
-    print(type(Node))
+    # print(type(Node))
 
-    Node = str(Node)
-    Node = Node.replace('(statements )', " ")
-    Node = Node.replace("(procedureDeclaration )", " ")
-    Node = Node.replace("(FunctionDeclaration )", " ")
-    Node = Node.replace("(Decleration )", " ")
-    Node = Tree.fromstring(Node)
+    # Node = str(Node)
+    # Node = Node.replace('(statements )', " ")
+    # Node = Node.replace("(procedureDeclaration )", " ")
+    # Node = Node.replace("(FunctionDeclaration )", " ")
+    # Node = Node.replace("(Decleration )", " ")
+    # Node = Tree.fromstring(Node)
 
     Node.draw()
 

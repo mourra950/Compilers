@@ -40,21 +40,26 @@ def procedureDeclaration(indexPointer):
         if out7:
             tempNode = out7
             Children.append(out7["node"])
-
-        Node = Tree("procedureDecleration", Children)
-        output["node"] = Node
-        output["index"] = tempNode["index"]
-        return output
+        if Children:
+            Node = Tree("procedureDecleration", Children)
+            output["node"] = Node
+            output["index"] = tempNode["index"]
+            return output
+        else:
+            return
     else:
         tempIndex = indexPointer
         out1 = procedureDeclerationDash(indexPointer)
         if out1:
             tempIndex = out1["index"]
+        if Children:
             Children.append(out1["node"])
-        Node = Tree("procedureDecleration", Children)
-        output["node"] = Node
-        output["index"] = tempIndex
-        return output
+            Node = Tree("procedureDecleration", Children)
+            output["node"] = Node
+            output["index"] = tempIndex
+            return output
+        else:
+            return
 
 
 def procedureDeclerationDash(indexPointer):
