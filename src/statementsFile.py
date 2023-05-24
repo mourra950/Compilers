@@ -82,14 +82,14 @@ def statement(indexPointer):
         Children.append(out1["node"])
 
         match2 = Match(Token_type.OpenGroup, out1["index"])
-        #match2["node"] = match2["node"].replace("(", "OpenBracket")
+        match2["node"] = match2["node"].replace("(", "OpenBracket")
         Children.append(match2["node"])
 
         match3 = Match(Token_type.Identifier, match2["index"])
         Children.append(match3["node"])
 
         match4 = Match(Token_type.CloseGroup, match3["index"])
-        #match4["node"] = match4["node"].replace(")", "ClosedBracket")
+        match4["node"] = match4["node"].replace(")", "ClosedBracket")
         Children.append(match4["node"])
         
 
@@ -106,14 +106,14 @@ def statement(indexPointer):
         Children.append(out2["node"])
 
         match2 = Match(Token_type.OpenGroup, out2["index"])
-        #match2["node"] = match2["node"].replace("(", "OpenBracket")
+        match2["node"] = match2["node"].replace("(", "OpenBracket")
         Children.append(match2["node"])
 
         match3 = Match(Token_type.Identifier, match2["index"])
         Children.append(match3["node"])
 
         match4 = Match(Token_type.CloseGroup, match3["index"])
-        #match4["node"] = match4["node"].replace(")", "ClosedBracket")
+        match4["node"] = match4["node"].replace(")", "ClosedBracket")
         Children.append(match4["node"])
         
         match5 = Match(Token_type.Semicolon, match4["index"])
@@ -129,14 +129,14 @@ def statement(indexPointer):
         Children.append(out3["node"])
 
         match2 = Match(Token_type.OpenGroup, out3["index"])
-        #match2["node"] = match2["node"].replace("(", "OpenBracket")
+        match2["node"] = match2["node"].replace("(", "OpenBracket")
         Children.append(match2["node"])
 
         match3 = WriteBody(match2["index"])
         Children.append(match3["node"])
 
         match4 = Match(Token_type.CloseGroup, match3["index"])
-        #match4["node"] = match4["node"].replace(")", "ClosedBracket")
+        match4["node"] = match4["node"].replace(")", "ClosedBracket")
         Children.append(match4["node"])
         
         match5 = Match(Token_type.Semicolon, match4["index"])
@@ -152,14 +152,14 @@ def statement(indexPointer):
         Children.append(out4["node"])
 
         match2 = Match(Token_type.OpenGroup, out4["index"])
-        #match2["node"] = match2["node"].replace("(", "OpenBracket")
+        match2["node"] = match2["node"].replace("(", "OpenBracket")
         Children.append(match2["node"])
 
         match3 = WriteBody(match2["index"])
         Children.append(match3["node"])
 
         match4 = Match(Token_type.CloseGroup, match3["index"])
-        #match4["node"] = match4["node"].replace(")", "ClosedBracket")
+        match4["node"] = match4["node"].replace(")", "ClosedBracket")
         Children.append(match4["node"])
         
         match5 = Match(Token_type.Semicolon, match4["index"])
@@ -516,7 +516,7 @@ def Condition(indexPointer):
     
     if str(Tokens[indexPointer].lex) == '(':
         out1 = Match(Token_type.OpenGroup, indexPointer)
-        #out1["node"] = out1["node"].replace("(", "OpenBracket")
+        out1["node"] = out1["node"].replace("(", "OpenBracket")
         Children.append(out1["node"])
 
         out2 = Expression(out1["index"])
@@ -529,7 +529,7 @@ def Condition(indexPointer):
         Children.append(out4["node"])
 
         out5 = Match(Token_type.CloseGroup, out4["index"])
-        #out5["node"] = out5["node"].replace(")", "ClosedBracket")
+        out5["node"] = out5["node"].replace(")", "ClosedBracket")
         Children.append(out5["node"])
 
         Node = Tree("Condition", Children)
@@ -898,7 +898,7 @@ def arguments(indexPointer):
         return
     if str(Tokens[indexPointer].lex) == '(':
         out1 = Match(Token_type.OpenGroup, indexPointer)
-        #out1["node"] = out1["node"].replace("(", "OpenBracket")
+        out1["node"] = out1["node"].replace("(", "OpenBracket")
         Children.append(out1["node"])
 
         out2 = argument(out1["index"])
@@ -906,7 +906,7 @@ def arguments(indexPointer):
         Children.append(out2["node"])
 
         out3 = Match(Token_type.CloseGroup, out2["index"])
-        #out3["node"] = out3["node"].replace(")", "ClosedBracket")
+        out3["node"] = out3["node"].replace(")", "ClosedBracket")
         Children.append(out3["node"])
 
         Node = Tree("arguments", Children)
@@ -917,7 +917,7 @@ def arguments(indexPointer):
         return
 
 
-def functionDeclerationDash(indexPointer):
+def functionDeclarationDash(indexPointer):
     Children = []
     output = dict()
     if len(Tokens) <= indexPointer:
@@ -954,12 +954,12 @@ def functionDeclerationDash(indexPointer):
         Children.append(out7["node"])
 
         tempNode = out7
-        out8 = functionDeclerationDash(tempNode["index"])
+        out8 = functionDeclarationDash(tempNode["index"])
         if out8:
             tempNode = out8
             Children.append(out8["node"])
 
-        Node = Tree("functionDeclerationDash", Children)
+        Node = Tree("functionDeclarationDash", Children)
         output["node"] = Node
         output["index"] = tempNode["index"]
         return output
@@ -970,14 +970,14 @@ def functionDeclerationDash(indexPointer):
 
 
 
-def FunctionDelaration(indexPointer):       
+def FunctionDeclaration(indexPointer):       
     Children = []
     output = dict()
 
     if len(Tokens) <= indexPointer:
         Children.append(["error"])
         errors.append("Syntax error")
-        Node = Tree("FunctionDelaration", Children)
+        Node = Tree("FunctionDeclaration", Children)
         output["node"] = Node
         output["index"] = indexPointer + 1
         return output
@@ -1013,22 +1013,22 @@ def FunctionDelaration(indexPointer):
         Children.append(out7["node"])
 
         tempNode = out7
-        out8 = functionDeclerationDash(tempNode["index"])
+        out8 = functionDeclarationDash(tempNode["index"])
         if out8:
             tempNode = out8
             Children.append(out8["node"])
 
-        Node = Tree("FunctionDelaration", Children)
+        Node = Tree("FunctionDeclaration", Children)
         output["node"] = Node
         output["index"] = tempNode["index"]
         return output
     else:
         tempIndex = indexPointer
-        out1Temp =functionDeclerationDash(indexPointer)
+        out1Temp =functionDeclarationDash(indexPointer)
         if out1Temp:
             tempIndex = out1Temp["index"]
             Children.append(out1Temp["node"])
-        Node = Tree("FunctionDelaration", Children)
+        Node = Tree("FunctionDeclaration", Children)
         output["node"] = Node
         output["index"] = tempIndex
         return output
@@ -1062,14 +1062,14 @@ def FunctionAndProcedureCallArgument(indexPointer):
         return
     if str(Tokens[indexPointer].lex) == '(':
         out1 = Match(Token_type.OpenGroup, indexPointer)
-        #out1["node"] = out1["node"].replace("(", "OpenBracket")
+        out1["node"] = out1["node"].replace("(", "OpenBracket")
         Children.append(out1["node"])
 
         out2 = FunctionArgument(out1["index"])
         Children.append(out2["node"])
 
         out3 = Match(Token_type.CloseGroup, out2["index"])
-        #out3["node"] = out3["node"].replace(")", "ClosedBracket")
+        out3["node"] = out3["node"].replace(")", "ClosedBracket")
         Children.append(out3["node"])
 
 

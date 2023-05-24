@@ -81,20 +81,20 @@ def Decleration(indexPointer):
         tempIndex = out1["index"]
         Children.append(out1["node"])
 
-    out2 = varDecleration(tempIndex)
+    out2 = varDeclaration(tempIndex)
 
     if out2:
         tempIndex = out2["index"]
         Children.append(out2["node"])
         
 
-    out3 = FunctionDelaration(tempIndex)
+    out3 = FunctionDeclaration(tempIndex)
 
     if out3:
         tempIndex = out3["index"]
         Children.append(out3["node"])
 
-    out4 = procedureDecleration(tempIndex)
+    out4 = procedureDeclaration(tempIndex)
 
     if out4:
         tempIndex = out4["index"]
@@ -125,14 +125,14 @@ def ShowTree_Qt6(Input):
     find_token(Input)
     Node = Parse()
 
-    # Node=str(Node)
+    Node=str(Node)
     # print(Node)
-    # Node=Node.replace('(statements )'," ")
-    # Node=Node.replace("(procedureDecleration )"," ")
-    # Node=Node.replace("(functionDecleration )"," ")
-    # Node=Node.replace("(Decleration )"," ")
-    # print(Node)
-    # Node=Tree.fromstring(Node)
+    Node=Node.replace('(statements )'," ")
+    Node=Node.replace("(procedureDeclaration )"," ")
+    Node=Node.replace("(FunctionDeclaration )"," ")
+    Node=Node.replace("(Decleration )"," ")
+    print(Node)
+    Node=Tree.fromstring(Node)
 
     Node.draw()
     
@@ -164,9 +164,9 @@ def Scan():
     Node=str(Node)
     print(Node)
     Node=Node.replace('(statements )'," ")
-    Node=Node.replace("(procedureDecleration )"," ")
-    Node=Node.replace("(functionDecleration )"," ")
-    Node=Node.replace("(Decleration )"," ")
+    Node=Node.replace("(procedureDeclaration )"," ")
+    Node=Node.replace("(FunctionDeclaration )"," ")
+    Node=Node.replace("(Declaration )"," ")
     print(Node)
     Node=Tree.fromstring(Node)
     
@@ -175,22 +175,47 @@ def Scan():
 # GUI
 if __name__ == "__main__":
 
-    root = tk.Tk()
+    Node="""(Program
+  (Header (ProgramName PROGRAM EXSTRING ;))
+  (Decleration
+    (varDeclaration
+      VAR
+      (varDeclaration1
+        (VarName GREETINGS)
+        :
+        (DataType STRING)
+        ;
+        (varDeclaration1Dash
+          (VarName NAME)
+          :
+          (DataType STRING)
+          ;
+          (varDeclaration1Dash (VarName X) : (DataType INTEGER) ;))))
 
-    canvas1 = tk.Canvas(root, width=400, height=300, relief='raised')
-    canvas1.pack()
+    (procedureDecleration ))
+  (execution
+    BEGIN
+    (statements
+      (statement GREETINGS := (AssignedStatement 'HELLO ') ;)
+      (statementsDash
+        (statement
+          X
+          :=
+          (AssignedStatement
+            (Expression (Term (Factor (Constant 1)))))
+          ;)
+        (statementsDash
+          (statement
+            WRITELN
+            OpenBracket
+            (WriteBody
+              (WriteArgument
+                'PLEASE ENTER THE NAME OF YOUR ORGANISATION'))
+            ClosedBracket
+            ;)
+          (statementsDash
+            (statement READLN OpenBracket NAME ClosedBracket ;)))))
+    END.))"""
+    Node=Tree.fromstring(Node)
 
-    label1 = tk.Label(root, text='Scanner Phase')
-    label1.config(font=('helvetica', 14))
-    canvas1.create_window(200, 25, window=label1)
-
-    label2 = tk.Label(root, text='Source code:')
-    label2.config(font=('helvetica', 10))
-    canvas1.create_window(200, 100, window=label2)
-
-    entry1 = tk.Entry(root)
-    canvas1.create_window(200, 140, window=entry1)
-    button1 = tk.Button(text='Scan', command=Scan, bg='brown',
-                        fg='white', font=('helvetica', 9, 'bold'))
-    canvas1.create_window(200, 180, window=button1)
-    root.mainloop()
+    Node.draw()

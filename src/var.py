@@ -44,7 +44,7 @@ def VarNameDash(indexPointer):
         return
 
 
-def varDecleration1Dash(indexPointer):              
+def varDeclaration1Dash(indexPointer):              
     Children = []
     output = dict()
     if len(Tokens) <= indexPointer:
@@ -63,12 +63,12 @@ def varDecleration1Dash(indexPointer):
         out4 = Match(Token_type.Semicolon, out3["index"])
         Children.append(out4["node"])
 
-        out5 = varDecleration1Dash(out4["index"])
+        out5 = varDeclaration1Dash(out4["index"])
         if out5:
             out4 = out5
             Children.append(out5["node"])
 
-        Node = Tree("varDecleration1Dash", Children)
+        Node = Tree("varDeclaration1Dash", Children)
         output["node"] = Node
         output["index"] = out4["index"]
         return output
@@ -76,7 +76,7 @@ def varDecleration1Dash(indexPointer):
         return
 
 
-def varDecleration1(indexPointer):
+def varDeclaration1(indexPointer):
     Children = []
     output = dict()
 
@@ -92,18 +92,18 @@ def varDecleration1(indexPointer):
     out4 = Match(Token_type.Semicolon, out3["index"])
     Children.append(out4["node"])
 
-    out5 = varDecleration1Dash(out4["index"])
+    out5 = varDeclaration1Dash(out4["index"])
     if out5:
         out4 = out5
         Children.append(out5["node"])
 
-    Node = Tree("varDecleration1", Children)
+    Node = Tree("varDeclaration1", Children)
     output["node"] = Node
     output["index"] = out4["index"]
     return output
 
 
-def varDecleration(indexPointer):
+def varDeclaration(indexPointer):
     Children = []
     output = dict()
     if len(Tokens) <= indexPointer:
@@ -113,10 +113,10 @@ def varDecleration(indexPointer):
         out1 = Match(Token_type.Var, indexPointer)
         Children.append(out1["node"])
 
-        out2 = varDecleration1(out1["index"])
+        out2 = varDeclaration1(out1["index"])
         Children.append(out2["node"])
 
-        Node = Tree("varDecleration", Children)
+        Node = Tree("varDeclaration", Children)
         output["node"] = Node
         output["index"] = out2["index"]
         return output
